@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MerchandiseManager.Core.Entities
 {
-	public class LoginHistoryRecord : IBaseEntity, IHasDate, IHasId<Guid>
+	public partial class LoginHistoryRecord : IBaseEntity, IHasDate, IHasId<Guid>
 	{
 		public Guid Id { get; private set; }
 

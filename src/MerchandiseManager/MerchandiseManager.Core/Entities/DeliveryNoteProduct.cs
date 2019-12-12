@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MerchandiseManager.Core.Entities
 {
-	public class DeliveryNoteProduct : IBaseEntity, IHasId<Guid>
+	public partial class DeliveryNoteProduct : IBaseEntity, IHasId<Guid>
 	{
 		public Guid Id { get; private set; }
 

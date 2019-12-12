@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MerchandiseManager.Core.Entities
 {
-	public class User : IBaseEntity, IHasDate, IHasId<Guid>
+	public partial class User : IBaseEntity, IHasDate, IHasId<Guid>
 	{
 		public Guid Id { get; private set; }
 		public DateTime CreationTime { get; private set; }

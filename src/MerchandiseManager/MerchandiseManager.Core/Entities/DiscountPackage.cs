@@ -3,7 +3,7 @@ using System;
 
 namespace MerchandiseManager.Core.Entities
 {
-	public class DiscountPackage : IBaseEntity, IHasId<Guid>, IHasDate
+	public partial class DiscountPackage : IBaseEntity, IHasId<Guid>, IHasDate
 	{
 		public Guid Id { get; private set; }
 

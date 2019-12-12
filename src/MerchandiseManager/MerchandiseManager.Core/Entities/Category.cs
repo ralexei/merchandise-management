@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MerchandiseManager.Core.Entities
 {
-	public class Category : IBaseEntity, IHasId<Guid>, IRecursiveEntity<Category>
+	public partial class Category : IBaseEntity, IHasId<Guid>, IRecursiveEntity<Category>
 	{
 		public Guid Id { get; private set; }
 		

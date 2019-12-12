@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MerchandiseManager.Core.Entities
 {
-	public class SoldCart : IHasId<Guid>, IBaseEntity, IHasDate
+	public partial class SoldCart : IHasId<Guid>, IBaseEntity, IHasDate
 	{
 		public Guid Id { get; private set; }
 
