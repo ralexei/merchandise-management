@@ -1,0 +1,9 @@
+﻿<Application x:Class="MerchandiseManager.Register.WPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:MerchandiseManager.Register.WPF"
+             Startup="ApplicationStart">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>
