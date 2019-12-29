@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MerchandiseManager.Application.Interfaces.Persistance
 {
@@ -19,5 +21,8 @@ namespace MerchandiseManager.Application.Interfaces.Persistance
 		DbSet<SoldCart> SoldCarts { get; }
 		DbSet<Storage> Storages { get; }
 		DbSet<StorageProduct> StorageProducts { get; }
+
+		int SaveChanges();
+		Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 	}
 }

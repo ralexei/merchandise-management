@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MerchandiseManager.DAL.Migrations
 {
     [DbContext(typeof(MmDbContext))]
-    [Migration("20191212212202_Init")]
-    partial class Init
+    [Migration("20191228141957_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,8 +33,14 @@ namespace MerchandiseManager.DAL.Migrations
                     b.Property<string>("CategoryName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long>("CreatedAt")
+                        .HasColumnType("bigint");
+
                     b.Property<Guid?>("ParentId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<long?>("UpdatedAt")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -49,29 +55,26 @@ namespace MerchandiseManager.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
+                    b.Property<long>("CreatedAt")
+                        .HasColumnType("bigint");
 
-                    b.Property<Guid>("DestinationStorageGuid")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("DestinationStorageId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("SourceStorageGuid")
+                    b.Property<Guid>("DestinationStorageId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("SourceStorageId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("UpdateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<long?>("UpdatedAt")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DestinationStorageId");
+                    b.HasIndex("DestinationStorageId")
+                        .IsUnique();
 
-                    b.HasIndex("SourceStorageId");
+                    b.HasIndex("SourceStorageId")
+                        .IsUnique()
+                        .HasFilter("[SourceStorageId] IS NOT NULL");
 
                     b.ToTable("DeliveryNotes");
                 });
@@ -85,17 +88,17 @@ namespace MerchandiseManager.DAL.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("DeliveryNoteGuid")
+                    b.Property<long>("CreatedAt")
+                        .HasColumnType("bigint");
+
+                    b.Property<Guid>("DeliveryNoteId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("DeliveryNoteId")
+                    b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ProductGuid")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("ProductId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<long?>("UpdatedAt")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -112,13 +115,34 @@ namespace MerchandiseManager.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
+                    b.Property<long>("CreatedAt")
+                        .HasColumnType("bigint");
 
-                    b.Property<DateTime?>("UpdateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<decimal?>("DiscountSum")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<string>("DiscountType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("MaxAmount")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal?>("MinAmount")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal?>("Percent")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<Guid?>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<long?>("UpdatedAt")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("DiscountPackages");
                 });
@@ -129,16 +153,13 @@ namespace MerchandiseManager.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
+                    b.Property<long>("CreatedAt")
+                        .HasColumnType("bigint");
 
-                    b.Property<DateTime?>("UpdateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<long?>("UpdatedAt")
+                        .HasColumnType("bigint");
 
-                    b.Property<Guid>("UserGuid")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("UserId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -157,26 +178,25 @@ namespace MerchandiseManager.DAL.Migrations
                     b.Property<decimal>("BuyPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid>("CategoryGuid")
+                    b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CategoryId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
+                    b.Property<long>("CreatedAt")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("ProductDescription")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
 
                     b.Property<string>("ProductName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<decimal>("RetailSellPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime?>("UpdateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<long?>("UpdatedAt")
+                        .HasColumnType("bigint");
 
                     b.Property<decimal>("WholesaleSellPrice")
                         .HasColumnType("decimal(18,2)");
@@ -197,17 +217,17 @@ namespace MerchandiseManager.DAL.Migrations
                     b.Property<decimal>("Change")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
+                    b.Property<long>("CreatedAt")
+                        .HasColumnType("bigint");
 
-                    b.Property<decimal>("PaidSum")
+                    b.Property<decimal>("ReceivedSum")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime?>("UpdateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<long?>("UpdatedAt")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -224,31 +244,26 @@ namespace MerchandiseManager.DAL.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("BuyPriceCurrency")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(12)")
+                        .HasMaxLength(12);
 
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
+                    b.Property<long>("CreatedAt")
+                        .HasColumnType("bigint");
 
-                    b.Property<Guid>("ProductGuid")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("ProductId")
+                    b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("SellPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid>("SellerGuid")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("SellerId")
+                    b.Property<Guid>("SellerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("SoldCartId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("UpdateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<long?>("UpdatedAt")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -267,17 +282,19 @@ namespace MerchandiseManager.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
+                    b.Property<long>("CreatedAt")
+                        .HasColumnType("bigint");
 
-                    b.Property<DateTime?>("UpdateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("StorageDescription")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
 
-                    b.Property<string>("WarehouseDescription")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("StorageName")
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("WarehouseName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long?>("UpdatedAt")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -290,26 +307,20 @@ namespace MerchandiseManager.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
+                    b.Property<long>("CreatedAt")
+                        .HasColumnType("bigint");
 
-                    b.Property<Guid>("ProductGuid")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("ProductId")
+                    b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("ProductsAmount")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("StorageGuid")
+                    b.Property<Guid>("StorageId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("StorageId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("UpdateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<long?>("UpdatedAt")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -326,20 +337,29 @@ namespace MerchandiseManager.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
+                    b.Property<long>("CreatedAt")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<DateTime>("HireDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
-                    b.Property<DateTime?>("UpdateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<byte[]>("Password")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<long?>("UpdatedAt")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -356,20 +376,33 @@ namespace MerchandiseManager.DAL.Migrations
             modelBuilder.Entity("MerchandiseManager.Core.Entities.DeliveryNote", b =>
                 {
                     b.HasOne("MerchandiseManager.Core.Entities.Storage", "DestinationStorage")
-                        .WithMany()
-                        .HasForeignKey("DestinationStorageId");
+                        .WithOne()
+                        .HasForeignKey("MerchandiseManager.Core.Entities.DeliveryNote", "DestinationStorageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MerchandiseManager.Core.Entities.Storage", "SourceStorage")
-                        .WithMany()
-                        .HasForeignKey("SourceStorageId");
+                        .WithOne()
+                        .HasForeignKey("MerchandiseManager.Core.Entities.DeliveryNote", "SourceStorageId");
                 });
 
             modelBuilder.Entity("MerchandiseManager.Core.Entities.DeliveryNoteProduct", b =>
                 {
                     b.HasOne("MerchandiseManager.Core.Entities.DeliveryNote", "DeliveryNote")
                         .WithMany()
-                        .HasForeignKey("DeliveryNoteId");
+                        .HasForeignKey("DeliveryNoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
+                    b.HasOne("MerchandiseManager.Core.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MerchandiseManager.Core.Entities.DiscountPackage", b =>
+                {
                     b.HasOne("MerchandiseManager.Core.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
@@ -379,25 +412,33 @@ namespace MerchandiseManager.DAL.Migrations
                 {
                     b.HasOne("MerchandiseManager.Core.Entities.User", "User")
                         .WithMany("LoginHistory")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MerchandiseManager.Core.Entities.Product", b =>
                 {
                     b.HasOne("MerchandiseManager.Core.Entities.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MerchandiseManager.Core.Entities.SoldProduct", b =>
                 {
                     b.HasOne("MerchandiseManager.Core.Entities.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MerchandiseManager.Core.Entities.User", "Seller")
-                        .WithMany()
-                        .HasForeignKey("SellerId");
+                        .WithMany("SoldProducts")
+                        .HasForeignKey("SellerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MerchandiseManager.Core.Entities.SoldCart", null)
                         .WithMany("SoldProcuts")
@@ -407,12 +448,16 @@ namespace MerchandiseManager.DAL.Migrations
             modelBuilder.Entity("MerchandiseManager.Core.Entities.StorageProduct", b =>
                 {
                     b.HasOne("MerchandiseManager.Core.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
+                        .WithMany("StorageProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MerchandiseManager.Core.Entities.Storage", "Storage")
                         .WithMany("StorageProducts")
-                        .HasForeignKey("StorageId");
+                        .HasForeignKey("StorageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

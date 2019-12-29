@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MerchandiseManager.DAL.Migrations
 {
-    public partial class Init : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,6 +12,8 @@ namespace MerchandiseManager.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    CreatedAt = table.Column<long>(nullable: false),
+                    UpdatedAt = table.Column<long>(nullable: true),
                     CategoryName = table.Column<string>(nullable: true),
                     CategoryDescription = table.Column<string>(nullable: true),
                     ParentId = table.Column<Guid>(nullable: true)
@@ -28,28 +30,15 @@ namespace MerchandiseManager.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DiscountPackages",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    CreationTime = table.Column<DateTime>(nullable: false),
-                    UpdateTime = table.Column<DateTime>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DiscountPackages", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "SoldCarts",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    CreationTime = table.Column<DateTime>(nullable: false),
-                    UpdateTime = table.Column<DateTime>(nullable: true),
-                    TotalPrice = table.Column<decimal>(nullable: false),
-                    PaidSum = table.Column<decimal>(nullable: false),
-                    Change = table.Column<decimal>(nullable: false)
+                    CreatedAt = table.Column<long>(nullable: false),
+                    UpdatedAt = table.Column<long>(nullable: true),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ReceivedSum = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Change = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -61,10 +50,10 @@ namespace MerchandiseManager.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    CreationTime = table.Column<DateTime>(nullable: false),
-                    UpdateTime = table.Column<DateTime>(nullable: true),
-                    WarehouseName = table.Column<string>(nullable: true),
-                    WarehouseDescription = table.Column<string>(nullable: true)
+                    CreatedAt = table.Column<long>(nullable: false),
+                    UpdatedAt = table.Column<long>(nullable: true),
+                    StorageName = table.Column<string>(maxLength: 128, nullable: true),
+                    StorageDescription = table.Column<string>(maxLength: 256, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -76,11 +65,13 @@ namespace MerchandiseManager.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    CreationTime = table.Column<DateTime>(nullable: false),
-                    UpdateTime = table.Column<DateTime>(nullable: true),
+                    CreatedAt = table.Column<long>(nullable: false),
+                    UpdatedAt = table.Column<long>(nullable: true),
                     HireDate = table.Column<DateTime>(nullable: false),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true)
+                    FirstName = table.Column<string>(maxLength: 50, nullable: true),
+                    LastName = table.Column<string>(maxLength: 50, nullable: false),
+                    Username = table.Column<string>(nullable: true),
+                    Password = table.Column<byte[]>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -92,15 +83,14 @@ namespace MerchandiseManager.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    CreationTime = table.Column<DateTime>(nullable: false),
-                    UpdateTime = table.Column<DateTime>(nullable: true),
-                    ProductName = table.Column<string>(nullable: true),
-                    ProductDescription = table.Column<string>(nullable: true),
-                    BuyPrice = table.Column<decimal>(nullable: false),
-                    RetailSellPrice = table.Column<decimal>(nullable: false),
-                    WholesaleSellPrice = table.Column<decimal>(nullable: false),
-                    CategoryId = table.Column<Guid>(nullable: true),
-                    CategoryGuid = table.Column<Guid>(nullable: false)
+                    CreatedAt = table.Column<long>(nullable: false),
+                    UpdatedAt = table.Column<long>(nullable: true),
+                    ProductName = table.Column<string>(maxLength: 128, nullable: true),
+                    ProductDescription = table.Column<string>(maxLength: 256, nullable: true),
+                    BuyPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    RetailSellPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    WholesaleSellPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CategoryId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -110,7 +100,7 @@ namespace MerchandiseManager.DAL.Migrations
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -118,12 +108,10 @@ namespace MerchandiseManager.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    CreationTime = table.Column<DateTime>(nullable: false),
-                    UpdateTime = table.Column<DateTime>(nullable: true),
+                    CreatedAt = table.Column<long>(nullable: false),
+                    UpdatedAt = table.Column<long>(nullable: true),
                     SourceStorageId = table.Column<Guid>(nullable: true),
-                    SourceStorageGuid = table.Column<Guid>(nullable: false),
-                    DestinationStorageId = table.Column<Guid>(nullable: true),
-                    DestinationStorageGuid = table.Column<Guid>(nullable: false)
+                    DestinationStorageId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -133,7 +121,7 @@ namespace MerchandiseManager.DAL.Migrations
                         column: x => x.DestinationStorageId,
                         principalTable: "Storages",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_DeliveryNotes_Storages_SourceStorageId",
                         column: x => x.SourceStorageId,
@@ -147,10 +135,9 @@ namespace MerchandiseManager.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    CreationTime = table.Column<DateTime>(nullable: false),
-                    UpdateTime = table.Column<DateTime>(nullable: true),
-                    UserId = table.Column<Guid>(nullable: true),
-                    UserGuid = table.Column<Guid>(nullable: false)
+                    CreatedAt = table.Column<long>(nullable: false),
+                    UpdatedAt = table.Column<long>(nullable: true),
+                    UserId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -160,6 +147,31 @@ namespace MerchandiseManager.DAL.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DiscountPackages",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CreatedAt = table.Column<long>(nullable: false),
+                    UpdatedAt = table.Column<long>(nullable: true),
+                    DiscountType = table.Column<string>(nullable: false),
+                    MinAmount = table.Column<decimal>(type: "decimal(18, 2)", nullable: true),
+                    MaxAmount = table.Column<decimal>(type: "decimal(18, 2)", nullable: true),
+                    Percent = table.Column<decimal>(type: "decimal(18, 2)", nullable: true),
+                    DiscountSum = table.Column<decimal>(type: "decimal(18, 2)", nullable: true),
+                    ProductId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DiscountPackages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DiscountPackages_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -168,15 +180,13 @@ namespace MerchandiseManager.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    CreationTime = table.Column<DateTime>(nullable: false),
-                    UpdateTime = table.Column<DateTime>(nullable: true),
-                    BuyPrice = table.Column<decimal>(nullable: false),
-                    SellPrice = table.Column<decimal>(nullable: false),
-                    BuyPriceCurrency = table.Column<string>(nullable: true),
-                    ProductId = table.Column<Guid>(nullable: true),
-                    ProductGuid = table.Column<Guid>(nullable: false),
-                    SellerId = table.Column<Guid>(nullable: true),
-                    SellerGuid = table.Column<Guid>(nullable: false),
+                    CreatedAt = table.Column<long>(nullable: false),
+                    UpdatedAt = table.Column<long>(nullable: true),
+                    BuyPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    SellPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    BuyPriceCurrency = table.Column<string>(maxLength: 12, nullable: true),
+                    ProductId = table.Column<Guid>(nullable: false),
+                    SellerId = table.Column<Guid>(nullable: false),
                     SoldCartId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
@@ -187,13 +197,13 @@ namespace MerchandiseManager.DAL.Migrations
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_SoldProduct_Users_SellerId",
                         column: x => x.SellerId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_SoldProduct_SoldCarts_SoldCartId",
                         column: x => x.SoldCartId,
@@ -207,13 +217,11 @@ namespace MerchandiseManager.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    CreationTime = table.Column<DateTime>(nullable: false),
-                    UpdateTime = table.Column<DateTime>(nullable: true),
+                    CreatedAt = table.Column<long>(nullable: false),
+                    UpdatedAt = table.Column<long>(nullable: true),
                     ProductsAmount = table.Column<int>(nullable: false),
-                    ProductId = table.Column<Guid>(nullable: true),
-                    ProductGuid = table.Column<Guid>(nullable: false),
-                    StorageId = table.Column<Guid>(nullable: true),
-                    StorageGuid = table.Column<Guid>(nullable: false)
+                    ProductId = table.Column<Guid>(nullable: false),
+                    StorageId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -223,13 +231,13 @@ namespace MerchandiseManager.DAL.Migrations
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_StorageProducts_Storages_StorageId",
                         column: x => x.StorageId,
                         principalTable: "Storages",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -237,11 +245,11 @@ namespace MerchandiseManager.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    CreatedAt = table.Column<long>(nullable: false),
+                    UpdatedAt = table.Column<long>(nullable: true),
                     Amount = table.Column<int>(nullable: false),
-                    ProductId = table.Column<Guid>(nullable: true),
-                    ProductGuid = table.Column<Guid>(nullable: false),
-                    DeliveryNoteId = table.Column<Guid>(nullable: true),
-                    DeliveryNoteGuid = table.Column<Guid>(nullable: false)
+                    ProductId = table.Column<Guid>(nullable: false),
+                    DeliveryNoteId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -251,13 +259,13 @@ namespace MerchandiseManager.DAL.Migrations
                         column: x => x.DeliveryNoteId,
                         principalTable: "DeliveryNotes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_DeliveryNoteProducts_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -278,12 +286,20 @@ namespace MerchandiseManager.DAL.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_DeliveryNotes_DestinationStorageId",
                 table: "DeliveryNotes",
-                column: "DestinationStorageId");
+                column: "DestinationStorageId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_DeliveryNotes_SourceStorageId",
                 table: "DeliveryNotes",
-                column: "SourceStorageId");
+                column: "SourceStorageId",
+                unique: true,
+                filter: "[SourceStorageId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DiscountPackages_ProductId",
+                table: "DiscountPackages",
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_LoginHistory_UserId",
