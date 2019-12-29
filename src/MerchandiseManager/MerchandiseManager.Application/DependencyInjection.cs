@@ -17,6 +17,7 @@ namespace MerchandiseManager.Application
 			services.AddAutoMapper(currentAssembly);
 
 			services.AddTransient<IUserPersistenceValidator, UserPersistenceValidator>();
+			services.AddTransient<ICategoryPersistenceValidator, CategoryPersistenceValidator>();
 			//Add validator and pipeline behaviours
 		}
 	}

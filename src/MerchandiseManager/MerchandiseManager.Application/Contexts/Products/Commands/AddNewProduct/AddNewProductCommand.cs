@@ -1,11 +1,11 @@
-﻿using MerchandiseManager.Core.Interfaces.Entity;
+﻿using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MerchandiseManager.Core.Entities
+namespace MerchandiseManager.Application.Contexts.Products.Commands.AddNewProduct
 {
-	public partial class Product : BaseEntity
+	public class AddNewProductCommand : IRequest<Unit>
 	{
 		public string ProductName { get; private set; }
 		public string ProductDescription { get; private set; }
@@ -14,9 +14,6 @@ namespace MerchandiseManager.Core.Entities
 		public decimal? WholesaleSellPrice { get; private set; }
 		public decimal? BuyPrice { get; private set; }
 
-		public Category Category { get; private set; }
-		public Guid CategoryId { get; private set; }
-
-		public ICollection<StorageProduct> StorageProducts { get; private set; } = new List<StorageProduct>();
+		public Guid? CategoryId { get; private set; }
 	}
 }

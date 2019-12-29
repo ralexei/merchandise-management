@@ -1,4 +1,5 @@
-﻿using MerchandiseManager.Core.Entities;
+﻿using MerchandiseManager.Core.Constants.Validation;
+using MerchandiseManager.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -18,10 +19,10 @@ namespace MerchandiseManager.DAL.EntityConfigurations
 				.HasColumnType("decimal(18,2)");
 			builder
 				.Property(p => p.ProductDescription)
-				.HasMaxLength(256);
+				.HasMaxLength(ProductConstants.MaxProductDescriptionLength);
 			builder
 				.Property(p => p.ProductName)
-				.HasMaxLength(128);
+				.HasMaxLength(ProductConstants.MaxProductNameLength);
 			builder
 				.Property(p => p.RetailSellPrice)
 				.HasColumnType("decimal(18,2)");
