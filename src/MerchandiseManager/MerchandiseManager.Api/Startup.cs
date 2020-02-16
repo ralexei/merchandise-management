@@ -4,7 +4,7 @@ using MerchandiseManager.Api.Utils.Auth;
 using MerchandiseManager.Application;
 using MerchandiseManager.Application.Contexts.Authorization.Commands.SignIn;
 using MerchandiseManager.Application.Interfaces.Authentication;
-using MerchandiseManager.Application.Interfaces.Persistance;
+using MerchandiseManager.Application.Interfaces.Persistence;
 using MerchandiseManager.Application.Models.Config;
 using MerchandiseManager.DAL;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -32,7 +32,6 @@ namespace MerchandiseManager.Api
 		{
 			services.AddDbContext<IDbContext, MmDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-
 			// Bind AppSettings
 			var appSettingsSection = Configuration.GetSection("AppSettings");
 			services.Configure<AppSettings>(appSettingsSection);
@@ -59,11 +58,13 @@ namespace MerchandiseManager.Api
 				};
 			});
 
+			services.AddHttpContextAccessor();
+			services.AddControllers();
+
 			services.RegisterApplicationLayer();
 
 			services.AddTransient<IJwtHandler, JwtHandler>();
-
-			services.AddControllers();
+			services.AddTransient<ICurrentUser, CurrentUserProvider>();
 
 			services
 				.AddMvc(options => { options.EnableEndpointRouting = false; })
@@ -80,6 +81,7 @@ namespace MerchandiseManager.Api
 
 			app.UseRouting();
 
+			app.UseAuthentication();
 			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints =>

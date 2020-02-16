@@ -7,6 +7,6 @@ namespace MerchandiseManager.Application.Interfaces.Authentication
 {
 	public interface IJwtHandler
 	{
-		string GenerateJwt(User user);
+		string GenerateJwt(User user, Guid StoreId);
 	}
 }

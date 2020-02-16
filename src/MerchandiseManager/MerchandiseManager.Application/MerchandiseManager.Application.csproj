@@ -17,4 +17,8 @@
     <ProjectReference Include="..\MerchandiseManager.Core\MerchandiseManager.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Contexts\Stores\Queries\" />
+  </ItemGroup>
+
 </Project>

@@ -13,11 +13,11 @@ namespace MerchandiseManager.DAL.EntityConfigurations
 		{
 			base.Configure(builder);
 
-			builder.Property(p => p.CategoryName)
+			builder.Property(p => p.Name)
 				.HasMaxLength(64)
 				.IsRequired();
 
-			builder.Property(p => p.CategoryDescription)
+			builder.Property(p => p.Description)
 				.HasMaxLength(128)
 				.IsRequired();
 		}

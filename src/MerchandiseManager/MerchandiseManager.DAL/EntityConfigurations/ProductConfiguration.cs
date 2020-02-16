@@ -1,10 +1,8 @@
-﻿using MerchandiseManager.Core.Constants.Validation;
+﻿using MerchandiseManager.Core.Constants;
+using MerchandiseManager.Core.Constants.Validation;
 using MerchandiseManager.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MerchandiseManager.DAL.EntityConfigurations
 {
@@ -16,7 +14,7 @@ namespace MerchandiseManager.DAL.EntityConfigurations
 
 			builder
 				.Property(p => p.BuyPrice)
-				.HasColumnType("decimal(18,2)");
+				.HasColumnType(CommonPersistenceConstants.CommonDecimalConfig);
 			builder
 				.Property(p => p.ProductDescription)
 				.HasMaxLength(ProductConstants.MaxProductDescriptionLength);
@@ -25,9 +23,13 @@ namespace MerchandiseManager.DAL.EntityConfigurations
 				.HasMaxLength(ProductConstants.MaxProductNameLength);
 			builder
 				.Property(p => p.RetailSellPrice)
-				.HasColumnType("decimal(18,2)");
+				.HasColumnType(CommonPersistenceConstants.CommonDecimalConfig);
+
 			builder.Property(p => p.WholesaleSellPrice)
-				.HasColumnType("decimal(18,2)");
+				.HasColumnType(CommonPersistenceConstants.CommonDecimalConfig);
+
+			//builder.Property(p => p.BarCodeRaw)
+			//	.HasMaxLength(ProductConstants.MaxBarCodeRawLength);
 		}
 	}
 }

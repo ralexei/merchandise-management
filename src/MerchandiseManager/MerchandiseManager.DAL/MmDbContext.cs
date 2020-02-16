@@ -1,4 +1,5 @@
-﻿using MerchandiseManager.Application.Interfaces.Persistance;
+﻿using MerchandiseManager.Application.Interfaces.Authentication;
+using MerchandiseManager.Application.Interfaces.Persistence;
 using MerchandiseManager.Core.Entities;
 using MerchandiseManager.Core.Interfaces.Entity;
 using MerchandiseManager.DAL.EntityConfigurations;
@@ -14,9 +15,15 @@ namespace MerchandiseManager.DAL
 {
 	public class MmDbContext : DbContext, IDbContext
 	{
-		public DbSet<User> Users { get; private set; }		public DbSet<Product> Products { get; private set; }		public DbSet<Category> Categories { get; private set; }		public DbSet<DeliveryNote> DeliveryNotes { get; private set; }		public DbSet<DeliveryNoteProduct> DeliveryNoteProducts { get; private set; }		public DbSet<LoginHistoryRecord> LoginHistory { get; private set; }		public DbSet<DiscountPackage> DiscountPackages { get; private set; }		public DbSet<SoldProduct> SoldProduct { get; private set; }		public DbSet<SoldCart> SoldCarts { get; private set; }		public DbSet<Storage> Storages { get; private set; }		public DbSet<StorageProduct> StorageProducts { get; private set; }
+		public DbSet<User> Users { get; private set; }		public DbSet<Product> Products { get; private set; }		public DbSet<Category> Categories { get; private set; }		public DbSet<DeliveryNote> DeliveryNotes { get; private set; }		public DbSet<DeliveryNoteProduct> DeliveryNoteProducts { get; private set; }		public DbSet<LoginHistoryRecord> LoginHistory { get; private set; }		public DbSet<DiscountPackage> DiscountPackages { get; private set; }		public DbSet<SoldProduct> SoldProducts { get; private set; }		public DbSet<SoldCart> SoldCarts { get; private set; }		public DbSet<Storage> Storages { get; private set; }		public DbSet<Store> Stores { get; private set; }		public DbSet<StorageProduct> StorageProducts { get; private set; }
+		public DbSet<UserStorage> UserStorages { get; private set; }
 
-		public MmDbContext(DbContextOptions<MmDbContext> options) : base(options) { }
+		private readonly ICurrentUser currentUser;
+
+		public MmDbContext(DbContextOptions<MmDbContext> options, ICurrentUser currentUser) : base(options)
+		{
+			this.currentUser = currentUser;
+		}
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
@@ -47,6 +54,12 @@ namespace MerchandiseManager.DAL
 		{
 			Audit();
 			return base.SaveChangesAsync(cancellationToken);
+		}
+
+		private void ApplyGlobalFilters(ModelBuilder builder)
+		{
+			builder.Entity<Product>()
+				.HasQueryFilter(f => f.UserId == currentUser.Id);
 		}
 
 		private void Audit()

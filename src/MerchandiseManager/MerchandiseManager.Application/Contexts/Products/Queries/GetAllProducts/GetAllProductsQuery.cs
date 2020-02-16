@@ -7,8 +7,8 @@ namespace MerchandiseManager.Application.Contexts.Products.Queries.GetAllProduct
 {
 	public class GetAllProductsQuery : IPaginatable, IRequest<FilteredResult<ProductViewModel>>
 	{
-		public int? Start { get; private set; }
+		public int? Start { get; set; }
 
-		public int? Limit { get; private set; }
+		public int? Limit { get; set; }
 	}
 }

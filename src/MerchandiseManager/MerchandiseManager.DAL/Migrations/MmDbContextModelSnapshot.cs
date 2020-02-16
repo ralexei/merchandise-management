@@ -19,20 +19,45 @@ namespace MerchandiseManager.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("MerchandiseManager.Core.Entities.BarCode", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<long>("CreatedAt")
+                        .HasColumnType("bigint");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("RawCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("UpdatedAt")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("BarCode");
+                });
+
             modelBuilder.Entity("MerchandiseManager.Core.Entities.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CategoryDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CategoryName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<long>("CreatedAt")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("ParentId")
                         .HasColumnType("uniqueidentifier");
@@ -173,10 +198,10 @@ namespace MerchandiseManager.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("BuyPrice")
+                    b.Property<decimal?>("BuyPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid>("CategoryId")
+                    b.Property<Guid?>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<long>("CreatedAt")
@@ -190,18 +215,23 @@ namespace MerchandiseManager.DAL.Migrations
                         .HasColumnType("nvarchar(128)")
                         .HasMaxLength(128);
 
-                    b.Property<decimal>("RetailSellPrice")
+                    b.Property<decimal?>("RetailSellPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<long?>("UpdatedAt")
                         .HasColumnType("bigint");
 
-                    b.Property<decimal>("WholesaleSellPrice")
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal?>("WholesaleSellPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Products");
                 });
@@ -271,7 +301,7 @@ namespace MerchandiseManager.DAL.Migrations
 
                     b.HasIndex("SoldCartId");
 
-                    b.ToTable("SoldProduct");
+                    b.ToTable("SoldProducts");
                 });
 
             modelBuilder.Entity("MerchandiseManager.Core.Entities.Storage", b =>
@@ -283,13 +313,17 @@ namespace MerchandiseManager.DAL.Migrations
                     b.Property<long>("CreatedAt")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("StorageDescription")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<string>("StorageName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(32)")
+                        .HasMaxLength(32);
 
                     b.Property<long?>("UpdatedAt")
                         .HasColumnType("bigint");
@@ -297,6 +331,8 @@ namespace MerchandiseManager.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Storages");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Storage");
                 });
 
             modelBuilder.Entity("MerchandiseManager.Core.Entities.StorageProduct", b =>
@@ -342,7 +378,7 @@ namespace MerchandiseManager.DAL.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<DateTime>("HireDate")
+                    b.Property<DateTime?>("HireDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
@@ -357,11 +393,56 @@ namespace MerchandiseManager.DAL.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Username")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(25)")
+                        .HasMaxLength(25);
 
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("MerchandiseManager.Core.Entities.UserStorage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<long>("CreatedAt")
+                        .HasColumnType("bigint");
+
+                    b.Property<Guid>("StorageId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<long?>("UpdatedAt")
+                        .HasColumnType("bigint");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StorageId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserStorages");
+                });
+
+            modelBuilder.Entity("MerchandiseManager.Core.Entities.Store", b =>
+                {
+                    b.HasBaseType("MerchandiseManager.Core.Entities.Storage");
+
+                    b.HasDiscriminator().HasValue("Store");
+                });
+
+            modelBuilder.Entity("MerchandiseManager.Core.Entities.BarCode", b =>
+                {
+                    b.HasOne("MerchandiseManager.Core.Entities.Product", "Product")
+                        .WithMany("BarCodes")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MerchandiseManager.Core.Entities.Category", b =>
@@ -419,7 +500,11 @@ namespace MerchandiseManager.DAL.Migrations
                 {
                     b.HasOne("MerchandiseManager.Core.Entities.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
+                        .HasForeignKey("CategoryId");
+
+                    b.HasOne("MerchandiseManager.Core.Entities.User", "User")
+                        .WithMany("Products")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -429,17 +514,17 @@ namespace MerchandiseManager.DAL.Migrations
                     b.HasOne("MerchandiseManager.Core.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MerchandiseManager.Core.Entities.User", "Seller")
                         .WithMany("SoldProducts")
                         .HasForeignKey("SellerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MerchandiseManager.Core.Entities.SoldCart", null)
-                        .WithMany("SoldProcuts")
+                        .WithMany("SoldProducts")
                         .HasForeignKey("SoldCartId");
                 });
 
@@ -454,6 +539,21 @@ namespace MerchandiseManager.DAL.Migrations
                     b.HasOne("MerchandiseManager.Core.Entities.Storage", "Storage")
                         .WithMany("StorageProducts")
                         .HasForeignKey("StorageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MerchandiseManager.Core.Entities.UserStorage", b =>
+                {
+                    b.HasOne("MerchandiseManager.Core.Entities.Storage", "Storage")
+                        .WithMany("UserStorages")
+                        .HasForeignKey("StorageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MerchandiseManager.Core.Entities.User", "User")
+                        .WithMany("UserStorages")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

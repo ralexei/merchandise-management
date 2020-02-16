@@ -1,4 +1,5 @@
-﻿using MerchandiseManager.Core.Entities;
+﻿using MerchandiseManager.Core.Constants.Validation;
+using MerchandiseManager.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -14,11 +15,12 @@ namespace MerchandiseManager.DAL.EntityConfigurations
 			base.Configure(builder);
 
 			builder
-				.Property(p => p.StorageName)
-				.HasMaxLength(128);
+				.Property(p => p.Name)
+				.HasMaxLength(StorageConstants.MaxStorageNameLength);
+
 			builder
-				.Property(p => p.StorageDescription)
-				.HasMaxLength(256);
+				.Property(p => p.Description)
+				.HasMaxLength(StorageConstants.MaxStorageDescriptionLength);
 		}
 	}
 }

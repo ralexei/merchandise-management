@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
-using MerchandiseManager.Application.Interfaces.Persistance;
+using MerchandiseManager.Application.Interfaces.Persistence;
 using MerchandiseManager.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -29,7 +26,6 @@ namespace MerchandiseManager.Application.Contexts.Users.Commands.AddNewUser
 
 			await context.Users.AddAsync(newUser.SetPassword(request.Password));
 			await context.SaveChangesAsync(cancellationToken);
-
 
 			return Unit.Value;
 		}

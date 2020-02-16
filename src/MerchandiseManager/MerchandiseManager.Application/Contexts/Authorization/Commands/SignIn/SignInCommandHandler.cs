@@ -1,7 +1,7 @@
 ﻿using MediatR;
+using MerchandiseManager.Application.Contexts.Authorization.ViewModels;
 using MerchandiseManager.Application.Interfaces.Authentication;
-using MerchandiseManager.Application.Interfaces.Persistance;
-using Microsoft.EntityFrameworkCore;
+using MerchandiseManager.Application.Interfaces.Persistence;
 using System;
 using System.Linq;
 using System.Threading;
@@ -9,33 +9,36 @@ using System.Threading.Tasks;
 
 namespace MerchandiseManager.Application.Contexts.Authorization.Commands.SignIn
 {
-	public class SignInCommandHandler : IRequestHandler<SignInCommand, string>
+	public class SignInCommandHandler : IRequestHandler<SignInCommand, SignInResult>
 	{
-		private readonly IDbContext _db;
-		private readonly IJwtHandler _jwtHandler;
+		private readonly IDbContext db;
+		private readonly IJwtHandler jwtHandler;
 
 		public SignInCommandHandler(IDbContext db, IJwtHandler jwtHandler)
 		{
-			_db = db;
-			_jwtHandler = jwtHandler;
+			this.db = db;
+			this.jwtHandler = jwtHandler;
 		}
 
-		public async Task<string> Handle(SignInCommand request, CancellationToken cancellationToken)
+		public async Task<SignInResult> Handle(SignInCommand request, CancellationToken cancellationToken)
 		{
-			var user = _db
+			var user = db
 				.Users
-				.FirstOrDefault();
+				.FirstOrDefault(f => f.Username == request.Username);
 
 			if (!user.IsPasswordValid(request.Password))
-				throw new Exception();
-			
-			var jwt = _jwtHandler.GenerateJwt(user);
+				throw new Exception(); //@TODO-UNHANDLED-EXCEPTION
+
+			var jwt = jwtHandler.GenerateJwt(user, request.StoreId);
 
 			user.RecordLoginAction();
 
-			await _db.SaveChangesAsync(cancellationToken);
+			await db.SaveChangesAsync(cancellationToken);
 
-			return jwt;
+			return new SignInResult
+			{
+				AccessToken = jwt
+			};
 		}
 	}
 }

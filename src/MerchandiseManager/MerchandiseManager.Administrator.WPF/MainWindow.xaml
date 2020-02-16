@@ -1,0 +1,52 @@
+﻿<Window x:Class="MerchandiseManager.Administrator.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		Loaded="Window_Loaded_1"
+        xmlns:local="clr-namespace:MerchandiseManager.Administrator.WPF"
+		xmlns:fa="http://schemas.fontawesome.com/icons/" 
+		xmlns:converters="clr-namespace:MerchandiseManager.Administrator.WPF.ValueConverters"
+		xmlns:vm="clr-namespace:MerchandiseManager.Administrator.WPF.ViewModels"
+		xmlns:di="clr-namespace:MerchandiseManager.Administrator.WPF.DI"
+        mc:Ignorable="d"
+        Title="Администрация" Height="600" Width="1000"
+		Background="#FFF0F0F0" FontFamily="Open Sans">
+	<Window.Resources>
+		<fa:LabelConverter x:Key="LabelConverter"/>
+	</Window.Resources>
+	<Grid Margin="16px" >
+
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="180px">
+
+			</ColumnDefinition>
+			<ColumnDefinition Width="4*">
+			</ColumnDefinition>
+		</Grid.ColumnDefinitions>
+		<Grid Margin="0 0 4 0" Grid.Column="0" Background="White">
+			<Border BorderBrush="Black" BorderThickness="1" Opacity="0.5"/>
+			<TreeView x:Name="MenuTreeView" SelectedItemChanged="MenuItemSelected" UseLayoutRounding="True" FontSize="14" Background="White" BorderBrush="{x:Null}">
+				<TreeView.ItemTemplate>
+					<HierarchicalDataTemplate DataType="{x:Type local:MenuItem}" ItemsSource="{Binding Children}">
+						<StackPanel Orientation="Horizontal">
+							<fa:SvgAwesome Width="14px" Height="16px" Icon="{Binding Icon}"/>
+							<TextBlock Margin="4 0 0 0" Text="{Binding Title}" />
+						</StackPanel>
+					</HierarchicalDataTemplate>
+				</TreeView.ItemTemplate>
+			</TreeView>
+		</Grid>
+		<Grid Grid.Column="1" Background="White">
+			<Border BorderBrush="Black" BorderThickness="1" Opacity="0.5"/>
+			
+			<Frame Padding="8"
+				x:Name="MainFrame"
+				Content="{Binding MainWindowViewModel.CurrentPage,
+								Source={x:Static di:ViewModelLocator.Instance},
+								Converter={converters:ApplicationPageValueConverter}}"
+				NavigationUIVisibility="Hidden"
+				/>
+		</Grid>
+	</Grid>
+</Window>

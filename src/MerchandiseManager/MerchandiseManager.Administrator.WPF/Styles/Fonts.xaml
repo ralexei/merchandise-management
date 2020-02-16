@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:MerchandiseManager.Administrator.WPF.Styles">
+	<Style TargetType="{x:Type Control}" x:Key="BaseFontStyle">
+		<Setter Property="FontFamily" Value="Open Sans"></Setter>
+	</Style>
+
+	<FontFamily x:Key="FontAwesomeBrands">pack://application;,,,/Resources/Fonts/#fa-brands-400</FontFamily>
+	<FontFamily x:Key="FontAwesome">pack://application;,,,/Resources/Fonts/#fa-regular-400</FontFamily>
+	<FontFamily x:Key="FontAwesomeSolid">pack://application;,,,/Resources/Fonts/#fa-solid-400</FontFamily>
+
+	<Style TargetType="{x:Type TreeView}" BasedOn="{StaticResource BaseFontStyle}"/>
+</ResourceDictionary>

@@ -1,5 +1,6 @@
 ﻿using MerchandiseManager.Application.Interfaces.Authentication;
 using MerchandiseManager.Application.Models.Config;
+using MerchandiseManager.Core.Constants;
 using MerchandiseManager.Core.Entities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -22,7 +23,7 @@ namespace MerchandiseManager.Api.Utils.Auth
 			_appSettings = appSettings.Value;
 		}
 
-		public string GenerateJwt(User user)
+		public string GenerateJwt(User user, Guid StoreId)
 		{
 			var tokenHandler = new JwtSecurityTokenHandler();
 			var key = Encoding.ASCII.GetBytes(_appSettings.JwtSettings.Secret);
@@ -31,7 +32,8 @@ namespace MerchandiseManager.Api.Utils.Auth
 				Subject = new ClaimsIdentity(new Claim[]
 				{
 					new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-					new Claim(ClaimTypes.Name, user.GetFullName())
+					new Claim(ClaimTypes.Name, user.GetFullName()),
+					new Claim(CommonConstants.StoreIdClaimType, StoreId.ToString())
 				}),
 				Expires = DateTime.UtcNow.AddMinutes(_appSettings.JwtSettings.ExpirationMinutes),
 				SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

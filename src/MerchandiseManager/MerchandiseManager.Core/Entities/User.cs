@@ -8,14 +8,18 @@ namespace MerchandiseManager.Core.Entities
 {
 	public partial class User : BaseEntity 
 	{
-		public DateTime HireDate { get; private set; }
+		public DateTime? HireDate { get; private set; }
 		public string FirstName { get; private set; }
 		public string LastName { get; private set; }
 		public string Username { get; private set; }
 		public byte[] Password { get; private set; }
 
+		#region Navigation properties
 		public ICollection<LoginHistoryRecord> LoginHistory { get; private set; } = new List<LoginHistoryRecord>();
-		public ICollection<SoldProduct> SoldProducts { get; private set; }
+		public ICollection<Product> Products { get; private set; } = new HashSet<Product>();
+		public ICollection<SoldProduct> SoldProducts { get; private set; } = new List<SoldProduct>();
+		public ICollection<UserStorage> UserStorages { get; private set; } = new List<UserStorage>();
+		#endregion
 
 		public string GetFullName()
 		{

@@ -1,19 +1,21 @@
 ﻿using MediatR;
+using MerchandiseManager.Application.Contexts.Products.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MerchandiseManager.Application.Contexts.Products.Commands.AddNewProduct
 {
-	public class AddNewProductCommand : IRequest<Unit>
+	public class AddNewProductCommand : IRequest<ProductViewModel>
 	{
-		public string ProductName { get; private set; }
-		public string ProductDescription { get; private set; }
+		public Guid Id { get; set; }
+		public string ProductName { get; set; }
+		public string ProductDescription { get; set; }
 
-		public decimal RetailSellPrice { get; private set; }
-		public decimal? WholesaleSellPrice { get; private set; }
-		public decimal? BuyPrice { get; private set; }
+		public decimal? RetailSellPrice { get; set; }
+		public decimal? WholesaleSellPrice { get; set; }
+		public decimal? BuyPrice { get; set; }
 
-		public Guid? CategoryId { get; private set; }
+		public string[] Barcodes { get; set; }
+
+		public Guid? CategoryId { get; set; }
 	}
 }

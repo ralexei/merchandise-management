@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using MerchandiseManager.Application.Interfaces.Persistance;
+using MerchandiseManager.Application.Interfaces.Persistence;
 using MerchandiseManager.Application.Interfaces.Validation.Persistence;
 using MerchandiseManager.Core.Constants.Validation;
 using System;

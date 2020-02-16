@@ -1,4 +1,5 @@
-﻿using MerchandiseManager.Core.Entities;
+﻿using MerchandiseManager.Core.Constants;
+using MerchandiseManager.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -15,18 +16,18 @@ namespace MerchandiseManager.DAL.EntityConfigurations
 
 			builder
 				.Property(p => p.TotalPrice)
-				.HasColumnType("decimal(18,2)");
+				.HasColumnType(CommonPersistenceConstants.CommonDecimalConfig);
 
 			builder
 				.Property(p => p.ReceivedSum)
-				.HasColumnType("decimal(18,2)");
+				.HasColumnType(CommonPersistenceConstants.CommonDecimalConfig);
 
 			builder
 				.Property(p => p.Change)
-				.HasColumnType("decimal(18,2)");
+				.HasColumnType(CommonPersistenceConstants.CommonDecimalConfig);
 
 			builder
-				.HasMany(hm => hm.SoldProcuts)
+				.HasMany(hm => hm.SoldProducts)
 				.WithOne();
 		}
 	}

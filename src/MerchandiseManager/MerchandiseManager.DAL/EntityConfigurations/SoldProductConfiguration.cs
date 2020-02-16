@@ -1,9 +1,7 @@
-﻿using MerchandiseManager.Core.Entities;
+﻿using MerchandiseManager.Core.Constants;
+using MerchandiseManager.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MerchandiseManager.DAL.EntityConfigurations
 {
@@ -15,11 +13,11 @@ namespace MerchandiseManager.DAL.EntityConfigurations
 
 			builder
 				.Property(p => p.BuyPrice)
-				.HasColumnType("decimal(18,2)");
+				.HasColumnType(CommonPersistenceConstants.CommonDecimalConfig);
 
 			builder
 				.Property(p => p.SellPrice)
-				.HasColumnType("decimal(18,2)");
+				.HasColumnType(CommonPersistenceConstants.CommonDecimalConfig);
 
 			builder
 				.Property(p => p.BuyPriceCurrency)
@@ -27,7 +25,13 @@ namespace MerchandiseManager.DAL.EntityConfigurations
 
 			builder
 				.HasOne(ho => ho.Seller)
-				.WithMany(wm => wm.SoldProducts);
+				.WithMany(wm => wm.SoldProducts)
+				.OnDelete(DeleteBehavior.Restrict);
+
+			builder
+				.HasOne(ho => ho.Product)
+				.WithMany()
+				.OnDelete(DeleteBehavior.Restrict);
 		}
 	}
 }
