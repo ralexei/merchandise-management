@@ -9,6 +9,7 @@ namespace MerchandiseManager.Administrator.WPF.Interfaces.Services.ApiServices
 	public interface IProductsService
 	{
 		Task<Product> CreateProduct(AddProductDialogViewModel request);
+		Task<Product> EditProduct(EditProductViewModel request);
 		Task<FilteredResult<Product>> GetProducts();
 	}
 }

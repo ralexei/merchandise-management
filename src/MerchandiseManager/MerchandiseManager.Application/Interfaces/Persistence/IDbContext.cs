@@ -21,6 +21,7 @@ namespace MerchandiseManager.Application.Interfaces.Persistence
 		DbSet<Store> Stores { get; }
 		DbSet<StorageProduct> StorageProducts { get; }
 		DbSet<UserStorage> UserStorages { get; }
+		DbSet<BarCode> Barcodes { get; }
 
 		DatabaseFacade Database { get; }
 

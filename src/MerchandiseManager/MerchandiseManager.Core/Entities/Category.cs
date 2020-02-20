@@ -13,6 +13,8 @@ namespace MerchandiseManager.Core.Entities
 		public Category Parent { get; private set; }
 		public Guid? ParentId { get; private set; }
 
+		public int BarcodeFriendlyId { get; set; }
+
 		public ICollection<Category> Children { get; private set; }
 
 		public Category(string name, string description) : this(name)

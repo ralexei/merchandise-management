@@ -1,4 +1,5 @@
-﻿using MerchandiseManager.Administrator.WPF.Dialogs;
+﻿using MerchandiseManager.Administrator.WPF.DI;
+using MerchandiseManager.Administrator.WPF.Dialogs;
 using MerchandiseManager.Administrator.WPF.Dialogs.Products;
 using MerchandiseManager.Administrator.WPF.Interfaces;
 using MerchandiseManager.Administrator.WPF.Interfaces.Services.ApiServices;
@@ -54,6 +55,22 @@ namespace MerchandiseManager.Administrator.WPF.ViewModels.Dialogs.Products
 			this.dialogService = dialogService;
 
 			LoadCategories();
+		}
+
+		public void DeleteBarcode(string barcode)
+		{
+			var barcodeToRemove = Barcodes.First(f => f == barcode);
+
+			Barcodes.Remove(barcodeToRemove);
+		}
+
+		public void ViewBarcode(string rawBarcode)
+		{
+			var barcodeViewerViewModel = IoC.Get<ViewBarcodeViewModel>();
+
+			barcodeViewerViewModel.RawBarcode = rawBarcode;
+
+			var dialog = dialogService.ShowDialog<ViewBarcodeDialog, ViewBarcodeViewModel>(Window, barcodeViewerViewModel);
 		}
 
 		private void SelectCategory(object selectedCategory)

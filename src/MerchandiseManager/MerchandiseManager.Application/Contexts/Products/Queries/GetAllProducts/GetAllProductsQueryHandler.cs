@@ -6,6 +6,7 @@ using MerchandiseManager.Application.Helpers.Extensions.Queryable;
 using MerchandiseManager.Application.Interfaces.Persistence;
 using MerchandiseManager.Application.Models.Filtering;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,17 +27,25 @@ namespace MerchandiseManager.Application.Contexts.Products.Queries.GetAllProduct
 
 		public async Task<FilteredResult<ProductViewModel>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
 		{
-			// @TODO to complete this use case:
-			// Add filtering + sorting
-			var totalCount = await db.Products.CountAsync();
-			var resultData = await db.Products
-				.AsNoTracking()
-				.Include(i => i.StorageProducts)
-				.ProjectTo<ProductViewModel>(mapper.ConfigurationProvider)
-				.Paginate(request)
-				.ToListAsync();
+			try
+			{
+				// @TODO to complete this use case:
+				// Add filtering + sorting
+				var totalCount = await db.Products.CountAsync();
+				var resultData = await db.Products
+					.AsNoTracking()
+					.Include(i => i.StorageProducts)
+					.Include(i => i.BarCodes)
+					.ProjectTo<ProductViewModel>(mapper.ConfigurationProvider)
+					.Paginate(request)
+					.ToListAsync();
 
-			return new FilteredResult<ProductViewModel>(resultData, totalCount, resultData.Count());
+				return new FilteredResult<ProductViewModel>(resultData, totalCount, resultData.Count());
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
 		}
 	}
 }

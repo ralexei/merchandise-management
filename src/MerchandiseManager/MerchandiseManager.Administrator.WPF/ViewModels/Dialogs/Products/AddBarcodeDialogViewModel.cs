@@ -14,12 +14,6 @@ namespace MerchandiseManager.Administrator.WPF.ViewModels.Dialogs.Products
 		public AddBarcodeDialogViewModel()
 		{
 			DialogSubmitCommand = new RelayCommand(SubmitCommand);
-			GenerateBarcodeCommand = new RelayCommand(GenerateBarcode);
-		}
-
-		private void GenerateBarcode()
-		{
-
 		}
 
 		private void SubmitCommand()

@@ -7,9 +7,10 @@
 		xmlns:fa="http://schemas.fontawesome.com/icons/"
         mc:Ignorable="d"
 		ShowInTaskbar="False"
-		SizeToContent="WidthAndHeight"
+		ResizeMode="NoResize"
+		WindowStartupLocation="CenterOwner"
         Title="{Binding Path=RawBarcode, StringFormat=Штрих-код: {0}}" Height="300" Width="300">
-    <Grid Margin="8">
+	<Grid Margin="8">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="4*"/>
 			<RowDefinition Height="16"/>
@@ -17,9 +18,10 @@
 		</Grid.RowDefinitions>
 		<Grid>
 			<Border BorderBrush="Black" BorderThickness="1"/>
+			<Image Source="{Binding BarcodeBitmap}" Width="170" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 		</Grid>
 		<Grid Grid.Row="2">
-			<Button HorizontalAlignment="Right" Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
+			<Button HorizontalAlignment="Right" Command="{Binding PrintBarcodeCommand}" Width="40" Height="40">
 				<fa:SvgAwesome Margin="8" Icon="Solid_Print"/>
 			</Button>
 		</Grid>

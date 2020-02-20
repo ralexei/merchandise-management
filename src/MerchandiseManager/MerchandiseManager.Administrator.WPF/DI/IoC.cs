@@ -58,6 +58,7 @@ namespace MerchandiseManager.Administrator.WPF.DI
 			// Dialog pages ViewModels
 			Kernel.Bind<AddStorageDialogViewModel>().ToSelf().InTransientScope();
 			Kernel.Bind<AddProductDialogViewModel>().ToSelf().InTransientScope();
+			Kernel.Bind<EditProductViewModel>().ToSelf().InTransientScope();
 			Kernel.Bind<AddCategoryDialogViewModel>().ToSelf().InTransientScope();
 			Kernel.Bind<AddBarcodeDialogViewModel>().ToSelf().InTransientScope();
 		}

@@ -8,7 +8,14 @@
 		xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
 		SizeToContent="Height"
+		WindowStartupLocation="CenterOwner"
+		ResizeMode="NoResize"
         Title="Добавление товара" Width="400">
+	<Window.Resources>
+		<Style TargetType="ListBoxItem">
+			<EventSetter Event="MouseDoubleClick" Handler="BarcodeDoubleClick"/>
+		</Style>
+	</Window.Resources>
 	<Grid Margin="8">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
@@ -85,13 +92,31 @@
 					</Hyperlink>
 				</TextBlock>
 			</DockPanel>
-			<ListBox Height="100" ItemsSource="{Binding Barcodes}">
-				
-			</ListBox>
+			<ListView Height="100" ItemsSource="{Binding Barcodes}">
+				<ListView.View>
+					<GridView>
+						<GridViewColumn DisplayMemberBinding="{Binding}"/>
+						<GridViewColumn>
+							<GridViewColumn.CellTemplate>
+								<DataTemplate>
+									<TextBlock>
+										<!--<Button Command="{Binding DeleteBarcodeCommand}">
+											Удалить
+										</Button>-->
+										<Hyperlink Tag="{Binding}" Click="Hyperlink_Click">
+											Удалить
+										</Hyperlink>
+									</TextBlock>
+								</DataTemplate>
+							</GridViewColumn.CellTemplate>
+						</GridViewColumn>
+					</GridView>
+				</ListView.View>
+			</ListView>
 		</StackPanel>
 		<StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
 			<Button Content="Отмена" IsCancel="True" Margin="0 0 8 0"/>
 			<Button Content="Сохранить" Command="{Binding CreateProductCommand}"/>
 		</StackPanel>
-	</Grid> 
+	</Grid>
 </Window>

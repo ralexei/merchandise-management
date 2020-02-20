@@ -17,6 +17,7 @@ namespace MerchandiseManager.DAL
 	{
 		public DbSet<User> Users { get; private set; }		public DbSet<Product> Products { get; private set; }		public DbSet<Category> Categories { get; private set; }		public DbSet<DeliveryNote> DeliveryNotes { get; private set; }		public DbSet<DeliveryNoteProduct> DeliveryNoteProducts { get; private set; }		public DbSet<LoginHistoryRecord> LoginHistory { get; private set; }		public DbSet<DiscountPackage> DiscountPackages { get; private set; }		public DbSet<SoldProduct> SoldProducts { get; private set; }		public DbSet<SoldCart> SoldCarts { get; private set; }		public DbSet<Storage> Storages { get; private set; }		public DbSet<Store> Stores { get; private set; }		public DbSet<StorageProduct> StorageProducts { get; private set; }
 		public DbSet<UserStorage> UserStorages { get; private set; }
+		public DbSet<BarCode> Barcodes { get; private set; }
 
 		private readonly ICurrentUser currentUser;
 

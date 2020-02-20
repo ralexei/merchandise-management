@@ -11,5 +11,8 @@ namespace MerchandiseManager.Administrator.WPF.Models.ViewModels.Categories
 		public string Description { get; set; }
 
 		public List<Category> Children { get; set; }
+
+		public bool IsSelected { get; set; }
+		public bool IsExpanded { get; set; }
 	}
 }

@@ -1,10 +1,6 @@
 ﻿using MerchandiseManager.Core.Constants.Validation;
 using MerchandiseManager.Core.Entities;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MerchandiseManager.DAL.EntityConfigurations
 {
@@ -16,12 +12,17 @@ namespace MerchandiseManager.DAL.EntityConfigurations
 
 			builder.Property(p => p.FirstName)
 				.HasMaxLength(50);
+
 			builder.Property(p => p.LastName)
 				.IsRequired()
 				.HasMaxLength(50);
+
 			builder.Property(p => p.Username)
 				.IsRequired()
 				.HasMaxLength(UserConstants.MaxUsernameLength);
+
+			builder.Property(p => p.BarcodeFriendlyId)
+				.ValueGeneratedOnAdd();
 
 			builder.HasMany(hm => hm.LoginHistory).WithOne(wo => wo.User);
 		}

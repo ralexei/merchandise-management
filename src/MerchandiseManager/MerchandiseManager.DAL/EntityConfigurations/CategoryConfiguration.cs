@@ -1,9 +1,5 @@
 ﻿using MerchandiseManager.Core.Entities;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MerchandiseManager.DAL.EntityConfigurations
 {
@@ -20,6 +16,9 @@ namespace MerchandiseManager.DAL.EntityConfigurations
 			builder.Property(p => p.Description)
 				.HasMaxLength(128)
 				.IsRequired();
+
+			builder.Property(p => p.BarcodeFriendlyId)
+				.ValueGeneratedOnAdd();
 		}
 	}
 }

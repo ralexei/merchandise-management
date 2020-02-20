@@ -1,4 +1,5 @@
 ﻿using MerchandiseManager.Application.Contexts.Products.Commands.AddNewProduct;
+using MerchandiseManager.Application.Contexts.Products.Commands.EditProduct;
 using MerchandiseManager.Application.Contexts.Products.Queries.GetAllProducts;
 using MerchandiseManager.Application.Contexts.Products.Queries.GetProductsByStorageId;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,10 @@ namespace MerchandiseManager.Api.Controllers
 	{
 		[HttpPost]
 		public async Task<IActionResult> AddNewProduct([FromBody] AddNewProductCommand request)
+			=> Ok(await Mediator.Send(request));
+
+		[HttpPut]
+		public async Task<IActionResult> EditProduct([FromBody] EditProductCommand request)
 			=> Ok(await Mediator.Send(request));
 
 		[HttpGet]

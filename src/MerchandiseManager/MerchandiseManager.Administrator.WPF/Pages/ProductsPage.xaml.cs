@@ -1,18 +1,6 @@
-﻿using MerchandiseManager.Administrator.WPF.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using MerchandiseManager.Administrator.WPF.Models.ViewModels.Products;
+using MerchandiseManager.Administrator.WPF.ViewModels;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MerchandiseManager.Administrator.WPF.Pages
 {
@@ -24,6 +12,11 @@ namespace MerchandiseManager.Administrator.WPF.Pages
 		public ProductsPage()
 		{
 			InitializeComponent();
+		}
+
+		private void ProductDoubleClick(object sender, MouseButtonEventArgs e)
+		{
+			ViewModel.EditProduct(sender as Product);
 		}
 	}
 }

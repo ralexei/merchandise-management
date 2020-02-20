@@ -14,6 +14,8 @@ namespace MerchandiseManager.Core.Entities
 		public decimal? WholesaleSellPrice { get; private set; }
 		public decimal? BuyPrice { get; private set; }
 
+		public int BarcodeFriendlyId { get; set; }
+
 		#region Navigation property
 		public Category Category { get; private set; }
 		public Guid? CategoryId { get; private set; }

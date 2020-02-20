@@ -9,6 +9,11 @@
 		xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
 		mc:Ignorable="d"
 		Title="ProductsPage">
+	<!--<Page.Resources>
+		<Style TargetType="ListViewItem">
+			<EventSetter Event="MouseDoubleClick" Handler="ProductDoubleClick"/>
+		</Style>
+	</Page.Resources>-->
 	<Grid>
 		<Grid>
 			<Grid.RowDefinitions>
@@ -20,10 +25,17 @@
 			</Grid>
 			<Grid Grid.Row="1">
 				<ListView
+					x:Name="ProductsList"
 					ItemsSource="{Binding Products}"
 					ScrollViewer.VerticalScrollBarVisibility="Hidden"
 					ScrollViewer.HorizontalScrollBarVisibility="Visible"
 					ScrollViewer.CanContentScroll="False">
+					<Behaviors:Interaction.Triggers>
+						<Behaviors:EventTrigger EventName="MouseDoubleClick">
+							<Behaviors:InvokeCommandAction CommandParameter="{Binding ElementName=ProductsList, Path=SelectedItem}"
+                                   Command="{Binding OpenProductForEditCommand}"/>
+						</Behaviors:EventTrigger>
+					</Behaviors:Interaction.Triggers>
 					<ListView.View>
 						<GridView>
 							<GridViewColumn Width="200" DisplayMemberBinding="{Binding ProductName}">

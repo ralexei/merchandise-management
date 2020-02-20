@@ -28,6 +28,9 @@ namespace MerchandiseManager.DAL.EntityConfigurations
 			builder.Property(p => p.WholesaleSellPrice)
 				.HasColumnType(CommonPersistenceConstants.CommonDecimalConfig);
 
+			builder.Property(p => p.BarcodeFriendlyId)
+				.ValueGeneratedOnAdd();
+
 			//builder.Property(p => p.BarCodeRaw)
 			//	.HasMaxLength(ProductConstants.MaxBarCodeRawLength);
 		}

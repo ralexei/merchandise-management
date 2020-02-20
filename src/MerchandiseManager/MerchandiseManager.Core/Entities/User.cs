@@ -14,6 +14,8 @@ namespace MerchandiseManager.Core.Entities
 		public string Username { get; private set; }
 		public byte[] Password { get; private set; }
 
+		public int BarcodeFriendlyId { get; set; }
+
 		#region Navigation properties
 		public ICollection<LoginHistoryRecord> LoginHistory { get; private set; } = new List<LoginHistoryRecord>();
 		public ICollection<Product> Products { get; private set; } = new HashSet<Product>();

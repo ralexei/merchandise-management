@@ -22,6 +22,11 @@ namespace MerchandiseManager.Administrator.WPF.Services.ApiServices
 			return await apiConnector.PostAsync<Product, AddProductDialogViewModel>("products", request);
 		}
 
+		public async Task<Product> EditProduct(EditProductViewModel request)
+		{
+			return await apiConnector.PutAsync<Product, EditProductViewModel>("products", request);
+		}
+
 		public async Task<FilteredResult<Product>> GetProducts()
 		{
 			return await apiConnector.GetAsync<FilteredResult<Product>>("products");

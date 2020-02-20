@@ -41,7 +41,7 @@ namespace MerchandiseManager.DAL.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("BarCode");
+                    b.ToTable("Barcodes");
                 });
 
             modelBuilder.Entity("MerchandiseManager.Core.Entities.Category", b =>
@@ -49,6 +49,9 @@ namespace MerchandiseManager.DAL.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("BarcodeFriendlyId")
+                        .HasColumnType("int");
 
                     b.Property<long>("CreatedAt")
                         .HasColumnType("bigint");
@@ -197,6 +200,11 @@ namespace MerchandiseManager.DAL.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("BarcodeFriendlyId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<decimal?>("BuyPrice")
                         .HasColumnType("decimal(18,2)");
@@ -370,6 +378,11 @@ namespace MerchandiseManager.DAL.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("BarcodeFriendlyId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<long>("CreatedAt")
                         .HasColumnType("bigint");
