@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "install-run": "npm install && ng serve",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -31,8 +32,8 @@
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.900.2",
-    "@angular/cli": "~9.0.2",
+    "@angular-devkit/build-angular": "~0.901.1",
+    "@angular/cli": "~9.1.1",
     "@angular/compiler-cli": "~9.0.1",
     "@angular/language-service": "~9.0.1",
     "@types/node": "^12.11.1",
