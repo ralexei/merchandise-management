@@ -1,0 +1,22 @@
+<h4 mat-dialog-title>Штрихкод</h4>
+<div mat-dialog-content fxLayout="column" fxLayoutAlign="start center">
+  <div>
+    <h2>{{ data }}</h2>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <mat-form-field>
+      <mat-label>Количество этикеток</mat-label>
+      <input matInput [formControl]="barcodesCountControl"/>
+      <mat-error *ngIf="barcodesCountControl.hasError('required')">
+        Введите количество
+      </mat-error>
+    </mat-form-field>
+    <button mat-button><mat-icon>print</mat-icon>Печать</button>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button color="warn" mat-raised-button (click)="deleteBarcode()">
+    <mat-icon>delete</mat-icon>Удалить
+  </button>
+  <button mat-button type="button">Отмена</button>
+</div>

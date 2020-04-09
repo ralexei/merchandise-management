@@ -1,0 +1,74 @@
+<ng-template #progressSpinner>
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
+<div *ngIf="!loading; else progressSpinner">
+  <h4 mat-dialog-title>Добавить позицию</h4>
+  <div mat-dialog-content>
+    <form [formGroup]="createProductForm">
+      <div fxLayout="column">
+        <div fxLayout="row" fxLayoutGap="8px" fxFlex="100">
+          <mat-form-field fxFlex="100">
+            <mat-label>
+              Номенклатура
+            </mat-label>
+            <input matInput type="text" formControlName="productName" required />
+            <mat-error *ngIf="createProductForm.get('productName').hasError('required')">Поле обязательно для заполнения
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="space-between center" fxFlex="100">
+          <mat-form-field fxFlex="32">
+            <mat-label>
+              Роз. цена
+            </mat-label>
+            <input matInput type="text" formControlName="retailSellPrice" />
+          </mat-form-field>
+          <mat-form-field fxFlex="32">
+            <mat-label>
+              Опт. цена
+            </mat-label>
+            <input matInput type="text" formControlName="wholesaleSellPrice" />
+          </mat-form-field>
+          <mat-form-field fxFlex="32">
+            <mat-label>
+              Закуп. цена
+            </mat-label>
+            <input matInput type="text" formControlName="buyPrice" />
+          </mat-form-field>
+        </div>
+        <div>
+          <app-categories-tree (categorySelected)="categorySelected($event)" [formGroup]="createProductForm"
+            controlName="categoryId">
+          </app-categories-tree>
+          <mat-error *ngIf="createProductForm.get('categoryId').hasError('required')">
+            Выберите группу
+          </mat-error>
+        </div>
+        <div>
+          <p>Штрих-коды:</p>
+          <div fxLayout="row wrap" fxLayoutGap="8px grid">
+            <div *ngFor="let barcode of barcodes">
+              <button mat-stroked-button (click)="viewBarcode(barcode)">{{ barcode }}</button>
+            </div>
+            <div>
+                <button mat-stroked-button color="accent" (click)="addBarcode()"><mat-icon>add</mat-icon></button>
+              </div>
+          </div>
+        </div>
+        <mat-form-field>
+          <mat-label>
+            Описание (опционально)
+          </mat-label>
+          <textarea matInput rows="2" formControlName="productDescription">
+          </textarea>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button (click)="onClose()">Отмена</button>
+    <button mat-raised-button color="accent" (click)="onSubmit()">Сохранить</button>
+  </div>
+</div>

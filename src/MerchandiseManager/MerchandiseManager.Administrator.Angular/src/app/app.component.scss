@@ -1,0 +1,32 @@
+.main-content {
+	min-height: 80%;
+  padding: 20px;
+}
+  
+@media screen and (min-width: 959px) {
+  .main-content{
+		padding: 20px;
+  }
+}
+
+.header-toolbar {
+  position: fixed;
+}
+
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+	width: 250px;
+}
+
+.mat-toolbar.mat-primary {
+	position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.mat-sidenav.sidenav.mat-drawer1 {
+	border:0px;
+}

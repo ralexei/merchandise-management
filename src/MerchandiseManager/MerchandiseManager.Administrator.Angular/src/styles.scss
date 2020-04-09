@@ -1,0 +1,28 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$my-app-primary: mat-palette($mat-blue-grey);
+$my-app-accent:  mat-palette($mat-pink, 500, 900, A100);
+$my-app-warn:    mat-palette($mat-deep-orange);
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+
+@include angular-material-theme($my-app-theme);
+
+html, body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #22272b;
+  color: white;
+  box-sizing: border-box;
+  height: 100%; 
+}
+
+.snackbar-warn {
+  background: mat-color($my-app-warn);
+  color: whitesmoke;
+}
+
+.snackbar-successful {
+  background: #1EB980;
+  color: whitesmoke;
+}

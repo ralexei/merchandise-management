@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="e2e\**" />
+    <Compile Remove="node_modules\**" />
+    <EmbeddedResource Remove="e2e\**" />
+    <EmbeddedResource Remove="node_modules\**" />
+    <None Remove="e2e\**" />
+    <None Remove="node_modules\**" />
+  </ItemGroup>
+
+</Project>

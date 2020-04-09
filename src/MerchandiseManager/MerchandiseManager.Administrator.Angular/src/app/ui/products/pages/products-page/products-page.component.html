@@ -1,0 +1,142 @@
+<div fxLayout="column" fxLayoutGap="8px">
+  <div fxFlex="100" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="16px">
+    <mat-form-field fxFlex="33">
+      <mat-label>Фильтрация по группе</mat-label>
+      <mat-select [formControl]="categorySelect">
+        <mat-option *ngIf="flattenedCategories?.data?.length > 0">
+          <ngx-mat-select-search placeholderLabel="Search" noEntriesFoundLabel="Совпадений не найдено"
+            [formControl]="categoryListFilter"></ngx-mat-select-search>
+        </mat-option>
+        <mat-option>
+          ---------- Все ----------
+        </mat-option>
+        <mat-option *ngIf="flattenedCategories?.data?.length == 0" disabled>
+          <small class="font-warning">Групп не найдено</small>
+        </mat-option>
+        <mat-option *ngFor="let category of filteredFlattenedCategories" [value]="category.id">
+          <span
+            [ngStyle]="{ 'padding-left.px': getCategoryNestingPadding(category.nestingLevel) }">{{category.name}}</span>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="accent" (click)="openAddDialog()">Добавить</button>
+  </div>
+  <div style="overflow-x: scroll;" class="mat-elevation-z8">
+    <form [formGroup]="headerSearchFormGroup">
+      <table matSort mat-table [dataSource]="(products$ | async)?.data">
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <th matSort mat-header-cell class="header filter" *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let product">
+
+            <!-- Edit product -->
+            <button mat-icon-button [disabled]="product.isDeleted">
+              <mat-icon>edit</mat-icon>
+            </button>
+
+            <!-- Delete product -->
+            <button mat-icon-button (click)="deleteProduct(product.id)" [disabled]="product.isDeleted">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <!--  -->
+        <ng-container matColumnDef="productName">
+          <th mat-header-cell class="header filter" *matHeaderCellDef style="max-width: 250px !important;">
+            <div fxLayout="column">
+              <p mat-sort-header>Номенклатура</p>
+              <mat-form-field floatLabel="never">
+                <mat-label>Поиск по номенклатуре</mat-label>
+                <input matInput formControlName="productNameContains" />
+              </mat-form-field>
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let element" style="max-width: 250px !important; word-wrap: break-word;">
+            {{element.productName}}
+          </td>
+        </ng-container>
+
+        <!--  -->
+        <ng-container matColumnDef="retailSellPrice">
+          <th mat-header-cell class="header filter price-column" *matHeaderCellDef>
+            <div fxLayout="column">
+              <p mat-sort-header>Роз. цена</p>
+              <div fxLayout="column">
+                <mat-form-field floatLabel="never">
+                  <mat-label>От</mat-label>
+                  <input matInput formControlName="retailSellPriceMin" />
+                </mat-form-field>
+                <mat-form-field floatLabel="never">
+                  <mat-label>До</mat-label>
+                  <input matInput formControlName="retailSellPriceMax" />
+                </mat-form-field>
+              </div>
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.retailSellPrice != null ? element.retailSellPrice + ' MDL' : '-' }}</td>
+        </ng-container>
+
+        <!--  -->
+        <ng-container matColumnDef="wholesaleSellPrice">
+          <th mat-header-cell class="header filter price-column" *matHeaderCellDef>
+            <div fxLayout="column">
+              <p mat-sort-header>Опт. цена</p>
+              <div fxLayout="column">
+                <mat-form-field floatLabel="never">
+                  <mat-label>От</mat-label>
+                  <input matInput formControlName="wholesaleSellPriceMin" />
+                </mat-form-field>
+                <mat-form-field floatLabel="never">
+                  <mat-label>До</mat-label>
+                  <input matInput formControlName="wholesaleSellPriceMax" />
+                </mat-form-field>
+              </div>
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.wholesaleSellPrice != null ? element.wholesaleSellPrice + ' MDL' : '-'}}</td>
+        </ng-container>
+
+        <!--  -->
+        <ng-container matColumnDef="buyPrice">
+          <th mat-header-cell class="header filter price-column" *matHeaderCellDef>
+            <div fxLayout="column">
+              <p mat-sort-header>Закуп. цена</p>
+              <div fxLayout="column">
+                <mat-form-field floatLabel="never">
+                  <mat-label>От</mat-label>
+                  <input matInput formControlName="buyPriceMin" />
+                </mat-form-field>
+                <mat-form-field floatLabel="never">
+                  <mat-label>До</mat-label>
+                  <input matInput formControlName="buyPriceMax" />
+                </mat-form-field>
+              </div>
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let element">{{element.buyPrice != null ? element.buyPrice + ' MDL' : '-'}}</td>
+        </ng-container>
+
+        <!--  -->
+        <ng-container matColumnDef="totalCount">
+          <th mat-header-cell class="header filter" *matHeaderCellDef>
+            <p mat-sort-header>Количество</p>
+          </th>
+          <td mat-cell *matCellDef="let element">{{element.totalCount != null ? element.totalCount : '-'}}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <div *ngIf="loading" class="table-spinner">
+        <mat-progress-spinner color="accent" mode="indeterminate">
+        </mat-progress-spinner>
+      </div>
+    </form>
+    <mat-paginator (page)="pageChanged($event)" [length]="(products$ | async)?.length" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+.category-scrollable-container {
+  max-height: 200px;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.node-resize {
+  min-height: 32px !important;
+  max-height: 32px !important;
+}
