@@ -22,7 +22,7 @@ namespace MerchandiseManager.Administrator.WPF.ViewModels.Dialogs.Products
 
 		public string Name { get; set; }
 		public string Description { get; set; }
-		public Guid ParentId { get; set; }
+		public Guid? ParentId { get; set; }
 
 		public Category CreatedCategory { get; private set; }
 

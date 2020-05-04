@@ -11,6 +11,7 @@ namespace MerchandiseManager.Administrator.WPF.Models.Enums
 		// Initial home page
 		Home = 0,
 		Storages = 1,
-		Products = 2
+		Products = 2,
+		ProductDeliveryNotes = 3
 	}
 }

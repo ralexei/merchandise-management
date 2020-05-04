@@ -54,6 +54,7 @@ namespace MerchandiseManager.Administrator.WPF.DI
 			Kernel.Bind<HomePageViewModel>().ToSelf().InTransientScope();
 			Kernel.Bind<StoragesPageViewModel>().ToSelf().InTransientScope();
 			Kernel.Bind<ProductsPageViewModel>().ToSelf().InTransientScope();
+			Kernel.Bind<DeliveryNotesListViewModel>().ToSelf().InTransientScope();
 
 			// Dialog pages ViewModels
 			Kernel.Bind<AddStorageDialogViewModel>().ToSelf().InTransientScope();

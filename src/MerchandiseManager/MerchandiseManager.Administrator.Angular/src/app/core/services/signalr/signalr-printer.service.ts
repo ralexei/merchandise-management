@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as signalR from '@aspnet/signalr';
+import { PrintRequest } from '@app/core/models';
 
 @Injectable({
   providedIn: 'root'
@@ -15,14 +16,13 @@ export class SignalRPrinterService {
 
     return this.hubConnection
       .start()
-      .then(() => console.log('Connection started'))
-      .catch(err => console.log('Error while starting connection: ' + err));
+      // .then(() => console.log('Connection started'))
+      // .catch(err => console.log('Error while starting connection: ' + err));
   }
 
-  public printLabel = () => {
-    // tslint:disable-next-line: max-line-length
-    this.hubConnection
-      .invoke('PrintLabel', { labelsCount: 1, barcodeToPrint: 'M123123', printingProduct: { productName: 'Крючок', price: 10 } })
-      .then((res) => console.log(res));
+  public printLabel(request: PrintRequest) {
+    this.hubConnection.invoke('PrintLabel', request);
+      // .then((res: boolean) => console.log(res))
+      // .catch((err) => console.log(err));
   }
 }

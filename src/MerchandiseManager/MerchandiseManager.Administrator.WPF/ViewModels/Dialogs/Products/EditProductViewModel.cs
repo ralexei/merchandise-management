@@ -75,6 +75,13 @@ namespace MerchandiseManager.Administrator.WPF.ViewModels.Dialogs.Products
 			var barcodeViewerViewModel = IoC.Get<ViewBarcodeViewModel>();
 
 			barcodeViewerViewModel.RawBarcode = rawBarcode;
+			barcodeViewerViewModel.Product = new Product()
+			{
+				ProductName = ProductName,
+				ProductDescription = ProductDescription,
+				RetailSellPrice = RetailSellPrice,
+				WholesaleSellPrice = WholesaleSellPrice
+			};
 
 			dialogService.ShowDialog<ViewBarcodeDialog, ViewBarcodeViewModel>(Window, barcodeViewerViewModel);
 		}

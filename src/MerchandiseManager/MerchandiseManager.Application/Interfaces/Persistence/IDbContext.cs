@@ -1,6 +1,8 @@
 ﻿using MerchandiseManager.Core.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,14 +21,16 @@ namespace MerchandiseManager.Application.Interfaces.Persistence
 		DbSet<SoldCart> SoldCarts { get; }
 		DbSet<Storage> Storages { get; }
 		DbSet<Store> Stores { get; }
+		DbSet<Warehouse> Warehouses { get; }
+		DbSet<UserWarehouse> UserWarehouses { get; }
 		DbSet<StorageProduct> StorageProducts { get; }
-		DbSet<UserStorage> UserStorages { get; }
 		DbSet<BarCode> Barcodes { get; }
 
 		DatabaseFacade Database { get; }
 
 		int SaveChanges();
 		Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-
+		EntityEntry Entry([NotNullAttribute] object entity);
+		EntityEntry<TEntity> Entry<TEntity>([NotNullAttribute] TEntity entity) where TEntity : class;
 	}
 }

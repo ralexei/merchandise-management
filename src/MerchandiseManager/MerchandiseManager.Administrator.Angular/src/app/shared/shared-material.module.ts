@@ -18,6 +18,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSortModule } from '@angular/material/sort';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatCardModule } from '@angular/material/card';
+import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
   imports: [
@@ -39,7 +41,9 @@ import { MatChipsModule } from '@angular/material/chips';
     MatListModule,
     MatProgressSpinnerModule,
     MatSortModule,
-    MatChipsModule
+    MatChipsModule,
+    MatCardModule,
+    MatRippleModule
   ],
   exports: [
     NgxMatSelectSearchModule,
@@ -60,7 +64,9 @@ import { MatChipsModule } from '@angular/material/chips';
     MatListModule,
     MatProgressSpinnerModule,
     MatSortModule,
-    MatChipsModule
+    MatChipsModule,
+    MatCardModule,
+    MatRippleModule
   ]
 })
 export class SharedMaterialModule { }

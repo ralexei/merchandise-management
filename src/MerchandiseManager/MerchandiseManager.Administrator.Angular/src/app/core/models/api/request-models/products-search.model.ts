@@ -1,6 +1,6 @@
 export class ProductsSearchModel {
-  public start?: number;
-  public limit?: number;
+  public page?: number;
+  public pageSize?: number;
   public productNameContains?: string;
   public retailSellPriceMin?: number;
   public retailSellPriceMax?: number;

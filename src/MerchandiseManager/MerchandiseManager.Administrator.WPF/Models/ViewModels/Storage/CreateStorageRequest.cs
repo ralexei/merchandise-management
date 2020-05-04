@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MerchandiseManager.Administrator.WPF.Models.ViewModels.Storage
 {
-	public class CreateStorageRequest
+	public class CreateWarehouseRequest
 	{
 		public string StorageName { get; set; }
 		public string StorageDescription { get; set; }

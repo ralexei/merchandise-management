@@ -10,6 +10,6 @@ namespace MerchandiseManager.Administrator.WPF.Interfaces.Services.ApiServices
 	{
 		Task<Product> CreateProduct(AddProductDialogViewModel request);
 		Task<Product> EditProduct(EditProductViewModel request);
-		Task<FilteredResult<Product>> GetProducts();
+		Task<FilteredResult<Product>> GetProducts(ProductsSearchModel request);
 	}
 }

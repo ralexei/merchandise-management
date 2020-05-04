@@ -43,7 +43,7 @@ export class CategoriesTreeComponent implements OnInit, OnDestroy {
       this.isExpandable, this.getChildren);
     this.treeControl = new FlatTreeControl<CategoryFlatNode>(this.getLevel, this.isExpandable);
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-    console.log(this.dataSource._flattenedData);
+    // console.log(this.dataSource._flattenedData);
   }
 
   getLevel = (node: CategoryFlatNode) => node.level;

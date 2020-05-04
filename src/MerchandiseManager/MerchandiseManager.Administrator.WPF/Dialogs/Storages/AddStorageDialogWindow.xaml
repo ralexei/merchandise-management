@@ -16,9 +16,9 @@
 		</Grid.RowDefinitions>
 		<StackPanel Grid.Row="0" Margin="8">
 			<Label Content="Название:" Padding="0 5 5 5" FontWeight="Bold"/>
-			<TextBox Height="24" Text="{Binding StorageName}"  TextWrapping="Wrap"/>
+			<TextBox Height="24" Text="{Binding Name}"  TextWrapping="Wrap"/>
 			<Label Content="Описание (опционально):" Padding="0 5 5 5" FontWeight="Bold"/>
-			<TextBox Height="100" Text="{Binding StorageDescription}" TextWrapping="Wrap"/>
+			<TextBox Height="100" Text="{Binding Description}" TextWrapping="Wrap"/>
 		</StackPanel>
 		
 		<StackPanel Grid.Row="1" Orientation="Horizontal" Margin="8" HorizontalAlignment="Right" VerticalAlignment="Center">

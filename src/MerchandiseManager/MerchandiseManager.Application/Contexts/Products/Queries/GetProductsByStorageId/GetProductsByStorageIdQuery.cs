@@ -12,8 +12,8 @@ namespace MerchandiseManager.Application.Contexts.Products.Queries.GetProductsBy
 		[FromRoute]
 		public Guid? StorageId { get; set; }
 
-		public int? Start { get; set; }
+		public int? Page { get; set; }
 
-		public int? Limit { get; set; }
+		public int? PageSize { get; set; }
 	}
 }

@@ -16,6 +16,7 @@ namespace MerchandiseManager.Core.Entities
 		public Guid StorageId { get; private set; }
 
 		private StorageProduct() { }
+
 		public StorageProduct(Guid productId, int amount, Guid storageId)
 		{
 			if (amount <= 0)
@@ -30,7 +31,7 @@ namespace MerchandiseManager.Core.Entities
 		{
 			//@TODO-UNHANDLED-EXCEPTION
 			if (throwOnWrongAmount && amount > ProductsAmount)
-				throw new Exception($"Not enough products. Having: {ProductsAmount}. Trying to sell: {amount}");
+				throw new ArgumentException($"Not enough products. Having: {ProductsAmount}. Trying to sell: {amount}");
 
 			ProductsAmount -= amount;
 		}

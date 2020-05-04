@@ -38,23 +38,60 @@
             <input matInput type="text" formControlName="buyPrice" />
           </mat-form-field>
         </div>
-        <div>
-          <app-categories-tree (categorySelected)="categorySelected($event)" [formGroup]="createProductForm"
-            controlName="categoryId">
-          </app-categories-tree>
-          <mat-error *ngIf="createProductForm.get('categoryId').hasError('required')">
-            Выберите группу
-          </mat-error>
+        <div fxLayout="row wrap" fxLayoutAlign="end center" fxLayoutGap="4px">
+          <mat-form-field fxFlex="auto">
+            <mat-label>Группа</mat-label>
+            <mat-select matInput formControlName="categoryId" required>
+              <mat-option *ngIf="flattenedCategories?.data?.length > 0">
+                <ngx-mat-select-search placeholderLabel="Search" noEntriesFoundLabel="Совпадений не найдено"
+                  [formControl]="categoryListFilter"></ngx-mat-select-search>
+              </mat-option>
+              <mat-option>
+                --------------------
+              </mat-option>
+              <mat-option *ngIf="flattenedCategories?.data?.length == 0" disabled>
+                <small class="font-warning">Групп не найдено</small>
+              </mat-option>
+              <mat-option *ngFor="let category of filteredFlattenedCategories" [value]="category.id">
+                <span [ngClass]="{ 'mat-body-strong': category.nestingLevel === 0 }"
+                  [ngStyle]="{ 'padding-left.px': getCategoryNestingPadding(category.nestingLevel) }">{{category.name}}</span>
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="createProductForm.get('categoryId').hasError('required')">
+              Выберите группу
+            </mat-error>
+          </mat-form-field>
+          <button mat-raised-button type="button" color="accent" (click)="showNewCategoryInput()">Добавить</button>
+        </div>
+        <div fxFlex="100" *ngIf="isNewCategoryInputVisible">
+          <mat-form-field fxFlex="auto">
+            <mat-label>Новая группа...</mat-label>
+            <input matInput #itemValue placeholder="Напр.: 'Крючки'" [formControl]="newCategoryControl">
+            <mat-error *ngIf="newCategoryControl.hasError('required')">
+              Поле обязательно при добавлении группы
+            </mat-error>
+            <mat-hint *ngIf="createProductForm.get('categoryId').value" fxLayout="row" fxLayoutAlign="start center"
+              fxLayoutGap="4px">
+              <mat-icon color="warn">warning</mat-icon> <b>Внимание:</b> Новая группа будет создана под группой&nbsp;
+              <b>'{{getCurrentCategoryName()}}'</b>
+            </mat-hint>
+          </mat-form-field>
+          <button type="button" mat-icon-button (click)="saveNewCategory()">
+            <mat-icon>check</mat-icon>
+          </button>
+          <button button type="button" mat-icon-button (click)="cancelCategoryCreation()">
+            <mat-icon>cancel</mat-icon>
+          </button>
         </div>
         <div>
-          <p>Штрих-коды:</p>
+          <p>Штрихкоды:</p>
           <div fxLayout="row wrap" fxLayoutGap="8px grid">
-            <div *ngFor="let barcode of barcodes">
-              <button mat-stroked-button (click)="viewBarcode(barcode)">{{ barcode }}</button>
-            </div>
-            <div>
-                <button mat-stroked-button color="accent" (click)="addBarcode()"><mat-icon>add</mat-icon></button>
-              </div>
+            <mat-chip-list aria-label="Fish selection">
+              <mat-chip *ngFor="let barcode of barcodes" removable="true" disabled>{{ barcode }}</mat-chip>
+              <mat-chip (click)="addBarcode()" color="accent" selected>
+                <mat-icon>add</mat-icon>
+              </mat-chip>
+            </mat-chip-list>
           </div>
         </div>
         <mat-form-field>
@@ -68,7 +105,7 @@
     </form>
   </div>
   <div mat-dialog-actions>
-    <button mat-raised-button (click)="onClose()">Отмена</button>
-    <button mat-raised-button color="accent" (click)="onSubmit()">Сохранить</button>
+    <button mat-raised-button type="button" (click)="onClose()">Отмена</button>
+    <button mat-raised-button type="button" color="accent" (click)="onSubmit()">Сохранить</button>
   </div>
 </div>

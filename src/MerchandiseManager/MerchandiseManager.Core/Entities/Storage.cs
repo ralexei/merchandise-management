@@ -13,7 +13,7 @@ namespace MerchandiseManager.Core.Entities
 
 		#region Navigation properties
 		public ICollection<StorageProduct> StorageProducts { get; private set; } = new List<StorageProduct>();
-		public ICollection<UserStorage> UserStorages { get; private set; } = new List<UserStorage>();
+		public ICollection<UserWarehouse> UserWarehouses { get; private set; } = new List<UserWarehouse>();
 		#endregion
 
 		protected Storage() { }

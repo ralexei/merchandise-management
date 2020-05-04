@@ -42,9 +42,18 @@ namespace MerchandiseManager.Administrator.WPF.Utils
 		{
 			var res = await _client.PostAsJsonAsync(path, obj).ConfigureAwait(false);
 
-			res.EnsureSuccessStatusCode();
+			if (res.StatusCode == HttpStatusCode.OK || res.StatusCode == HttpStatusCode.Created)
+			{
+				return await res.Content.ReadAsAsync<TResult>();
+			}
+			else if (res.StatusCode == HttpStatusCode.BadRequest)
+			{
+				var errorMsg = await res.Content.ReadAsStringAsync();
 
-			return await res.Content.ReadAsAsync<TResult>();
+				throw new ArgumentException();
+			}
+			else
+				throw new Exception("Unknown error");
 		}
 
 		public async Task PostAsync<TInput>(string path, TInput obj)

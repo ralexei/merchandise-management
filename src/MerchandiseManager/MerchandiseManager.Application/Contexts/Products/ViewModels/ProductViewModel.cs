@@ -10,7 +10,7 @@ namespace MerchandiseManager.Application.Contexts.Products.ViewModels
 		public string ProductName { get; private set; }
 		public string ProductDescription { get; private set; }
 
-		public string CategoryId { get; private set; }
+		public Guid CategoryId { get; private set; }
 		public string CategoryName { get; private set; }
 
 		public decimal RetailSellPrice { get; private set; }

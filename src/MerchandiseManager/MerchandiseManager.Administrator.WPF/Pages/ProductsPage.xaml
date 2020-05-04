@@ -1,4 +1,4 @@
-﻿<local:BasePage x:TypeArguments="vm:ProductsPageViewModel" x:Class="MerchandiseManager.Administrator.WPF.Pages.ProductsPage"
+﻿<local:BasePage x:Name="ProductsPageHolder" x:TypeArguments="vm:ProductsPageViewModel" x:Class="MerchandiseManager.Administrator.WPF.Pages.ProductsPage"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,7 +8,7 @@
 		xmlns:fa="http://schemas.fontawesome.com/icons/"
 		xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
 		mc:Ignorable="d"
-		Title="ProductsPage">
+		Title="Товары">
 	<!--<Page.Resources>
 		<Style TargetType="ListViewItem">
 			<EventSetter Event="MouseDoubleClick" Handler="ProductDoubleClick"/>
@@ -21,7 +21,12 @@
 				<RowDefinition Height="*"></RowDefinition>
 			</Grid.RowDefinitions>
 			<Grid Grid.Row="0">
-				<Button Content="Добавить" Command="{Binding AddProductCommand}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+					<Button Command="{Binding SearchCommand}"  VerticalAlignment="Center" Margin="0 0 16 0">
+						<fa:SvgAwesome Width="14px" Height="16px" Icon="Solid_Sync"/>
+					</Button>
+					<Button Content="Добавить" Command="{Binding AddProductCommand}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+				</StackPanel>
 			</Grid>
 			<Grid Grid.Row="1">
 				<ListView
@@ -38,14 +43,15 @@
 					</Behaviors:Interaction.Triggers>
 					<ListView.View>
 						<GridView>
+
 							<GridViewColumn Width="200" DisplayMemberBinding="{Binding ProductName}">
 								<GridViewColumn.HeaderTemplate>
 									<DataTemplate>
 										<StackPanel Width="150">
 											<TextBlock Text="Номенклатура" Margin="0 0 0 5"/>
-											<TextBox Text=""></TextBox>
+											<TextBox Text="{Binding ElementName=ProductsPageHolder, Path=DataContext.SearchModel.ProductNameContains, TargetNullValue=''}"></TextBox>
 										</StackPanel>
-									</DataTemplate>
+										</DataTemplate>
 								</GridViewColumn.HeaderTemplate>
 							</GridViewColumn>
 
@@ -60,9 +66,9 @@
 													<ColumnDefinition Width="Auto"/>
 													<ColumnDefinition Width="1*"/>
 												</Grid.ColumnDefinitions>
-												<TextBox Grid.Column="0"/>
+												<TextBox Grid.Column="0" Text="{Binding ElementName=ProductsPageHolder, Path=DataContext.SearchModel.RetailSellPriceMin, TargetNullValue=''}"/>
 												<TextBlock Grid.Column="1" Text="-"/>
-												<TextBox Grid.Column="2"/>
+												<TextBox Grid.Column="2" Text="{Binding ElementName=ProductsPageHolder, Path=DataContext.SearchModel.RetailSellPriceMax, TargetNullValue=''}"/>
 											</Grid>
 										</StackPanel>
 									</DataTemplate>
@@ -79,9 +85,9 @@
 													<ColumnDefinition Width="Auto"/>
 													<ColumnDefinition Width="1*"/>
 												</Grid.ColumnDefinitions>
-												<TextBox Grid.Column="0"/>
+												<TextBox Grid.Column="0" Text="{Binding ElementName=ProductsPageHolder, Path=DataContext.SearchModel.WholesaleSellPriceMin, TargetNullValue=''}"/>
 												<TextBlock Grid.Column="1" Text="-"/>
-												<TextBox Grid.Column="2"/>
+												<TextBox Grid.Column="2" Text="{Binding ElementName=ProductsPageHolder, Path=DataContext.SearchModel.WholesaleSellPriceMax, TargetNullValue=''}"/>
 											</Grid>
 										</StackPanel>
 									</DataTemplate>
@@ -98,9 +104,9 @@
 													<ColumnDefinition Width="Auto"/>
 													<ColumnDefinition Width="1*"/>
 												</Grid.ColumnDefinitions>
-												<TextBox Grid.Column="0"/>
+												<TextBox Grid.Column="0" Text="{Binding ElementName=ProductsPageHolder, Path=DataContext.SearchModel.BuyPriceMin, TargetNullValue=''}"/>
 												<TextBlock Grid.Column="1" Text="-"/>
-												<TextBox Grid.Column="2"/>
+												<TextBox Grid.Column="2" Text="{Binding ElementName=ProductsPageHolder, Path=DataContext.SearchModel.BuyPriceMax, TargetNullValue=''}"/>
 											</Grid>
 										</StackPanel>
 									</DataTemplate>
@@ -109,37 +115,11 @@
 							<GridViewColumn DisplayMemberBinding="{Binding TotalCount}">
 								<GridViewColumn.HeaderTemplate>
 									<DataTemplate>
-										<StackPanel Margin="5">
-											<TextBlock Text="Количество" Margin="0 0 0 5"/>
-											<Grid>
-												<Grid.ColumnDefinitions>
-													<ColumnDefinition Width="1*"/>
-													<ColumnDefinition Width="Auto"/>
-													<ColumnDefinition Width="1*"/>
-												</Grid.ColumnDefinitions>
-												<TextBox Grid.Column="0"/>
-												<TextBlock Grid.Column="1" Text="-"/>
-												<TextBox Grid.Column="2"/>
-											</Grid>
-										</StackPanel>
+										<TextBlock Text="Количество" Margin="0 0 0 5"/>
 									</DataTemplate>
 								</GridViewColumn.HeaderTemplate>
 							</GridViewColumn>
 							<GridViewColumn Header="Описание" Width="200px" DisplayMemberBinding="{Binding ProductDescription}" />
-							<GridViewColumn>
-								<GridViewColumn.HeaderTemplate>
-									<DataTemplate>
-										<Button>
-											<fa:SvgAwesome Width="14px" Height="16px" Icon="Solid_Sync"/>
-										</Button>
-									</DataTemplate>
-								</GridViewColumn.HeaderTemplate>
-								<GridViewColumn.CellTemplate>
-									<DataTemplate>
-										<Button Content="Редактировать" HorizontalContentAlignment="Stretch"/>
-									</DataTemplate>
-								</GridViewColumn.CellTemplate>
-							</GridViewColumn>
 						</GridView>
 					</ListView.View>
 				</ListView>

@@ -4,7 +4,22 @@
       <button mat-icon-button (click)="sidenav.close()" type="button">
         <mat-icon>arrow_back</mat-icon>
       </button>
+      Меню
     </mat-toolbar>
+    <mat-nav-list>
+      <mat-list-item routerLinkActive="active-menu-item" routerLink="products">
+        <fa-icon [icon]="faBoxes" mat-list-icon></fa-icon>
+        <p class="mat-list-item-text" mat-line>Товары</p>
+      </mat-list-item>
+      <!-- <mat-list-item routerLinkActive="active-menu-item" routerLink="warehouses">
+        <fa-icon [icon]="faWarehouse" mat-list-icon></fa-icon>
+        <p class="mat-list-item-text" mat-line>Склады</p>
+      </mat-list-item>
+      <mat-list-item routerLinkActive="active-menu-item" routerLink="stores">
+        <fa-icon [icon]="faStore" mat-list-icon></fa-icon>
+        <p class="mat-list-item-text" mat-line>Торговые точки</p>
+      </mat-list-item> -->
+    </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar class="header-toolbar" color="primary">

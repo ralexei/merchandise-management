@@ -18,7 +18,9 @@
       "launchUrl": "weatherforecast",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "sqlDebugging": true,
+      "nativeDebugging": false
     },
     "MerchandiseManager.Api": {
       "commandName": "Project",

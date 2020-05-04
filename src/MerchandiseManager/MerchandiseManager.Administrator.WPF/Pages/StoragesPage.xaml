@@ -19,18 +19,11 @@
 				<Button Content="Добавить" Command="{Binding AddStorageDialogCommand}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
 			</Grid>
 			<Grid Grid.Row="1">
-				<ListView ItemsSource="{Binding Storages}">
+				<ListView ItemsSource="{Binding Warehouses}">
 					<ListView.View>
 						<GridView>
 							<GridViewColumn Header="Наименование" DisplayMemberBinding="{Binding Name}" />
 							<GridViewColumn Header="Описание" Width="300px" DisplayMemberBinding="{Binding Description}" />
-							<GridViewColumn Header="">
-								<GridViewColumn.CellTemplate>
-									<DataTemplate>
-										<Button Content="Редактировать" HorizontalContentAlignment="Stretch"/>
-									</DataTemplate>
-								</GridViewColumn.CellTemplate>
-							</GridViewColumn>
 						</GridView>
 					</ListView.View>
 				</ListView>

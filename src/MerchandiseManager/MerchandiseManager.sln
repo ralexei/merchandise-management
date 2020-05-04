@@ -27,6 +27,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MerchandiseManager.Utility"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MerchandiseManager.Administrator.WPF", "MerchandiseManager.Administrator.WPF\MerchandiseManager.Administrator.WPF.csproj", "{8893EC73-144A-47BC-A703-20BE67AFE6F7}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MerchandiseManager.Administrator.Angular", "MerchandiseManager.Administrator.Angular\MerchandiseManager.Administrator.Angular.csproj", "{AFF122F9-695D-40B5-8C2E-49715DF72ED3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MerchandiseManager.PrinterService", "MerchandiseManager.PrinterService\MerchandiseManager.PrinterService.csproj", "{F00E2A86-42F7-41F1-B500-8027D070F3D5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{EBF7E6BC-5C91-4554-81EA-D4B642F64B3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MerchandiseManager.LabelPrinterService", "MerchandiseManager.LabelPrinterService\MerchandiseManager.LabelPrinterService.csproj", "{33B32AD4-0479-4753-8475-5C526876D7F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +69,18 @@ Global
 		{8893EC73-144A-47BC-A703-20BE67AFE6F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8893EC73-144A-47BC-A703-20BE67AFE6F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8893EC73-144A-47BC-A703-20BE67AFE6F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFF122F9-695D-40B5-8C2E-49715DF72ED3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFF122F9-695D-40B5-8C2E-49715DF72ED3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFF122F9-695D-40B5-8C2E-49715DF72ED3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFF122F9-695D-40B5-8C2E-49715DF72ED3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F00E2A86-42F7-41F1-B500-8027D070F3D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F00E2A86-42F7-41F1-B500-8027D070F3D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F00E2A86-42F7-41F1-B500-8027D070F3D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F00E2A86-42F7-41F1-B500-8027D070F3D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33B32AD4-0479-4753-8475-5C526876D7F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33B32AD4-0479-4753-8475-5C526876D7F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33B32AD4-0479-4753-8475-5C526876D7F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33B32AD4-0479-4753-8475-5C526876D7F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +93,9 @@ Global
 		{98FCF1E6-D971-4C26-AB6D-6A19E320BADF} = {FC87E8C7-D1A2-4722-BA0F-48DCFF7F328B}
 		{B851A175-5063-47B0-8549-BAE6BFDDCCA1} = {396AFF24-A2B7-46F4-8EF1-2C2D934AD0A1}
 		{8893EC73-144A-47BC-A703-20BE67AFE6F7} = {BDF0CAEE-B06B-4459-863C-57CF6D0A39E2}
+		{AFF122F9-695D-40B5-8C2E-49715DF72ED3} = {BDF0CAEE-B06B-4459-863C-57CF6D0A39E2}
+		{F00E2A86-42F7-41F1-B500-8027D070F3D5} = {82458205-B8C5-4D4A-8D15-FB16DE651CC6}
+		{33B32AD4-0479-4753-8475-5C526876D7F5} = {EBF7E6BC-5C91-4554-81EA-D4B642F64B3B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5EC2EFE2-53C1-4B3D-9108-D45064106538}

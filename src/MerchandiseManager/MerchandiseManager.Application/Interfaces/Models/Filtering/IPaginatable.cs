@@ -2,7 +2,7 @@
 {
 	public interface IPaginatable
 	{
-		public int? Start { get; }
-		public int? Limit { get; }
+		public int? Page { get; }
+		public int? PageSize { get; }
 	}
 }

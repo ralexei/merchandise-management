@@ -19,6 +19,8 @@ namespace MerchandiseManager.Administrator.WPF.ValueConverters
 					return new StoragesPage();
 				case ApplicationPagesEnum.Products:
 					return new ProductsPage();
+				case ApplicationPagesEnum.ProductDeliveryNotes:
+					return new DeliveryNotesListPage();
 				default:
 					Debugger.Break();
 					return null;

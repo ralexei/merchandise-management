@@ -9,6 +9,10 @@
     <Compile Remove="Migrations\20200213131845_Init.Designer.cs" />
     <Compile Remove="Migrations\20200216081238_AddedUserReferenceToProduct.cs" />
     <Compile Remove="Migrations\20200216081238_AddedUserReferenceToProduct.Designer.cs" />
+    <Compile Remove="Migrations\20200222154301_test.cs" />
+    <Compile Remove="Migrations\20200222154301_test.Designer.cs" />
+    <Compile Remove="Migrations\20200223175532_GlobalFilterForProducts.cs" />
+    <Compile Remove="Migrations\20200223175532_GlobalFilterForProducts.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

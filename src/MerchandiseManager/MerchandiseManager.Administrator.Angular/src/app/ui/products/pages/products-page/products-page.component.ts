@@ -13,6 +13,7 @@ import { SnackBarService } from '@app/core';
 import { ConfirmationDialogComponent } from '@app/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import { SignalRPrinterService } from '@app/core/services/signalr/signalr-printer.service';
+import { EditProductDialogComponent } from '../../components/edit-product-dialog/edit-product-dialog.component';
 
 @Component({
   selector: 'app-products-page',
@@ -51,25 +52,8 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
     private categoriesService: CategoryService,
     private changeDetectorRef: ChangeDetectorRef,
     private snackbarService: SnackBarService,
-    private signalrPrinterService: SignalRPrinterService,
     authService: AuthService,
     private dialog: MatDialog) {
-
-    const loginRequest = new LoginRequest();
-
-    loginRequest.username = 'ralexei';
-    loginRequest.password = 'Test123!';
-
-    this.signalrPrinterService.startConnection()
-      .then(() => {
-        this.signalrPrinterService.printLabel();
-      });
-    authService.login(loginRequest).subscribe(
-      (response: LoginResult) => {
-        this.fetchProducts();
-        this.fetchFlattenedCategories();
-      }
-    );
   }
 
   ngOnInit(): void {
@@ -84,6 +68,9 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
       buyPriceMax: new FormControl('')
     });
 
+    this.fetchProducts();
+    this.fetchFlattenedCategories();
+
     this.categoryListFilter.valueChanges
       .pipe(takeUntil(this.ngDestroy$))
       .subscribe((term: string) => {
@@ -94,9 +81,7 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
   }
 
   public pageChanged(event: any): void {
-    this.fetchProducts(
-      this.paginator.pageIndex * this.paginator.pageSize,
-      (this.paginator.pageIndex + 1) * this.paginator.pageSize);
+    this.fetchProducts(this.paginator.pageIndex, this.paginator.pageSize);
   }
 
   public openAddDialog(): void {
@@ -104,22 +89,34 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
     {
         minWidth: '300px',
         maxWidth: '500px',
-        height: '95%'
+        // height: '95%'
     })
     .afterClosed()
     .subscribe(
       (createdProduct: Product) => {
         if (createdProduct) {
-          this.fetchProducts(
-            this.paginator.pageIndex * this.paginator.pageSize,
-            (this.paginator.pageIndex + 1) * this.paginator.pageSize);
+          this.fetchProducts(this.paginator.pageIndex, this.paginator.pageSize);
         }
       }
     );
   }
 
-  public editProduct(id: string): void {
-
+  public editProduct(product: Product): void {
+    this.dialog.open(EditProductDialogComponent,
+      {
+          minWidth: '300px',
+          maxWidth: '500px',
+          data: product
+          // height: '95%'
+      })
+      .afterClosed()
+      .subscribe(
+        (editedProduct: Product) => {
+          if (editedProduct) {
+            this.fetchProducts(this.paginator.pageIndex, this.paginator.pageSize);
+          }
+        }
+      );
   }
 
   public deleteProduct(id: string): void {
@@ -144,6 +141,11 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
         }
       }
     );
+  }
+
+  public search(): void {
+    this.paginator.pageIndex = 0;
+    this.fetchProducts(0, this.paginator.pageSize);
   }
 
   public getCategoryNestingPadding(nestingLevel: number): any {
@@ -173,16 +175,16 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
     this.changeDetectorRef.detectChanges();
   }
 
-  private fetchProducts(start = 0, limit = 10): void {
+  private fetchProducts(page = 0, pageSize = 10): void {
     this.loading = true;
 
-    if (this.paginator && limit === 10) {
-      limit = this.paginator.pageSize;
+    if (this.paginator && pageSize === 10) {
+      pageSize = this.paginator.pageSize;
     }
 
     const filterRequest = this.headerSearchFormGroup.getRawValue() as ProductsSearchModel;
-    filterRequest.start = start;
-    filterRequest.limit = limit;
+    filterRequest.page = page;
+    filterRequest.pageSize = pageSize;
     filterRequest.categoryId = this.categorySelect.value;
 
     this.products$ = this.productsService.getFiltered(filterRequest)

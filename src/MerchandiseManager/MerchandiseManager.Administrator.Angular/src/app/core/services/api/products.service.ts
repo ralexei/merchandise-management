@@ -34,7 +34,7 @@ export class ProductsService {
     return this.apiService.delete<void>(`/api/products/${id}`);
   }
 
-  // public edit(id: string): Observable<void> {
-  //   //return this.apiService.delete<void>(`/api/products/${id}`);
-  // }
+  public update(id: string, product: Product): Observable<void> {
+    return this.apiService.put<void>(`/api/products/${id}`, product);
+  }
 }

@@ -1,5 +1,6 @@
 using System.Text;
 using FluentValidation.AspNetCore;
+using MerchandiseManager.Api.Utils;
 using MerchandiseManager.Api.Utils.Auth;
 using MerchandiseManager.Application;
 using MerchandiseManager.Application.Contexts.Authorization.Commands.SignIn;
@@ -40,6 +41,9 @@ namespace MerchandiseManager.Api
 			var appSettings = appSettingsSection.Get<AppSettings>();
 			var key = Encoding.ASCII.GetBytes(appSettings.JwtSettings.Secret);
 
+
+			services.AddCors();
+
 			services.AddAuthentication(x =>
 			{
 				x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -67,7 +71,8 @@ namespace MerchandiseManager.Api
 			services.AddTransient<ICurrentUser, CurrentUserProvider>();
 
 			services
-				.AddMvc(options => { options.EnableEndpointRouting = false; })
+				.AddMvcCore(options => { options.EnableEndpointRouting = false; })
+				.AddNewtonsoftJson()
 				.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<SignInCommandValidator>());
 		}
 
@@ -80,9 +85,16 @@ namespace MerchandiseManager.Api
 			}
 
 			app.UseRouting();
-
 			app.UseAuthentication();
 			app.UseAuthorization();
+			app.UseCors(opt =>
+			{
+				opt.WithOrigins("http://116.203.19.248", "http://localhost:4200")
+					.AllowAnyMethod()
+					.AllowAnyHeader();
+			});
+
+			app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 			app.UseEndpoints(endpoints =>
 			{

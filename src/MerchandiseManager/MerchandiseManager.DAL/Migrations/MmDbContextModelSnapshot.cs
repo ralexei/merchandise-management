@@ -415,7 +415,7 @@ namespace MerchandiseManager.DAL.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("MerchandiseManager.Core.Entities.UserStorage", b =>
+            modelBuilder.Entity("MerchandiseManager.Core.Entities.UserWarehouse", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -424,7 +424,7 @@ namespace MerchandiseManager.DAL.Migrations
                     b.Property<long>("CreatedAt")
                         .HasColumnType("bigint");
 
-                    b.Property<Guid>("StorageId")
+                    b.Property<Guid?>("StorageId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<long?>("UpdatedAt")
@@ -433,13 +433,18 @@ namespace MerchandiseManager.DAL.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("WarehouseId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("StorageId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserStorages");
+                    b.HasIndex("WarehouseId");
+
+                    b.ToTable("UserWarehouses");
                 });
 
             modelBuilder.Entity("MerchandiseManager.Core.Entities.Store", b =>
@@ -447,6 +452,13 @@ namespace MerchandiseManager.DAL.Migrations
                     b.HasBaseType("MerchandiseManager.Core.Entities.Storage");
 
                     b.HasDiscriminator().HasValue("Store");
+                });
+
+            modelBuilder.Entity("MerchandiseManager.Core.Entities.Warehouse", b =>
+                {
+                    b.HasBaseType("MerchandiseManager.Core.Entities.Storage");
+
+                    b.HasDiscriminator().HasValue("Warehouse");
                 });
 
             modelBuilder.Entity("MerchandiseManager.Core.Entities.BarCode", b =>
@@ -556,17 +568,21 @@ namespace MerchandiseManager.DAL.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MerchandiseManager.Core.Entities.UserStorage", b =>
+            modelBuilder.Entity("MerchandiseManager.Core.Entities.UserWarehouse", b =>
                 {
-                    b.HasOne("MerchandiseManager.Core.Entities.Storage", "Storage")
-                        .WithMany("UserStorages")
-                        .HasForeignKey("StorageId")
+                    b.HasOne("MerchandiseManager.Core.Entities.Storage", null)
+                        .WithMany("UserWarehouses")
+                        .HasForeignKey("StorageId");
+
+                    b.HasOne("MerchandiseManager.Core.Entities.User", "User")
+                        .WithMany("UserWarehouses")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MerchandiseManager.Core.Entities.User", "User")
-                        .WithMany("UserStorages")
-                        .HasForeignKey("UserId")
+                    b.HasOne("MerchandiseManager.Core.Entities.Warehouse", "Warehouse")
+                        .WithMany()
+                        .HasForeignKey("WarehouseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

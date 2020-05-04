@@ -21,6 +21,10 @@
 			<Image Source="{Binding BarcodeBitmap}" Width="170" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 		</Grid>
 		<Grid Grid.Row="2">
+			<StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+				<TextBlock Text="Количество этикеток: "/>
+				<TextBox Text="{Binding LabelsNumber}"/>
+			</StackPanel>
 			<Button HorizontalAlignment="Right" Command="{Binding PrintBarcodeCommand}" Width="40" Height="40">
 				<fa:SvgAwesome Margin="8" Icon="Solid_Print"/>
 			</Button>

@@ -1,10 +1,13 @@
 ﻿using BarcodeLib;
+using MerchandiseManager.Administrator.WPF.Models.ViewModels.Products;
 using MerchandiseManager.Administrator.WPF.ViewModels.Base;
+using Newtonsoft.Json;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Printing;
 using System.IO;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
@@ -15,7 +18,9 @@ namespace MerchandiseManager.Administrator.WPF.ViewModels.Dialogs.Products
 		private Image barcodeImage;
 		private string rawBarcode;
 
+		public Product Product { get; set; }
 		public BitmapImage BarcodeBitmap { get; set; }
+		public int LabelsNumber { get; set; } = 1;
 
 		public string RawBarcode
 		{
@@ -39,18 +44,23 @@ namespace MerchandiseManager.Administrator.WPF.ViewModels.Dialogs.Products
 
 		public void PrintBarcode()
 		{
-
 			using (PrintDocument pd = new PrintDocument())
 			{
 				try
 				{
 					pd.PrintController = new StandardPrintController();
 					pd.PrinterSettings.PrinterName = "Xprinter_XP-370B";
-					pd.PrinterSettings.DefaultPageSettings.PaperSize = new PaperSize("", 19000, 12000);
 					pd.PrintPage += new PrintPageEventHandler(pdPrintLabel);
-					pd.Print();
+					
+					for (int i = 0; i < LabelsNumber; i++)
+					{
+						pd.Print();
+					}
 				}
-				catch (Exception ex) { }
+				catch (Exception ex)
+				{
+					MessageBox.Show(JsonConvert.SerializeObject(ex), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+				}
 			}
 		}
 
@@ -58,14 +68,17 @@ namespace MerchandiseManager.Administrator.WPF.ViewModels.Dialogs.Products
 		{
 			var b = new Barcode();
 
-			barcodeImage = b.Encode(TYPE.CODE39, barcodeValue, Color.Black, Color.White, 165, 50);
+			barcodeImage = b.Encode(TYPE.CODE39, barcodeValue, Color.Black, Color.White, 165, 20);
+
 			BarcodeBitmap = Convert(barcodeImage);
 		}
 
 		private void pdPrintLabel(object sender, PrintPageEventArgs ev)
 		{
-			ev.Graphics.DrawImage(barcodeImage, 8, 10);
-			ev.Graphics.DrawString(rawBarcode, new Font("arial", 8), new SolidBrush(Color.Black), 55, 65);
+			ev.Graphics.DrawString(Product.ProductName, new Font("arial", 8), new SolidBrush(Color.Black), 8, 6);
+			ev.Graphics.DrawImage(barcodeImage, 8, 45);
+			ev.Graphics.DrawString(rawBarcode, new Font("arial", 8), new SolidBrush(Color.Black), 55, 70);
+			ev.Graphics.DrawString($"Total (lei): {Product.RetailSellPrice}", new Font("arial", 12), new SolidBrush(Color.Black), 55, 85);
 		}
 
 		public BitmapImage Convert(Image img)

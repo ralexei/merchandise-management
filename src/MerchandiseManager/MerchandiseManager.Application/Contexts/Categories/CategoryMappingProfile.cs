@@ -12,6 +12,8 @@ namespace MerchandiseManager.Application.Contexts.Categories
 		public CategoryMappingProfile()
 		{
 			CreateMap<Category, CategoryViewModel>();
+			CreateMap<Category, CategoryFlatViewModel>();
+			CreateMap<CategoryViewModel, CategoryFlatViewModel>();
 		}
 	}
 }

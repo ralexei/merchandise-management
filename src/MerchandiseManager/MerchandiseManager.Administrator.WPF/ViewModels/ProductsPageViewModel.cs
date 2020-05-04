@@ -16,11 +16,14 @@ namespace MerchandiseManager.Administrator.WPF.ViewModels
 	public class ProductsPageViewModel : BaseDialogViewModel
 	{
 		public ObservableCollection<Product> Products { get; set; }
+		public ProductsSearchModel SearchModel { get; set; }
+
 
 		private readonly IProductsService productsService;
 		private readonly IDialogService dialogService;
 
-		public ICommand PageLoadedCommand { get; set; }
+
+		public ICommand SearchCommand { get; set; }
 		public ICommand AddProductCommand { get; set; }
 		public ICommand OpenProductForEditCommand { get; set; }
 
@@ -29,32 +32,41 @@ namespace MerchandiseManager.Administrator.WPF.ViewModels
 			this.productsService = productsService;
 			this.dialogService = dialogService;
 
+			SearchModel = new ProductsSearchModel()
+			{
+				ProductNameContains = ""
+			};
 			AddProductCommand = new RelayCommand(OpenProductCreationDialog);
 			OpenProductForEditCommand = new RelayParameterizedCommand((product) => EditProduct(product as Product));
-			//PageLoadedCommand = new RelayCommand(async () => await PageLoaded());
+			SearchCommand = new RelayCommand(Search);
 
 			LoadData();
 		}
 
-		//private void OpenProductForEdit(object prod)
-		//{
-		//	var product = prod as Product;
-
-
-		//}
+		private void Search()
+		{
+			LoadData();
+		}
 
 		public void EditProduct(Product product)
 		{
-			var vm = IoC.Get<EditProductViewModel>();
-
-			vm.InitProductData(product);
-
-			var editDialog = dialogService.ShowDialog<ViewProductDialogWindow, EditProductViewModel>(Application.Current.MainWindow, vm);
-
-			if (editDialog.DialogResult == true)
+			try
 			{
-				//Products.Add(editDialog.ResultInfo.EditedProduct);
+				if (product != null)
+				{
+					var vm = IoC.Get<EditProductViewModel>();
+
+					vm.InitProductData(product);
+
+					var editDialog = dialogService.ShowDialog<ViewProductDialogWindow, EditProductViewModel>(Application.Current.MainWindow, vm);
+
+					if (editDialog.DialogResult == true)
+					{
+						//Products.Add(editDialog.ResultInfo.EditedProduct);
+					}
+				}
 			}
+			catch { }
 		}
 
 		private void OpenProductCreationDialog()
@@ -67,7 +79,7 @@ namespace MerchandiseManager.Administrator.WPF.ViewModels
 
 		private async void LoadData()
 		{
-			Products = new ObservableCollection<Product>((await productsService.GetProducts()).Data);
+			Products = new ObservableCollection<Product>((await productsService.GetProducts(SearchModel)).Data);
 		}
 	}
 }

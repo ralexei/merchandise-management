@@ -10,8 +10,8 @@ namespace MerchandiseManager.Application.Contexts.SoldProducts.Queries.GetAllPro
 {
 	public class GetAllProductsFilteredQuery : IPaginatable, IRequest<FilteredResult<SoldProductViewModel>>
 	{
-		public int? Start { get; set; }
+		public int? Page { get; set; }
 
-		public int? Limit { get; set; }
+		public int? PageSize { get; set; }
 	}
 }

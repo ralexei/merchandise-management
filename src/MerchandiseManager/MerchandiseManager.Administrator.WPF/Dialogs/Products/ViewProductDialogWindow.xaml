@@ -12,7 +12,7 @@
 		ResizeMode="NoResize"
         Title="{Binding Path=ProductName}" Width="400">
 	<Window.Resources>
-		<Style TargetType="ListBoxItem">
+		<Style TargetType="ListViewItem">
 			<EventSetter Event="MouseDoubleClick" Handler="BarcodeDoubleClick"/>
 		</Style>
 	</Window.Resources>
@@ -58,7 +58,7 @@
 				</TextBlock>
 			</DockPanel>
 			<StackPanel Orientation="Horizontal">
-				<TextBlock Text="Категория: "></TextBlock>
+				<TextBlock Text="Текущая: "></TextBlock>
 				<TextBlock Text="{Binding CurrentCategory.Name}"></TextBlock>
 			</StackPanel>
 			<TreeView

@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MerchandiseManager.Core.Entities
+﻿namespace MerchandiseManager.Core.Entities
 {
 	public class Store : Storage
 	{
+		protected Store() { }
+
+		public Store(string storageName, string storageDescription) : base(storageName, storageDescription) { }
+
+		public Store(string storeName) : base(storeName) { }
 	}
 }

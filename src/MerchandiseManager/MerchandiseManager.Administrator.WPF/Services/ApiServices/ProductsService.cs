@@ -2,8 +2,8 @@
 using MerchandiseManager.Administrator.WPF.Interfaces.Utils;
 using MerchandiseManager.Administrator.WPF.Models;
 using MerchandiseManager.Administrator.WPF.Models.ViewModels.Products;
+using MerchandiseManager.Administrator.WPF.Utils.ObjectExtensions;
 using MerchandiseManager.Administrator.WPF.ViewModels.Dialogs.Products;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MerchandiseManager.Administrator.WPF.Services.ApiServices
@@ -27,9 +27,9 @@ namespace MerchandiseManager.Administrator.WPF.Services.ApiServices
 			return await apiConnector.PutAsync<Product, EditProductViewModel>("products", request);
 		}
 
-		public async Task<FilteredResult<Product>> GetProducts()
+		public async Task<FilteredResult<Product>> GetProducts(ProductsSearchModel request)
 		{
-			return await apiConnector.GetAsync<FilteredResult<Product>>("products");
+			return await apiConnector.GetAsync<FilteredResult<Product>>("products" + request.ToQueryString());
 		}
 	}
 }

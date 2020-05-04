@@ -60,14 +60,7 @@ namespace MerchandiseManager.Administrator.WPF
 
 		private void Window_Loaded_1(object sender, RoutedEventArgs e)
 		{
-			var menuRoot = new MenuItem("Администрация", EFontAwesomeIcon.Solid_UserTie);
-
-			menuRoot.Children.Add(new MenuItem("Главная", EFontAwesomeIcon.Solid_Home).AssociatePage(ApplicationPagesEnum.Home));
-			menuRoot.Children.Add(new MenuItem("Товары", EFontAwesomeIcon.Solid_Boxes).AssociatePage(ApplicationPagesEnum.Products));
-			menuRoot.Children.Add(new MenuItem("Склады", EFontAwesomeIcon.Solid_Warehouse).AssociatePage(ApplicationPagesEnum.Storages));
-			menuRoot.Children.Add(new MenuItem("Торговые точки", EFontAwesomeIcon.Solid_Store));
-
-			MenuTreeView.Items.Add(menuRoot);
+			MenuTreeView.Items.Add(MenuStorage.Menu);
 		}
 
 		private void MenuItemSelected(object sender, RoutedPropertyChangedEventArgs<object> e)

@@ -1,4 +1,5 @@
 ﻿using MerchandiseManager.Application.Contexts.Categories.Commands.CreateCategory;
+using MerchandiseManager.Application.Contexts.Categories.Commands.DeleteCategory;
 using MerchandiseManager.Application.Contexts.Categories.Queries.GetAllCategories;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,5 +18,9 @@ namespace MerchandiseManager.Api.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Get()
 			=> Ok(await Mediator.Send(new GetAllCategoriesQuery()));
+
+		[HttpDelete("{id}")]
+		public async Task<IActionResult> Delete(Guid id)
+			=> Ok(await Mediator.Send(new DeleteCategoryCommand(id)));
 	}
 }

@@ -1,5 +1,5 @@
-﻿using MerchandiseManager.Application.Contexts.Storages.Commands.AddNewStorage;
-using MerchandiseManager.Application.Contexts.Storages.Queries.GetUserStorages;
+﻿using MerchandiseManager.Application.Contexts.Warehouses.Commands.AddNewStorage;
+using MerchandiseManager.Application.Contexts.Warehouses.Queries.GetUserWarehouses;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -9,10 +9,10 @@ namespace MerchandiseManager.Api.Controllers
 	{
 		[HttpGet]
 		public async Task<IActionResult> Get()
-			=> Ok(await Mediator.Send(new GetUserStoragesQuery()));
+			=> Ok(await Mediator.Send(new GetUserWarehousesQuery()));
 
 		[HttpPost]
-		public async Task<IActionResult> Create([FromBody]AddNewStorageCommand request)
+		public async Task<IActionResult> Create([FromBody]AddNewWarehouseCommand request)
 			=> Ok(await Mediator.Send(request));
 	}
 }

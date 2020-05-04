@@ -1,4 +1,5 @@
-﻿using MerchandiseManager.Administrator.WPF.DI;
+﻿using log4net;
+using MerchandiseManager.Administrator.WPF.DI;
 using MerchandiseManager.Administrator.WPF.Dialogs;
 using MerchandiseManager.Administrator.WPF.Dialogs.Products;
 using MerchandiseManager.Administrator.WPF.Interfaces;
@@ -6,6 +7,7 @@ using MerchandiseManager.Administrator.WPF.Interfaces.Services.ApiServices;
 using MerchandiseManager.Administrator.WPF.Models.ViewModels.Categories;
 using MerchandiseManager.Administrator.WPF.Models.ViewModels.Products;
 using MerchandiseManager.Administrator.WPF.ViewModels.Base;
+using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -17,6 +19,7 @@ namespace MerchandiseManager.Administrator.WPF.ViewModels.Dialogs.Products
 {
 	public class AddProductDialogViewModel : BaseDialogViewModel
 	{
+		private readonly ILog Log = LogManager.GetLogger(typeof(AddProductDialogViewModel));
 		private readonly IProductsService productsService;
 		private readonly ICategoriesService categoriesService;
 		private readonly IDialogService dialogService;
@@ -27,7 +30,7 @@ namespace MerchandiseManager.Administrator.WPF.ViewModels.Dialogs.Products
 		public decimal? RetailSellPrice { get; set; }
 		public decimal? WholesaleSellPrice { get; set; }
 		public decimal? BuyPrice { get; set; }
-		
+
 		public Guid? CategoryId { get; set; }
 
 		public ObservableCollection<Category> Categories { get; set; }
@@ -59,18 +62,34 @@ namespace MerchandiseManager.Administrator.WPF.ViewModels.Dialogs.Products
 
 		public void DeleteBarcode(string barcode)
 		{
-			var barcodeToRemove = Barcodes.First(f => f == barcode);
+			try
+			{
+				var barcodeToRemove = Barcodes.FirstOrDefault(f => f == barcode);
 
-			Barcodes.Remove(barcodeToRemove);
+				Barcodes.Remove(barcodeToRemove);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(JsonConvert.SerializeObject(ex), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+				Log.Error(ex);
+			}
 		}
 
 		public void ViewBarcode(string rawBarcode)
 		{
-			var barcodeViewerViewModel = IoC.Get<ViewBarcodeViewModel>();
+			try
+			{
+				var barcodeViewerViewModel = IoC.Get<ViewBarcodeViewModel>();
 
-			barcodeViewerViewModel.RawBarcode = rawBarcode;
+				barcodeViewerViewModel.RawBarcode = rawBarcode;
 
-			var dialog = dialogService.ShowDialog<ViewBarcodeDialog, ViewBarcodeViewModel>(Window, barcodeViewerViewModel);
+				var dialog = dialogService.ShowDialog<ViewBarcodeDialog, ViewBarcodeViewModel>(Window, barcodeViewerViewModel);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(JsonConvert.SerializeObject(ex), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+				Log.Error(ex);
+			}
 		}
 
 		private void SelectCategory(object selectedCategory)
@@ -108,7 +127,10 @@ namespace MerchandiseManager.Administrator.WPF.ViewModels.Dialogs.Products
 				Window.DialogResult = true;
 			}
 			catch (Exception ex)
-			{ }
+			{
+				MessageBox.Show(JsonConvert.SerializeObject(ex), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+				Log.Error(ex);
+			}
 		}
 	}
 }

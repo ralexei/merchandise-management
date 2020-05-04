@@ -4,6 +4,7 @@ import { SharedMaterialModule } from './shared-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -13,13 +14,15 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     CommonModule,
     FlexLayoutModule,
     ReactiveFormsModule,
-    SharedMaterialModule
+    SharedMaterialModule,
+    FontAwesomeModule
   ],
   exports: [
     CommonModule,
     FlexLayoutModule,
     ReactiveFormsModule,
-    SharedMaterialModule
+    SharedMaterialModule,
+    FontAwesomeModule
   ]
 })
 export class SharedModule { }

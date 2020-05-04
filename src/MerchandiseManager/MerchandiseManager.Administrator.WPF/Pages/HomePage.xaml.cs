@@ -1,4 +1,5 @@
-﻿using MerchandiseManager.Administrator.WPF.ViewModels;
+﻿using MerchandiseManager.Administrator.WPF.DI;
+using MerchandiseManager.Administrator.WPF.ViewModels;
 
 namespace MerchandiseManager.Administrator.WPF.Pages
 {
@@ -10,6 +11,11 @@ namespace MerchandiseManager.Administrator.WPF.Pages
 		public HomePage()
 		{
 			InitializeComponent();
+		}
+
+		private void HomePageMenu_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+		{
+			IoC.Get<MainWindowViewModel>().CurrentPage = (HomePageMenu.SelectedItem as MenuItem).AssociatedPage;
 		}
 	}
 }

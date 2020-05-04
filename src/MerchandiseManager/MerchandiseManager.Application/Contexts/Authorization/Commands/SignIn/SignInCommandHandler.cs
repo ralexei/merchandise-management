@@ -27,7 +27,7 @@ namespace MerchandiseManager.Application.Contexts.Authorization.Commands.SignIn
 				.FirstOrDefault(f => f.Username == request.Username);
 
 			if (!user.IsPasswordValid(request.Password))
-				throw new Exception(); //@TODO-UNHANDLED-EXCEPTION
+				throw new ArgumentException(); //@TODO-UNHANDLED-EXCEPTION
 
 			var jwt = jwtHandler.GenerateJwt(user, request.StoreId);
 

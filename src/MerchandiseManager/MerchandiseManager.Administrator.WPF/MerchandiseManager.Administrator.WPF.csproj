@@ -47,6 +47,9 @@
     <Reference Include="FontAwesome5.Net40, Version=2.0.3.0, Culture=neutral, PublicKeyToken=9cfaf01297a008f8, processorArchitecture=MSIL">
       <HintPath>..\packages\FontAwesome5.2.0.3\lib\net40\FontAwesome5.Net40.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
@@ -129,15 +132,24 @@
     <Compile Include="Interfaces\Services\ApiServices\IStoragesService.cs" />
     <Compile Include="Interfaces\Utils\IApiConnector.cs" />
     <Compile Include="DI\IoC.cs" />
+    <Compile Include="LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MenuStorage.cs" />
     <Compile Include="Models\DialogWindowResult.cs" />
     <Compile Include="Models\Enums\ApplicationPageEnum.cs" />
     <Compile Include="Models\FilteredResult.cs" />
     <Compile Include="Models\ViewModels\Auth\LoginResult.cs" />
     <Compile Include="Models\ViewModels\Categories\Category.cs" />
     <Compile Include="Models\ViewModels\Products\Product.cs" />
+    <Compile Include="Models\ViewModels\Products\ProductSearchModel.cs" />
     <Compile Include="Models\ViewModels\Storage\CreateStorageRequest.cs" />
     <Compile Include="Models\ViewModels\Storage\Storage.cs" />
+    <Compile Include="Models\ViewModels\Storage\Warehouse.cs" />
     <Compile Include="Pages\BasePage.cs" />
+    <Compile Include="Pages\DeliveryNotesListPage.xaml.cs">
+      <DependentUpon>DeliveryNotesListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -155,11 +167,13 @@
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Utils\ApiConnector.cs" />
     <Compile Include="Utils\AppConfigManager.cs" />
+    <Compile Include="Utils\ObjectExtensions\HttpUtils.cs" />
     <Compile Include="ValueConverters\AddEditDialogPageValueConverter.cs" />
     <Compile Include="ValueConverters\ApplicationPageValueConverter.cs" />
     <Compile Include="ValueConverters\BaseValueConverter.cs" />
     <Compile Include="ViewModels\Base\BaseDialogViewModel.cs" />
     <Compile Include="ViewModels\Base\RelayParameterizedCommand.cs" />
+    <Compile Include="ViewModels\DeliveryNotesListViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\Products\AddBarcodeDialogViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\Products\AddCategoryDialogViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\Products\AddProductDialogViewModel.cs" />
@@ -197,6 +211,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -209,6 +227,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\DeliveryNotesListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\HomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -240,10 +262,13 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="FontAwesome.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>FontAwesome.cs</LastGenOutput>
     </Content>
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -253,6 +278,7 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
+    <None Include="log4net.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -265,11 +291,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\font-awesome.css" />
-    <Content Include="Content\font-awesome.min.css" />
-    <Content Include="fonts\fontawesome-webfont.svg" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

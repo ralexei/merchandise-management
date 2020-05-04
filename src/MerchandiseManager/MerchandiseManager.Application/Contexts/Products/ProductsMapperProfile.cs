@@ -11,7 +11,8 @@ namespace MerchandiseManager.Application.Contexts.Products
 	{
 		public ProductsMapperProfile()
 		{
-			CreateMap<AddNewProductCommand, Product>();
+			CreateMap<AddNewProductCommand, Product>()
+				.ForMember(m => m.BarCodes, opt => opt.Ignore());
 			CreateMap<EditProductCommand, Product>()
 				.ForMember(m => m.Id, opt => opt.Ignore())
 				.ForMember(m => m.BarCodes, opt => opt.Ignore());

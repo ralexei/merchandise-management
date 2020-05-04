@@ -2,6 +2,7 @@
 using MerchandiseManager.Administrator.WPF.Interfaces.Utils;
 using MerchandiseManager.Administrator.WPF.Models.ViewModels.Storage;
 using MerchandiseManager.Administrator.WPF.Utils;
+using MerchandiseManager.Administrator.WPF.ViewModels.Dialogs.Storages;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -17,14 +18,14 @@ namespace MerchandiseManager.Administrator.WPF.Services.ApiServices
 			this.apiConnector = apiConnector;
 		}
 
-		public async Task CreateStorageAsync(CreateStorageRequest request)
+		public async Task<Warehouse> CreateWarehouseAsync(AddStorageDialogViewModel request)
 		{
-			await apiConnector.PostAsync("storages", request);
+			return await apiConnector.PostAsync<Warehouse, AddStorageDialogViewModel>("storages", request);
 		}
 
-		public IEnumerable<Storage> GetStorages()
+		public async Task<IEnumerable<Warehouse>> GetWarehouses()
 		{
-			return apiConnector.GetAsync<IEnumerable<Storage>>("storages").Result;
+			return await apiConnector.GetAsync<IEnumerable<Warehouse>>("storages");
 		}
 	}
 }

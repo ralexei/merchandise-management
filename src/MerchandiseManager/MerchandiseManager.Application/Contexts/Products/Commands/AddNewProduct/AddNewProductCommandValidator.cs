@@ -14,10 +14,10 @@ namespace MerchandiseManager.Application.Contexts.Products.Commands.AddNewProduc
 	{
 		public AddNewProductCommandValidator(ICategoryPersistenceValidator categoryPersistence)
 		{
-			//RuleFor(r => r.CategoryId)
-			//	.NotNull()
-			//	.NotEqual(default(Guid))
-			//	.Must((m) => categoryPersistence.CategoryWithIdExists(m.Value));
+			RuleFor(r => r.CategoryId)
+				.NotNull()
+				.NotEqual(default(Guid))
+				.Must((m) => categoryPersistence.CategoryWithIdExists(m.Value));
 
 			RuleFor(r => r.ProductName)
 				.NotEmpty()

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "MerchandiseManager.LabelPrinterService": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

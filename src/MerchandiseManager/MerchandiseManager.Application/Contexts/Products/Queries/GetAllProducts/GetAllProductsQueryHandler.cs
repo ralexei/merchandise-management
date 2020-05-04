@@ -2,6 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using MerchandiseManager.Application.Contexts.Products.ViewModels;
+using MerchandiseManager.Application.Helpers.Extensions.Linq;
 using MerchandiseManager.Application.Helpers.Extensions.Queryable;
 using MerchandiseManager.Application.Interfaces.Persistence;
 using MerchandiseManager.Application.Models.Filtering;
@@ -27,25 +28,38 @@ namespace MerchandiseManager.Application.Contexts.Products.Queries.GetAllProduct
 
 		public async Task<FilteredResult<ProductViewModel>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
 		{
-			try
-			{
-				// @TODO to complete this use case:
-				// Add filtering + sorting
-				var totalCount = await db.Products.CountAsync();
-				var resultData = await db.Products
-					.AsNoTracking()
-					.Include(i => i.StorageProducts)
-					.Include(i => i.BarCodes)
-					.ProjectTo<ProductViewModel>(mapper.ConfigurationProvider)
-					.Paginate(request)
-					.ToListAsync();
+			// @TODO to complete this use case:
+			// Add filtering + sorting
+			var query = db.Products
+				.AsNoTracking()
+				.Include(i => i.StorageProducts)
+				.Include(i => i.BarCodes)
+				.ProjectTo<ProductViewModel>(mapper.ConfigurationProvider)
+				.AsQueryable();
 
-				return new FilteredResult<ProductViewModel>(resultData, totalCount, resultData.Count());
-			}
-			catch (Exception ex)
+			if (request.CategoryId != null)
 			{
-				throw;
+				var subCategories = db.Categories
+					.Include(i => i.Children)
+					.AsEnumerable()
+					.Where(w => w.Id == request.CategoryId)
+					.ToList()
+					.Flatten(f => f.Children)
+					.Select(s => s.Id);
+				query = query.Where(w => subCategories.Contains(w.CategoryId));
 			}
+
+			query = query
+				.OrderBy(o => o.ProductName)
+				.FilterContaing(request)
+				.FilterMinMax(request);
+
+			var filteredCount = await query.CountAsync();
+			var resultData = await query
+				.Paginate(request)
+				.ToListAsync();
+
+			return new FilteredResult<ProductViewModel>(resultData, filteredCount, resultData.Count);
 		}
 	}
 }

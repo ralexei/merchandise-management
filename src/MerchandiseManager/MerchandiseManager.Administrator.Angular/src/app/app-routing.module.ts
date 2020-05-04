@@ -13,14 +13,24 @@ export const AppModuleRouting: Routes = [
     loadChildren: () => import('./ui/products/products-page.module')
       .then(t => t.ProductsPageModule)
   },
-  // {
-  //   path: '404',
-  //   loadChildren: () => import('./modules/features/not-found/not-found.module')
-  //     .then(t => t.NotFoundModule)
-  // // },
-  // {
-  //   path: '**',
-  //   redirectTo: '404'
-  // }
+  {
+    path: 'auth',
+    loadChildren: () => import('./ui/auth/auth.module')
+      .then(t => t.AuthModule)
+  },
+  {
+    path: 'warehouses',
+    loadChildren: () => import('./ui/warehouses/warehouses.module')
+      .then(t => t.WarehousesModule)
+  },
+  {
+    path: '404',
+    loadChildren: () => import('./ui/not-found/not-found.module')
+      .then(t => t.NotFoundModule)
+  },
+  {
+    path: '**',
+    redirectTo: '404'
+  }
 ];
 

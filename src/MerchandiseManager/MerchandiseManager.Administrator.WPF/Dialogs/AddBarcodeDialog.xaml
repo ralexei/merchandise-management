@@ -15,14 +15,9 @@
 		</Grid.RowDefinitions>
 		<TextBox Grid.Row="0" Height="24" FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}" Text="{Binding RawBarcode}" Margin="0 0 0 8"/>
 		<DockPanel Grid.Row="1" >
-			<TextBlock HorizontalAlignment="Left">
-				<Hyperlink Command="{Binding GenerateBarcodeCommand}">
-					Сгенеровать
-				</Hyperlink>
-			</TextBlock>
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
 				<Button Content="Отмена" IsCancel="true" Margin="0 0 8 0"/>
-				<Button Content="Сохранить" Command="{Binding DialogSubmitCommand}"/>
+				<Button Content="Сохранить" IsDefault="True" Command="{Binding DialogSubmitCommand}"/>
 			</StackPanel>
 		</DockPanel>
 	</Grid>

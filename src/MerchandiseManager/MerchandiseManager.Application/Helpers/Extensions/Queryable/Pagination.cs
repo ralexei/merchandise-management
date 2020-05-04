@@ -1,8 +1,6 @@
 ﻿using MerchandiseManager.Application.Interfaces.Models.Filtering;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace MerchandiseManager.Application.Helpers.Extensions.Queryable
 {
@@ -12,11 +10,16 @@ namespace MerchandiseManager.Application.Helpers.Extensions.Queryable
 		{
 			try
 			{
-				if (request.Start.HasValue)
-					query = query.Skip(request.Start.Value);
+				if (request.Page.HasValue)
+				{
+					if (request.PageSize.HasValue)
+						query = query
+							.Skip(request.Page.Value * request.PageSize.Value);
+				}
 
-				if (request.Limit.HasValue)
-					query = query.Take(request.Limit.Value);
+				if (request.PageSize.HasValue)
+					query = query
+						.Take(request.PageSize.Value);
 
 				return query;
 			}
