@@ -4,7 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MerchandiseManager.Register.WPF.Pages"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
+	  Loaded="Page_Loaded"
       d:DesignHeight="600" d:DesignWidth="900"
       Title="MainPage" Background="#FFDDDDDD">
 
@@ -14,48 +15,102 @@
 			<ColumnDefinition Width="1*"></ColumnDefinition>
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
-			<RowDefinition></RowDefinition>
+			<RowDefinition Height="6*"></RowDefinition>
+			<RowDefinition Height="1*"></RowDefinition>
 		</Grid.RowDefinitions>
-		<Grid Grid.Column="0">
+		<Grid Grid.Column="0" Grid.RowSpan="2">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="6*"></RowDefinition>
 				<RowDefinition Height="1*"></RowDefinition>
 			</Grid.RowDefinitions>
-			<ListView Grid.Row="0" Margin="0, 0, 0, 16">
+			<ListView Grid.Row="0" Margin="0, 0, 0, 16" SelectionChanged="ListView_SelectionChanged">
 				<ListView.View>
 					<GridView>
 						<GridViewColumn Header="№" Width="40" DisplayMemberBinding="{Binding Name}" />
 						<GridViewColumn Header="Наименование" Width="300" DisplayMemberBinding="{Binding Age}" />
+						<GridViewColumn Header="Кол-во" Width="100" DisplayMemberBinding="{Binding Mail}" />
 						<GridViewColumn Header="Цена" Width="100" DisplayMemberBinding="{Binding Mail}" />
+						<GridViewColumn Header="Сумма" Width="100" DisplayMemberBinding="{Binding Mail}" />
 					</GridView>
 				</ListView.View>
 			</ListView>
-			<StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal" Grid.Row="1">
-				<!--<StackPanel Margin="5" Orientation="Vertical" HorizontalAlignment="Left">
-					<Label FontSize="28" Padding="0,0,0,0" HorizontalAlignment="Center">420</Label>
-					<Label HorizontalAlignment="Center" FontSize="18" Padding="0,0,5,5">Получено</Label>
+			<Grid Grid.Row="1">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"></RowDefinition>
+					<RowDefinition Height="*"></RowDefinition>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition></ColumnDefinition>
+					<ColumnDefinition></ColumnDefinition>
+					<ColumnDefinition></ColumnDefinition>
+					<ColumnDefinition></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+				<!-- Сумма -->
+				<Border Grid.Column="0" Grid.Row="0" Background="#FFFFAE00">
+					<Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"  Content="Сумма" Grid.Row="0" Grid.Column="3">
+					</Label>
+				</Border>
+				<Label Grid.Column="0" Grid.Row="1" FontSize="24" HorizontalAlignment="Center">
+					44234.3MDL
+				</Label>
+				<!-- Скидка -->
+				<Border Grid.Column="1" Grid.Row="0" Background="#FFFFAE00">
+					<Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"  Content="Скидка" Grid.Row="0" Grid.Column="3">
+					</Label>
+				</Border>
+				<StackPanel Grid.Row="1" Grid.Column="1">
+					<Label FontSize="18" HorizontalAlignment="Center">
+						44234.3 (50%)
+					</Label>
 				</StackPanel>
-				<Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Background="DarkGray" Width="2" />
-				<StackPanel Margin="5" Orientation="Vertical" MinWidth="100" HorizontalAlignment="Left">
-					<Label FontSize="28" Padding="0,0,0,0" HorizontalAlignment="Center">7.50</Label>
-					<Label HorizontalAlignment="Center" FontSize="18" Padding="0,0,5,5">Сдача</Label>
-				</StackPanel>
-				<Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Background="DarkGray" Width="2" />
-				<StackPanel Margin="5" Orientation="Vertical" HorizontalAlignment="Left">
-					<Label FontSize="28" Padding="0,0,0,0" HorizontalAlignment="Center">420</Label>
-					<Label HorizontalAlignment="Center" FontSize="18" Padding="0,0,5,5">Скидка 3%</Label>
-				</StackPanel>
-				<Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Background="DarkGray" Width="2" />-->
-				<Label FontSize="32" VerticalContentAlignment="Center">412.50 MDL</Label>
-				<Button MinWidth="120" Height="auto" Background="#2ecc71" BorderThickness="0,0,0,0">
-					<StackPanel Orientation="Vertical">
-						<Label FontSize="24">ИТОГ</Label>
-					</StackPanel>
-				</Button>
-			</StackPanel>
+				<!-- Итого -->
+				<Border Grid.Column="3"
+						Grid.Row="0"
+						Background="Green">
+					<Label Content="Итого"
+						   FontSize="24"
+						   HorizontalAlignment="Center"
+						   VerticalAlignment="Center"
+						   Grid.Row="0"
+						   Grid.Column="3">
+					</Label>
+				</Border>
+				<Label x:Name="LLL"
+					   Grid.Column="3"
+					   Grid.Row="1"
+					   FontSize="24"
+					   HorizontalAlignment="Center">
+					44234.3MDL
+				</Label>
+			</Grid>
 		</Grid>
 		<StackPanel Grid.Column="1" Margin="16, 0, 0, 0">
-			<Button MinHeight="40px">Скидки</Button>
+			<StackPanel.Resources>
+				<Style TargetType="{x:Type Button}">
+					<Setter Property="Margin" Value="10,10,0,0"/>
+				</Style>
+			</StackPanel.Resources>
+			<Button
+				Content="Склад"
+				MinHeight="40px"
+				FontSize="18"
+				Background="#FFAAAAAA">
+			</Button>
+			<Button
+				Content="Скидки"
+				MinHeight="40px"
+				FontSize="18"
+				Background="#FFAAAAAA">
+			</Button>
 		</StackPanel>
+		<Button
+			Content="Принять оплату"
+			FontSize="24"
+			VerticalAlignment="Stretch"
+			HorizontalAlignment="Stretch"
+			Grid.Column="1" Grid.Row="1"
+			Background="#FF64CF64"
+			Margin="16,0,0,0">
+		</Button>
 	</Grid>
 </Page>
