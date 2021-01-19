@@ -33,7 +33,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MerchandiseManager.PrinterS
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{EBF7E6BC-5C91-4554-81EA-D4B642F64B3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MerchandiseManager.LabelPrinterService", "MerchandiseManager.LabelPrinterService\MerchandiseManager.LabelPrinterService.csproj", "{33B32AD4-0479-4753-8475-5C526876D7F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MerchandiseManager.LabelPrinterService", "MerchandiseManager.LabelPrinterService\MerchandiseManager.LabelPrinterService.csproj", "{33B32AD4-0479-4753-8475-5C526876D7F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MerchandiseManager.Register.DAL", "MerchandiseManager.Register.DAL\MerchandiseManager.Register.DAL.csproj", "{6D27D6E1-62A3-4F80-912D-9FE542AA2899}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{33B32AD4-0479-4753-8475-5C526876D7F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33B32AD4-0479-4753-8475-5C526876D7F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33B32AD4-0479-4753-8475-5C526876D7F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D27D6E1-62A3-4F80-912D-9FE542AA2899}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D27D6E1-62A3-4F80-912D-9FE542AA2899}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D27D6E1-62A3-4F80-912D-9FE542AA2899}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D27D6E1-62A3-4F80-912D-9FE542AA2899}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -96,6 +102,7 @@ Global
 		{AFF122F9-695D-40B5-8C2E-49715DF72ED3} = {BDF0CAEE-B06B-4459-863C-57CF6D0A39E2}
 		{F00E2A86-42F7-41F1-B500-8027D070F3D5} = {82458205-B8C5-4D4A-8D15-FB16DE651CC6}
 		{33B32AD4-0479-4753-8475-5C526876D7F5} = {EBF7E6BC-5C91-4554-81EA-D4B642F64B3B}
+		{6D27D6E1-62A3-4F80-912D-9FE542AA2899} = {82458205-B8C5-4D4A-8D15-FB16DE651CC6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5EC2EFE2-53C1-4B3D-9108-D45064106538}

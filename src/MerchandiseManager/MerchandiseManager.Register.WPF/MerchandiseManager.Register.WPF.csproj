@@ -7,7 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Новая папка\" />
+    <Compile Remove="Pages\Новая папка\**" />
+    <EmbeddedResource Remove="Pages\Новая папка\**" />
+    <None Remove="Pages\Новая папка\**" />
+    <Page Remove="Pages\Новая папка\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.78" />
+    <PackageReference Include="DapperExtensions" Version="1.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MerchandiseManager.Register.DAL\MerchandiseManager.Register.DAL.csproj" />
   </ItemGroup>
 
 </Project>

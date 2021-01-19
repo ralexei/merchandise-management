@@ -1,7 +1,5 @@
 ﻿using MerchandiseManager.Core.Interfaces.Entity;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MerchandiseManager.Core.Entities
 {
