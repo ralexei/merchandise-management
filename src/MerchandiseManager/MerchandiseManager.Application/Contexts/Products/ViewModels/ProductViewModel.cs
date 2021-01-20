@@ -17,8 +17,8 @@ namespace MerchandiseManager.Application.Contexts.Products.ViewModels
 		public decimal? WholesaleSellPrice { get; private set; }
 		public decimal? BuyPrice { get; private set; }
 
-		public IEnumerable<string> Barcodes { get; private set; }
+		public IEnumerable<BarcodeViewModel> Barcodes { get; private set; }
 
-		public int TotalCount { get; private set; }
+		public int TotalAmount { get; private set; }
 	}
 }

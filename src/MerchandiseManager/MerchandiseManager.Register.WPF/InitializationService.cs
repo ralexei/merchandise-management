@@ -1,4 +1,5 @@
 ﻿using MerchandiseManager.Register.DAL.Repositories;
+using MerchandiseManager.Register.WPF.Services.Api;
 using System;
 using System.Configuration;
 
@@ -14,9 +15,12 @@ namespace MerchandiseManager.Register.WPF
 		public void InitializeDb()
 		{
 			var connectionString = ConfigurationManager.AppSettings["DbConnectionString"];
+			var apiUrl = ConfigurationManager.AppSettings["ApiUrl"];
 			var productsRepository = new ProductsRepository(connectionString);
+			var productsApiService = new ProductsApiService(apiUrl);
+			var allProducts = productsApiService.GetAllProducts();
 
-
+			productsRepository.Add(allProducts.Data);
 		}
 
 	}

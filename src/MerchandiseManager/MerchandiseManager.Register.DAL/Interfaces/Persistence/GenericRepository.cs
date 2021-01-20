@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using DapperExtensions;
+using Microsoft.CSharp.RuntimeBinder;
 using MerchandiseManager.Register.DAL.Entities;
 
 namespace MerchandiseManager.Register.DAL.Interfaces.Persistence
@@ -14,7 +15,7 @@ namespace MerchandiseManager.Register.DAL.Interfaces.Persistence
 			this.connectionString = connectionString;
 		}
 
-		public int Add<TKey>(T entity)
+		public TKey Add<TKey>(T entity)
 		{
 			using (var connection = new SqlConnection(connectionString))
 			{

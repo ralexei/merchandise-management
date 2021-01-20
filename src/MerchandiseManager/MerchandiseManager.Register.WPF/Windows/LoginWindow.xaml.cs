@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using MerchandiseManager.Register.WPF.Models.Request;
+using MerchandiseManager.Register.WPF.Services.Api;
+using System.Configuration;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace MerchandiseManager.Register.WPF.Windows
 {
@@ -24,13 +17,20 @@ namespace MerchandiseManager.Register.WPF.Windows
 
 		private void LoginButton_Click(object sender, RoutedEventArgs e)
 		{
-			var mainWindow = new MainWindow();
+			var authService = new AuthApiService(ConfigurationManager.AppSettings["ApiUrl"]);
+			if (authService.Authenticate(new LoginRequest { Username = UsernameField.Text, Password = PasswordField.Password }))
+			{
+				var mainWindow = new MainWindow();
 
-			Application.Current.MainWindow = mainWindow;
+				Application.Current.MainWindow = mainWindow;
 
-			Close(); //Close this window
 
-			mainWindow.Show();
+				InitializationService.Instance.InitializeDb();
+
+				Close(); //Close this window
+
+				mainWindow.Show();
+			}
 		}
 	}
 }

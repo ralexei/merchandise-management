@@ -18,7 +18,7 @@ namespace MerchandiseManager.Application.Contexts.Products
 				.ForMember(m => m.BarCodes, opt => opt.Ignore());
 
 			CreateMap<Product, ProductViewModel>()
-				.ForMember(m => m.TotalCount, opt => opt.MapFrom(src => src.StorageProducts.Sum(s => s.ProductsAmount)))
+				.ForMember(m => m.TotalAmount, opt => opt.MapFrom(src => src.StorageProducts.Sum(s => s.ProductsAmount)))
 				.ForMember(m => m.Barcodes, opt => opt.MapFrom(src => src.BarCodes.Select(s => s.RawCode)));
 		}
 	}

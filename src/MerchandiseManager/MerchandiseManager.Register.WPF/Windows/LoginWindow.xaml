@@ -9,9 +9,9 @@
 	<StackPanel Margin="16px" HorizontalAlignment="Center">
 		<Label FontSize="24" HorizontalContentAlignment="Center">Авторизация</Label>
 		<Label FontSize="14">Логин:</Label>
-		<TextBox Padding="3" Width="200" Height="25px"/>
+		<TextBox Padding="3" Width="200" Height="25px" x:Name="UsernameField"/>
 		<Label FontSize="14">Пароль:</Label>
-		<PasswordBox Padding="3" Width="200" Height="25px"/>
+		<PasswordBox Padding="3" Width="200" Height="25px" x:Name="PasswordField"/>
 		<Button Margin="0, 32, 0, 0" Height="30" Click="LoginButton_Click">Войти</Button>
 	</StackPanel>
 </Window>

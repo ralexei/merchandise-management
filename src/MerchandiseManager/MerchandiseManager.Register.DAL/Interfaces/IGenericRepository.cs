@@ -13,7 +13,7 @@ namespace MerchandiseManager.Register.DAL.Interfaces
         IEnumerable<T> GetAll();
         IEnumerable<T> GetAll(IFieldPredicate predicate);
 
-        int Add(T entity);
+        TKey Add<TKey>(T entity);
 
         void Add(IEnumerable<T> entities);
         void Update(T entity);

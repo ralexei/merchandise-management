@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Contexts\Products\Queries\GetAllProducts\NewFolder\" />
+    <Folder Include="Contexts\Barcodes\NewFolder\" />
     <Folder Include="Contexts\Stores\Queries\" />
   </ItemGroup>
 
