@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectorRef, OnDestroy, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Product, ProductsService, SnackBarService, CategoryFlat, FilteredResult, Category } from '@app/core';
+import { Product, ProductsService, SnackBarService, CategoryFlat, FilteredResult, Category, Barcode } from '@app/core';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CategoryService } from '@app/core/services/api/category.service';
 import { takeUntil } from 'rxjs/operators';
@@ -23,7 +23,7 @@ export class EditProductDialogComponent implements OnInit, OnDestroy {
   public filteredFlattenedCategories: CategoryFlat[];
   public flattenedCategories: FilteredResult<CategoryFlat>;
 
-  public barcodes: string[] = [];
+  public barcodes: Barcode[] = [];
 
   private ngDestroy$: Subject<void> = new Subject<void>();
 
@@ -80,7 +80,9 @@ export class EditProductDialogComponent implements OnInit, OnDestroy {
       .subscribe(
         (barcode: string) => {
           if (barcode) {
-            this.barcodes.push(barcode);
+            this.barcodes.push({
+              rawCode: barcode
+            } as Barcode);
           }
         }
       );
@@ -93,7 +95,7 @@ export class EditProductDialogComponent implements OnInit, OnDestroy {
     .subscribe(
       (data) => {
         if (data) {
-          const barcodeIndex = this.barcodes.indexOf(barcode);
+          const barcodeIndex = this.barcodes.findIndex(f => f.rawCode == barcode);
 
           if (barcodeIndex !== -1) {
             this.barcodes.splice(barcodeIndex, 1);

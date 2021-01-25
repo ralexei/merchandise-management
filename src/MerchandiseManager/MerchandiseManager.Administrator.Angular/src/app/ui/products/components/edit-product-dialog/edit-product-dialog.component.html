@@ -87,7 +87,7 @@
             <p>Штрихкоды:</p>
             <div fxLayout="row wrap" fxLayoutGap="8px grid">
               <mat-chip-list aria-label="Fish selection">
-                <mat-chip *ngFor="let barcode of barcodes" removable="true" (click)="viewBarcode(barcode)">{{ barcode }}</mat-chip>
+                <mat-chip *ngFor="let barcode of barcodes" removable="true" (click)="viewBarcode(barcode)">{{ barcode.rawCode }}</mat-chip>
                 <mat-chip (click)="addBarcode()" color="accent" selected>
                   <mat-icon>add</mat-icon>
                 </mat-chip>

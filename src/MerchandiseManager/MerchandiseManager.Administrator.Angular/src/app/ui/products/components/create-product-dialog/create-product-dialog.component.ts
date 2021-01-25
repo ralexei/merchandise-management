@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { FilteredResult, Category, SnackBarService, ProductsService, Product, PrintRequest, CategoryFlat } from '@app/core';
+import { FilteredResult, Category, SnackBarService, ProductsService, Product, PrintRequest, CategoryFlat, Barcode } from '@app/core';
 import { Observable, Subject } from 'rxjs';
 import { AddBarcodeDialogComponent } from '../add-barcode-dialog/add-barcode-dialog.component';
 import { PrintBarcodeDialogComponent } from '../print-barcode-dialog/print-barcode-dialog.component';
@@ -22,7 +22,7 @@ export class CreateProductDialogComponent implements OnInit, OnDestroy {
   public flattenedCategories: FilteredResult<CategoryFlat>;
 
   public createProductForm: FormGroup;
-  public barcodes: string[] = [];
+  public barcodes: Barcode[] = [];
 
   public loading = false;
   public isNewCategoryInputVisible = false;
@@ -91,7 +91,7 @@ export class CreateProductDialogComponent implements OnInit, OnDestroy {
       .subscribe(
         (barcode: string) => {
           if (barcode) {
-            this.barcodes.push(barcode);
+            this.barcodes.push({ rawCode: barcode } as Barcode);
           }
         }
       );
@@ -136,7 +136,7 @@ export class CreateProductDialogComponent implements OnInit, OnDestroy {
     .subscribe(
       (data) => {
         if (data) {
-          const barcodeIndex = this.barcodes.indexOf(barcode);
+          const barcodeIndex = this.barcodes.findIndex(f => f.rawCode == barcode);
 
           if (barcodeIndex !== -1) {
             this.barcodes.splice(barcodeIndex, 1);

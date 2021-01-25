@@ -1,7 +1,6 @@
 ﻿using MerchandiseManager.Application.Contexts.Barcodes.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace MerchandiseManager.Application.Contexts.Products.ViewModels
 {

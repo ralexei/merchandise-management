@@ -1,3 +1,5 @@
+import { Barcode } from './barcode.model';
+
 export class Product {
   public id: string;
   public productName: string;
@@ -8,5 +10,5 @@ export class Product {
   public wholesaleSellPrice?: number;
   public buyPrice?: number;
   public totalCount: number;
-  public barcodes: string[];
+  public barcodes: Barcode[];
 }
