@@ -28,8 +28,8 @@ namespace MerchandiseManager.Core.Entities
 		public void DecreaseQuantityOfGoods(int amount, bool throwOnWrongAmount = false)
 		{
 			//@TODO-UNHANDLED-EXCEPTION
-			if (throwOnWrongAmount && amount > ProductsAmount)
-				throw new ArgumentException($"Not enough products. Having: {ProductsAmount}. Trying to sell: {amount}");
+			//if (throwOnWrongAmount && amount > ProductsAmount)
+			//	throw new ArgumentException($"Not enough products. Having: {ProductsAmount}. Trying to sell: {amount}");
 
 			ProductsAmount -= amount;
 		}

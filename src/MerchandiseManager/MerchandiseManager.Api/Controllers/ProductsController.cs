@@ -30,9 +30,5 @@ namespace MerchandiseManager.Api.Controllers
 		[HttpGet]
 		public async Task<IActionResult> GetAll([FromQuery] GetAllProductsQuery request)
 			=> Ok(await Mediator.Send(request));
-
-		[HttpGet("{storageId}")]
-		public async Task<IActionResult> GetAllByStorageId([FromQuery]GetProductsByStorageIdQuery request)
-			=> Ok(await Mediator.Send(request));
 	}
 }

@@ -8,6 +8,7 @@ import { CategoriesTreeComponent } from './components/categories-tree/categories
 import { AddBarcodeDialogComponent } from './components/add-barcode-dialog/add-barcode-dialog.component';
 import { PrintBarcodeDialogComponent } from './components/print-barcode-dialog/print-barcode-dialog.component';
 import { EditProductDialogComponent } from './components/edit-product-dialog/edit-product-dialog.component';
+import { ReplenishDialogComponent } from './components/replenish-dialog/replenish-dialog.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { EditProductDialogComponent } from './components/edit-product-dialog/edi
     CategoriesTreeComponent,
     AddBarcodeDialogComponent,
     PrintBarcodeDialogComponent,
-    EditProductDialogComponent
+    EditProductDialogComponent,
+    ReplenishDialogComponent
   ],
   imports: [
     SharedModule,

@@ -14,6 +14,7 @@ import { ConfirmationDialogComponent } from '@app/shared/components/confirmation
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import { SignalRPrinterService } from '@app/core/services/signalr/signalr-printer.service';
 import { EditProductDialogComponent } from '../../components/edit-product-dialog/edit-product-dialog.component';
+import { ReplenishDialogComponent } from '../../components/replenish-dialog/replenish-dialog.component';
 
 @Component({
   selector: 'app-products-page',
@@ -43,8 +44,7 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
     'productName',
     'retailSellPrice',
     'wholesaleSellPrice',
-    'buyPrice',
-    'totalCount'
+    'buyPrice'
   ];
 
   constructor(
@@ -121,26 +121,39 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 
   public deleteProduct(id: string): void {
     this.dialog
-    .open(ConfirmationDialogComponent, { data: 'Вы уверены?' })
-    .afterClosed()
-    .subscribe(
-      (result) => {
-        if (result) {
-          this.loading = true;
-          this.productsService.delete(id)
-            .pipe(takeUntil(this.ngDestroy$))
-            .subscribe(
-              () => {
-                this.fetchProducts(0, this.paginator.pageSize);
-                this.snackbarService.openSuccess('Удалено');
-              },
-              (err) => {
-                this.snackbarService.openError('Не удалось удалить');
-              }
-            );
+      .open(ConfirmationDialogComponent, { data: 'Вы уверены?' })
+      .afterClosed()
+      .subscribe(
+        (result) => {
+          if (result) {
+            this.loading = true;
+            this.productsService.delete(id)
+              .pipe(takeUntil(this.ngDestroy$))
+              .subscribe(
+                () => {
+                  this.fetchProducts(0, this.paginator.pageSize);
+                  this.snackbarService.openSuccess('Удалено');
+                },
+                (err) => {
+                  this.snackbarService.openError('Не удалось удалить');
+                }
+              );
+          }
         }
-      }
-    );
+      );
+  }
+
+  public addToStorage(id: string): void {
+    this.dialog
+      .open(ReplenishDialogComponent,
+        {
+            minWidth: '300px',
+            maxWidth: '300px',
+            data: id
+            // height: '95%'
+        })
+      .afterClosed()
+      .subscribe();
   }
 
   public search(): void {

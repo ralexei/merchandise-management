@@ -45,6 +45,9 @@ namespace MerchandiseManager.Core.Entities
 				.Where(w => !existingProducts.Any(a => a.ProductId == w.Key))
 				.Select(s => new StorageProduct(s.Key, s.Value, Id));
 
+			foreach (var productToAdd in productsToAdd)
+				StorageProducts.Add(productToAdd);
+
 			return this;
 		}
 	}

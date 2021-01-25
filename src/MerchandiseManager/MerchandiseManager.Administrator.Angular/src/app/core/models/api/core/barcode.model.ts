@@ -1,4 +1,4 @@
-class Barcode {
+export class Barcode {
   id: string;
   rawCode: string;
   productId: string;

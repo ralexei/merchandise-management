@@ -34,7 +34,6 @@ namespace MerchandiseManager.Application.Contexts.Products.Queries.GetAllProduct
 				.AsNoTracking()
 				.Include(i => i.StorageProducts)
 				.Include(i => i.BarCodes)
-				.IgnoreQueryFilters()
 				.ProjectTo<ProductViewModel>(mapper.ConfigurationProvider)
 				.AsQueryable();
 

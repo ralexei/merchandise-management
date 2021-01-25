@@ -13,13 +13,13 @@ namespace MerchandiseManager.Application.Contexts.Products
 		{
 			CreateMap<AddNewProductCommand, Product>()
 				.ForMember(m => m.BarCodes, opt => opt.Ignore());
+
 			CreateMap<EditProductCommand, Product>()
 				.ForMember(m => m.Id, opt => opt.Ignore())
 				.ForMember(m => m.BarCodes, opt => opt.Ignore());
 
-			CreateMap<Product, ProductViewModel>()
-				.ForMember(m => m.TotalAmount, opt => opt.MapFrom(src => src.StorageProducts.Sum(s => s.ProductsAmount)))
-				.ForMember(m => m.Barcodes, opt => opt.MapFrom(src => src.BarCodes.Select(s => s.RawCode)));
+			CreateMap<Product, ProductViewModel>();
+			CreateMap<StorageProduct, StorageProductViewModel>();
 		}
 	}
 }

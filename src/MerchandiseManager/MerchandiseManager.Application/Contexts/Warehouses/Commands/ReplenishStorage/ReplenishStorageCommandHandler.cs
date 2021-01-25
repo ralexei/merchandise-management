@@ -21,13 +21,15 @@ namespace MerchandiseManager.Application.Contexts.Warehouses.Commands.ReplenishS
 		public async Task<Unit> Handle(ReplenishStorageCommand request, CancellationToken cancellationToken)
 		{
 			if (request.SourceStorageId != null)
-				ProcessSource(request.SourceStorageId, request.Products);
+				ProcessSource(request.SourceStorageId.Value, request.Products);
 
 			var destinationStorage = await db.Storages
+									.Include(i => i.StorageProducts)
 									.FirstOrDefaultAsync(f => f.Id == request.DestinationStorageId);
 
 			destinationStorage.Replenish(request.Products);
 
+			await db.SaveChangesAsync(cancellationToken);
 			return Unit.Value;
 		}
 

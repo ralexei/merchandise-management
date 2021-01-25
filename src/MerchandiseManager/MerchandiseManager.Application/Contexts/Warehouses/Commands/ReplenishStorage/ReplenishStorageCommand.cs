@@ -8,7 +8,7 @@ namespace MerchandiseManager.Application.Contexts.Warehouses.Commands.ReplenishS
 	public class ReplenishStorageCommand : IRequest<Unit>
 	{
 		public Guid DestinationStorageId { get; set; }
-		public Guid SourceStorageId { get; set; }
+		public Guid? SourceStorageId { get; set; }
 		public Dictionary<Guid, int> Products { get; set; }
 	}
 }

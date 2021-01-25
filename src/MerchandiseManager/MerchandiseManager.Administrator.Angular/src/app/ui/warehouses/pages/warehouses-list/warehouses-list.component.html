@@ -1,15 +1,19 @@
 <div fxLayout="row wrap" fxLayoutGap="16px grid">
-  <div>
-    <mat-card (click)="ping()" matRipple class="warehouse-card warehouse-clickable-card">
+  <div *ngIf="(storages$ | async) as storages; else spinner">
+    <mat-card *ngFor="let warehouse of storages" (click)="openStorageDetails(warehouse.id)" matRipple class="warehouse-card warehouse-clickable-card">
       <mat-card-header>
-        <mat-card-title>Гараж Чеканы</mat-card-title>
+        <mat-card-title>{{ warehouse.name }}</mat-card-title>
       </mat-card-header>
       <mat-card-content fxLayout="column" fxLayoutGap="8px" fxLayoutAlign="center start">
         <fa-icon [icon]="faWarehouse" size="10x"></fa-icon>
       </mat-card-content>
-      <mat-card-actions>
-        <button mat-button>Переименовать</button>
-      </mat-card-actions>
     </mat-card>
   </div>
+
+  <ng-template #spinner>
+    <div class="spinner">
+      <mat-progress-spinner color="accent" mode="indeterminate">
+      </mat-progress-spinner>
+    </div>
+  </ng-template>
 </div>

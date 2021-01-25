@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MerchandiseManager.Application.Contexts.Barcodes.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -19,6 +20,6 @@ namespace MerchandiseManager.Application.Contexts.Products.ViewModels
 
 		public IEnumerable<BarcodeViewModel> Barcodes { get; private set; }
 
-		public int TotalAmount { get; private set; }
+		//public int TotalAmount { get; private set; }
 	}
 }

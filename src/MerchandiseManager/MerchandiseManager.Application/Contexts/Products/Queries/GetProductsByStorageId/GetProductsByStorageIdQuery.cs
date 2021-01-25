@@ -7,7 +7,7 @@ using System;
 
 namespace MerchandiseManager.Application.Contexts.Products.Queries.GetProductsByStorageId
 {
-	public class GetProductsByStorageIdQuery : IPaginatable, IRequest<FilteredResult<ProductViewModel>>
+	public class GetProductsByStorageIdQuery : IPaginatable, IRequest<FilteredResult<StorageProductViewModel>>
 	{
 		[FromRoute]
 		public Guid? StorageId { get; set; }
@@ -15,5 +15,20 @@ namespace MerchandiseManager.Application.Contexts.Products.Queries.GetProductsBy
 		public int? Page { get; set; }
 
 		public int? PageSize { get; set; }
+
+		public Guid? CategoryId { get; set; }
+
+		#region Contains filters
+		public string ProductNameContains { get; set; }
+		#endregion
+
+		#region MinMaxFilters
+		public decimal? RetailSellPriceMin { get; set; }
+		public decimal? RetailSellPriceMax { get; set; }
+		public decimal? WholesaleSellPriceMin { get; set; }
+		public decimal? WholesaleSellPriceMax { get; set; }
+		public decimal? BuyPriceMin { get; set; }
+		public decimal? BuyPriceMax { get; set; }
+		#endregion
 	}
 }

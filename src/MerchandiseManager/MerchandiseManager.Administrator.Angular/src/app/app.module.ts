@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { AppModuleRouting } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { WarehouseDetailsComponent } from './ui/warehouses/pages/warehouse-details/warehouse-details.component';
 
 @NgModule({
   declarations: [

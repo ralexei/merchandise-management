@@ -26,7 +26,7 @@
       <table matSort mat-table [dataSource]="(products$ | async)?.data">
         <!-- Actions Column -->
         <ng-container matColumnDef="actions">
-          <th matSort mat-header-cell *matHeaderCellDef style="width: 100px;">
+          <th matSort mat-header-cell *matHeaderCellDef style="width: 150px;">
             <button mat-raised-button type="button" (click)="search()"><mat-icon>search</mat-icon>Поиск</button>
           </th>
           <td mat-cell *matCellDef="let product">
@@ -39,6 +39,10 @@
             <!-- Delete product -->
             <button mat-icon-button (click)="deleteProduct(product.id)">
               <mat-icon>delete</mat-icon>
+            </button>
+
+            <button mat-icon-button (click)="addToStorage(product.id)">
+              <mat-icon>add</mat-icon>
             </button>
           </td>
         </ng-container>
@@ -118,15 +122,6 @@
             </div>
           </th>
           <td mat-cell *matCellDef="let element">{{element.buyPrice != null ? element.buyPrice + ' MDL' : '-'}}</td>
-        </ng-container>
-
-        <!--  -->
-        <ng-container matColumnDef="totalCount">
-          <th mat-header-cell *matHeaderCellDef>
-            <p mat-sort-header>Количество</p>
-          </th>
-          <td mat-cell *matCellDef="let element">{{element.totalCount != null ? element.totalCount : '-'}}
-          </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
