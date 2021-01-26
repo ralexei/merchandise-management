@@ -3,26 +3,26 @@ using System;
 
 namespace MerchandiseManager.Core.Entities
 {
-	public class UserWarehouse : BaseEntity
+	public class UserStorage : BaseEntity
 	{
 		public Guid UserId { get; set; }
 		public User User { get; set; }
 
-		public Guid WarehouseId { get; set; }
-		public Warehouse Warehouse { get; set; }
+		public Guid StorageId { get; set; }
+		public Storage Storage { get; set; }
 
-		protected UserWarehouse(){}
+		protected UserStorage(){}
 
-		public UserWarehouse(Guid userId, Guid warehouseId)
+		public UserStorage(Guid userId, Guid storageId)
 		{
 			UserId = userId;
-			WarehouseId = warehouseId;
+			StorageId = storageId;
 		}
 
-		public UserWarehouse(Guid userId, Warehouse warehouse)
+		public UserStorage(Guid userId, Storage storage)
 		{
 			UserId = userId;
-			Warehouse = warehouse;
+			Storage = storage;
 		}
 	}
 }

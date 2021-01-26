@@ -1,0 +1,19 @@
+<h4 mat-dialog-title>Добавить штрихкод</h4>
+<form fxLayout="column" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <mat-label>Наименование</mat-label>
+    <input matInput type="text" formControlName="name"/>
+    <mat-error *ngIf="formGroup.get('name').hasError('required')">
+      Введите наименование
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Описание (опционально)</mat-label>
+    <input matInput type="text" formControlName="description" />
+  </mat-form-field>
+  <div mat-dialog-actions>
+    <button mat-button type="button" (click)="cancel()">Отмена</button>
+    <button mat-button color="accent">Сохранить</button>
+  </div>
+</form>

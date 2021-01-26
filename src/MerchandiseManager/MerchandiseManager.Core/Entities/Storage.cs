@@ -1,4 +1,5 @@
-﻿using MerchandiseManager.Core.Interfaces.Entity;
+﻿using MerchandiseManager.Core.Enums;
+using MerchandiseManager.Core.Interfaces.Entity;
 using MerchandiseManager.Utility.Extensions;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,11 @@ namespace MerchandiseManager.Core.Entities
 		public string Name { get; private set; }
 		public string Description { get; private set; }
 
+		public StorageTypes StorageType { get; private set; }
+
 		#region Navigation properties
 		public ICollection<StorageProduct> StorageProducts { get; private set; } = new List<StorageProduct>();
-		public ICollection<UserWarehouse> UserWarehouses { get; private set; } = new List<UserWarehouse>();
+		public ICollection<UserStorage> UserStorages { get; private set; } = new List<UserStorage>();
 		#endregion
 
 		protected Storage() { }

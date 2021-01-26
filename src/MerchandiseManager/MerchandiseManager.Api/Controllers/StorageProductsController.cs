@@ -1,4 +1,5 @@
 ﻿using MerchandiseManager.Application.Contexts.Products.Queries.GetProductsByStorageId;
+using MerchandiseManager.Application.Contexts.StorageProducts.Commands.DeleteStorageProduct;
 using MerchandiseManager.Application.Contexts.Warehouses.Commands.ReplenishStorage;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,17 +9,23 @@ using System.Threading.Tasks;
 
 namespace MerchandiseManager.Api.Controllers
 {
-	[Route("api/storage-products")]
+	[Route("api/storages/{storageId}/products")]
 	public class StorageProductsController : BaseController
 	{
-		[HttpGet("{storageId}")]
+		[HttpGet]
 		public async Task<IActionResult> GetAllByStorageId([FromQuery] GetProductsByStorageIdQuery request)
 			=> Ok(await Mediator.Send(request));
 
 		[HttpPost]
-		public async Task<IActionResult> Replenish([FromBody] ReplenishStorageCommand request)
-			=> Ok(await Mediator.Send(request));
+		public async Task<IActionResult> Replenish([FromRoute]Guid storageId, [FromBody] ReplenishStorageCommand request)
+		{
+			request.StorageId = storageId;
+			return Ok(await Mediator.Send(request));
+		}
 
-		//public async
+
+		[HttpDelete("{productId}")]
+		public async Task<IActionResult> Delete([FromRoute] DeleteStorageProductCommand request)
+			=> Ok(await Mediator.Send(request));
 	}
 }

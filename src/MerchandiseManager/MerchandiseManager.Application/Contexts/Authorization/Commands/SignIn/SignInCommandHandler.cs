@@ -31,7 +31,7 @@ namespace MerchandiseManager.Application.Contexts.Authorization.Commands.SignIn
 
 			var jwt = jwtHandler.GenerateJwt(user, request.StoreId);
 
-			user.RecordLoginAction();
+			//user.RecordLoginAction();
 
 			await db.SaveChangesAsync(cancellationToken);
 

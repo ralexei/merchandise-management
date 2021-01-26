@@ -30,9 +30,8 @@ namespace MerchandiseManager.Application.Contexts.Warehouses.Queries.GetUserWare
 		public async Task<IEnumerable<WarehouseViewModel>> Handle(GetUserWarehousesQuery request, CancellationToken cancellationToken)
 		{
 			var storages = await context
-				.UserWarehouses
-				.Where(w => w.UserId == currentUser.Id)
-				.Select(s => s.Warehouse)
+				.Warehouses
+				.Where(w => w.UserStorages.Any(a => a.UserId == currentUser.Id))
 				.AsNoTracking()
 				.ToListAsync();
 

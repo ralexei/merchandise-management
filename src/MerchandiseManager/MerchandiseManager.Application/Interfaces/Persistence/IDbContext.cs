@@ -22,7 +22,7 @@ namespace MerchandiseManager.Application.Interfaces.Persistence
 		DbSet<Storage> Storages { get; }
 		DbSet<Store> Stores { get; }
 		DbSet<Warehouse> Warehouses { get; }
-		DbSet<UserWarehouse> UserWarehouses { get; }
+		DbSet<UserStorage> UserStorages { get; }
 		DbSet<StorageProduct> StorageProducts { get; }
 		DbSet<BarCode> Barcodes { get; }
 

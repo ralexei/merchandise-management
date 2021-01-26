@@ -27,7 +27,7 @@ namespace MerchandiseManager.Application.Contexts.Warehouses.Commands.AddNewStor
 			var newStorage = mapper.Map<Warehouse>(request);
 
 			await db.Warehouses.AddAsync(newStorage);
-			await db.UserWarehouses.AddAsync(new UserWarehouse(currentUser.Id, newStorage));
+			await db.UserStorages.AddAsync(new UserStorage(currentUser.Id, newStorage));
 
 			await db.SaveChangesAsync(cancellationToken);
 

@@ -29,14 +29,13 @@ namespace MerchandiseManager.Application.Contexts.Stores.Queries.GetUserStores
 
 		public async Task<IEnumerable<StoreViewModel>> Handle(GetUserStoresQuery request, CancellationToken cancellationToken)
 		{
-			var storages = await context
-				.UserWarehouses
-				.Where(w => w.UserId == currentUser.Id)
-				.Select(s => s.Warehouse)
+			var stores = await context
+				.Stores
 				.AsNoTracking()
+				.Where(w => w.UserStorages.Any(a => a.UserId == currentUser.Id))
 				.ToListAsync();
 
-			return mapper.Map<List<StoreViewModel>>(storages);
+			return mapper.Map<List<StoreViewModel>>(stores);
 		}
 	}
 }

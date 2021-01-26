@@ -143,13 +143,13 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
       );
   }
 
-  public addToStorage(id: string): void {
+  public addToStorage(product: Product): void {
     this.dialog
       .open(ReplenishDialogComponent,
         {
             minWidth: '300px',
             maxWidth: '300px',
-            data: id
+            data: product
             // height: '95%'
         })
       .afterClosed()

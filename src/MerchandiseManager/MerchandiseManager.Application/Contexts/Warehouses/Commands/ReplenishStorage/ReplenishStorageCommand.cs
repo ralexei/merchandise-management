@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,8 +8,7 @@ namespace MerchandiseManager.Application.Contexts.Warehouses.Commands.ReplenishS
 {
 	public class ReplenishStorageCommand : IRequest<Unit>
 	{
-		public Guid DestinationStorageId { get; set; }
-		public Guid? SourceStorageId { get; set; }
+		public Guid StorageId { get; set; }
 		public Dictionary<Guid, int> Products { get; set; }
 	}
 }

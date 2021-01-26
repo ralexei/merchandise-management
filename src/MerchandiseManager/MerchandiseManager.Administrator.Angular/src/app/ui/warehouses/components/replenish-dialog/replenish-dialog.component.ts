@@ -16,8 +16,7 @@ export class ReplenishDialogComponent implements OnInit {
   public destinationStorageIdControl: FormControl = new FormControl('');
 
   constructor(
-    private storagesService: StoragesService,
-    private storageProductsService: StorageProductsService) { }
+    private storagesService: StoragesService) { }
 
   ngOnInit(): void {
     this.storages$ = this.storagesService.getAll();

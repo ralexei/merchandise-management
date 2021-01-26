@@ -13,6 +13,8 @@
     <Compile Remove="Migrations\20200222154301_test.Designer.cs" />
     <Compile Remove="Migrations\20200223175532_GlobalFilterForProducts.cs" />
     <Compile Remove="Migrations\20200223175532_GlobalFilterForProducts.Designer.cs" />
+    <Compile Remove="Migrations\20210126155117_ModifiedDiscriminatorForStorages.cs" />
+    <Compile Remove="Migrations\20210126155117_ModifiedDiscriminatorForStorages.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

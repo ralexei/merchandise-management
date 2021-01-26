@@ -1,22 +1,18 @@
 import { NgModule } from '@angular/core';
-import { WarehousesListComponent } from './pages/warehouses-list/warehouses-list.component';
 import { RouterModule } from '@angular/router';
-import { WarehousesModuleRoutes } from './warehouses.routes';
 import { SharedModule } from '@app/shared/shared.module';
-import { WarehouseDetailsComponent } from './pages/warehouse-details/warehouse-details.component';
-import { ReplenishDialogComponent } from './components/replenish-dialog/replenish-dialog.component';
-
-
+import { StoresListComponent } from './pages/stores-list/stores-list.component';
+import { StoresModuleRoutes } from './stores.routes';
+import { StoreDetailsComponent } from './pages/store-details/store-details.component';
 
 @NgModule({
   declarations: [
-    WarehousesListComponent,
-    WarehouseDetailsComponent,
-    ReplenishDialogComponent
+    StoresListComponent,
+    StoreDetailsComponent
   ],
   imports: [
     SharedModule,
-    RouterModule.forChild(WarehousesModuleRoutes)
+    RouterModule.forChild(StoresModuleRoutes)
   ]
 })
-export class WarehousesModule { }
+export class StoresModule { }

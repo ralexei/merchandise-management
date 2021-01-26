@@ -15,7 +15,6 @@ namespace MerchandiseManager.Application.Contexts.Warehouses.Commands.AddNewStor
 				.MaximumLength(StorageConstants.MaxStorageNameLength);
 
 			RuleFor(r => r.Description)
-				.NotEmpty()
 				.MaximumLength(StorageConstants.MaxStorageDescriptionLength);
 		}
 	}

@@ -24,6 +24,11 @@ export const AppModuleRouting: Routes = [
       .then(t => t.WarehousesModule)
   },
   {
+    path: 'stores',
+    loadChildren: () => import('./ui/stores/stores.module')
+      .then(t => t.StoresModule)
+  },
+  {
     path: '404',
     loadChildren: () => import('./ui/not-found/not-found.module')
       .then(t => t.NotFoundModule)

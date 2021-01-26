@@ -8,9 +8,9 @@ using System.Text;
 
 namespace MerchandiseManager.Application.Contexts.Warehouses
 {
-	public class StorageMapperProfile : Profile
+	public class WarehouseMapperProfile : Profile
 	{
-		public StorageMapperProfile()
+		public WarehouseMapperProfile()
 		{
 			CreateMap<AddNewWarehouseCommand, Warehouse>();
 			CreateMap<Warehouse, WarehouseViewModel>();

@@ -1,11 +1,9 @@
-﻿using System;
+﻿using MerchandiseManager.Application.Contexts.Storages.ViewModels;
+using System;
 
 namespace MerchandiseManager.Application.Contexts.Warehouses.ViewModels
 {
-	public class WarehouseViewModel
+	public class WarehouseViewModel : StorageViewModel
 	{
-		public Guid Id { get; set; }
-		public string Name { get; set; }
-		public string Description { get; set; }
 	}
 }

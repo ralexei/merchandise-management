@@ -10,9 +10,12 @@ namespace MerchandiseManager.Application.Contexts.Stores.Commands.AddNewStore
 	{
 		public AddNewStoreCommandValidator()
 		{
-			RuleFor(r => r.StoreName)
+			RuleFor(r => r.Name)
 				.NotEmpty()
 				.MaximumLength(StorageConstants.MaxStorageNameLength);
+
+			RuleFor(r => r.Description)
+				.MaximumLength(StorageConstants.MaxStorageDescriptionLength);
 		}
 	}
 }

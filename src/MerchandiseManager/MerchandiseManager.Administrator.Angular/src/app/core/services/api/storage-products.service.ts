@@ -22,11 +22,11 @@ export class StorageProductsService {
       }
     });
 
-    return this.apiService.get<FilteredResult<StorageProduct>>(`/api/storage-products/${storageId}`, { params: httpParams });
+    return this.apiService.get<FilteredResult<StorageProduct>>(`/api/storages/${storageId}/products`, { params: httpParams });
   }
 
   public delete(storageId: string, productId: string) {
-    return this.apiService.delete<void>(`/api/storage-products/${storageId}/${productId}`);
+    return this.apiService.delete<void>(`/api/storages/${storageId}/products/${productId}`);
   }
 
 
@@ -35,9 +35,8 @@ export class StorageProductsService {
 
     dict[productId] = amount;
 
-    return this.apiService.post<void>('/api/storage-products', {
-      products: dict,
-      destinationStorageId: storageId
+    return this.apiService.post<void>(`/api/storages/${storageId}/products`, {
+      products: dict
     });
   }
 }

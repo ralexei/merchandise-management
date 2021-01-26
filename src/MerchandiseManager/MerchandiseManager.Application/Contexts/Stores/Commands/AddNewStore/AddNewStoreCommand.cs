@@ -7,6 +7,7 @@ namespace MerchandiseManager.Application.Contexts.Stores.Commands.AddNewStore
 {
 	public class AddNewStoreCommand : IRequest<Unit>
 	{
-		public string StoreName { get; set; }
+		public string Name { get; set; }
+		public string Description { get; set; }
 	}
 }
