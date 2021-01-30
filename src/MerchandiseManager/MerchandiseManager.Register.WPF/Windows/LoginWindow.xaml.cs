@@ -24,7 +24,6 @@ namespace MerchandiseManager.Register.WPF.Windows
 
 				Application.Current.MainWindow = mainWindow;
 
-
 				InitializationService.Instance.InitializeDb();
 
 				Close(); //Close this window

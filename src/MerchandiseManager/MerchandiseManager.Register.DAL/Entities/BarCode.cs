@@ -8,6 +8,6 @@ namespace MerchandiseManager.Register.WPF.Persistence.Entities
 		public string RawCode { get; set; }
 
 		public Guid ProductId { get; set; }
-		public Product Product { get; set; }
+		//public Product Product { get; set; }
 	}
 }

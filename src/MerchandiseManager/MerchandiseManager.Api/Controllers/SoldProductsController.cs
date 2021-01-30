@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 namespace MerchandiseManager.Api.Controllers
 {
+	[Route("api/sold-products")]
 	public class SoldProductsController : BaseController
 	{
 		[HttpGet]

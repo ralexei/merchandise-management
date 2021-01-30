@@ -6,5 +6,6 @@ namespace MerchandiseManager.Register.WPF.Interfaces.Persistence
 {
 	public interface IProductsRepository : IGenericRepository<Product>
 	{
+		Product GetByBarcode(string barcode);
 	}
 }

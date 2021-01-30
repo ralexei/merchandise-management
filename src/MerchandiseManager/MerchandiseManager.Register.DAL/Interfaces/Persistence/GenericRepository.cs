@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Data.SqlClient;
+﻿using System;
+using System.Collections.Generic;
 using DapperExtensions;
-using Microsoft.CSharp.RuntimeBinder;
 using MerchandiseManager.Register.DAL.Entities;
+using Microsoft.Data.Sqlite;
 
 namespace MerchandiseManager.Register.DAL.Interfaces.Persistence
 {
 	public abstract class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
 	{
-		private readonly string connectionString;
+		protected readonly string connectionString;
 
 		public GenericRepository(string connectionString)
 		{
@@ -17,7 +17,7 @@ namespace MerchandiseManager.Register.DAL.Interfaces.Persistence
 
 		public TKey Add<TKey>(T entity)
 		{
-			using (var connection = new SqlConnection(connectionString))
+			using (var connection = new SqliteConnection(connectionString))
 			{
 				connection.Open();
 
@@ -30,17 +30,24 @@ namespace MerchandiseManager.Register.DAL.Interfaces.Persistence
 
 		public void Add(IEnumerable<T> entities)
 		{
-			using (var connection = new SqlConnection(connectionString))
+			using (var connection = new SqliteConnection(connectionString))
 			{
-				connection.Open();
-				connection.Insert(entities);
-				connection.Close();
+				try
+				{
+					connection.Open();
+					connection.Insert(entities);
+					connection.Close();
+				}
+				catch (Exception)
+				{
+					connection.Close();
+				}
 			}
 		}
 
 		public void Delete<TKey>(TKey id)
 		{
-			using (var connection = new SqlConnection(connectionString))
+			using (var connection = new SqliteConnection(connectionString))
 			{
 				connection.Open();
 				
@@ -57,7 +64,7 @@ namespace MerchandiseManager.Register.DAL.Interfaces.Persistence
 
 		public T Get<TKey>(TKey id)
 		{
-			using (var connection = new SqlConnection(connectionString))
+			using (var connection = new SqliteConnection(connectionString))
 			{
 				connection.Open();
 
@@ -71,7 +78,7 @@ namespace MerchandiseManager.Register.DAL.Interfaces.Persistence
 
 		public IEnumerable<T> GetAll()
 		{
-			using (var connection = new SqlConnection(connectionString))
+			using (var connection = new SqliteConnection(connectionString))
 			{
 				connection.Open();
 
@@ -85,7 +92,7 @@ namespace MerchandiseManager.Register.DAL.Interfaces.Persistence
 
 		public IEnumerable<T> GetAll(IFieldPredicate predicate)
 		{
-			using (var connection = new SqlConnection(connectionString))
+			using (var connection = new SqliteConnection(connectionString))
 			{
 				connection.Open();
 				

@@ -16,13 +16,15 @@ namespace MerchandiseManager.Core.Entities
 
 		public static SoldCart SellCartWithProducts(decimal receivedSum, decimal change, IEnumerable<SoldProduct> soldProducts)
 		{
-			return new SoldCart
+			var sc =  new SoldCart
 			{
 				SoldProducts = soldProducts.ToList(),
 				ReceivedSum = receivedSum,
-				TotalPrice = soldProducts.Sum(s => s.SellPrice),
+				TotalPrice = soldProducts.Sum(s => s.SellPrice * s.SoldAmount),
 				Change = change
 			};
+
+			return sc;
 		}
 	}
 }

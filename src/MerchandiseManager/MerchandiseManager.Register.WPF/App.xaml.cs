@@ -1,4 +1,5 @@
-﻿using MerchandiseManager.Register.WPF.Windows;
+﻿using MerchandiseManager.Register.WPF.Utils;
+using MerchandiseManager.Register.WPF.Windows;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,6 +15,7 @@ namespace MerchandiseManager.Register.WPF
 	/// </summary>
 	public partial class App : Application
 	{
+
 		private void ApplicationStart(object sender, StartupEventArgs e)
 		{
 			Window login = new LoginWindow();

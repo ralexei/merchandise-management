@@ -12,20 +12,23 @@ namespace MerchandiseManager.Core.Entities
 
 		public string BuyPriceCurrency { get; private set; }
 
+		public int SoldAmount { get; private set; }
+
 		public Product Product { get; private set; }
 		public Guid ProductId { get; private set; }
 
 		public User Seller { get; private set; }
 		public Guid SellerId { get; private set; }
 
-		public static SoldProduct SellProduct(Product product, Guid sellerId, bool isWholesale = false)
+		public static SoldProduct SellProduct(Product product, Guid sellerId, int amount, bool isWholesale = false)
 		{
 			return new SoldProduct
 			{
-				BuyPrice = product.BuyPrice.Value,
+				BuyPrice = product.BuyPrice.GetValueOrDefault(),
 				BuyPriceCurrency = "MDL", //@TODO-HARDCODE
 				ProductId = product.Id,
 				SellerId = sellerId,
+				SoldAmount = amount,
 				SellPrice = GetProductSellPrice(product, isWholesale)
 			};
 		}

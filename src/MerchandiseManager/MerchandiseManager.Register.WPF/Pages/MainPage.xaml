@@ -23,14 +23,20 @@
 				<RowDefinition Height="6*"></RowDefinition>
 				<RowDefinition Height="1*"></RowDefinition>
 			</Grid.RowDefinitions>
-			<ListView Grid.Row="0" Margin="0, 0, 0, 16" SelectionChanged="ListView_SelectionChanged">
+			<ListView Grid.Row="0" Margin="0, 0, 0, 16" SelectionChanged="ListView_SelectionChanged" x:Name="CartProductsList">
 				<ListView.View>
 					<GridView>
-						<GridViewColumn Header="№" Width="40" DisplayMemberBinding="{Binding Name}" />
-						<GridViewColumn Header="Наименование" Width="300" DisplayMemberBinding="{Binding Age}" />
-						<GridViewColumn Header="Кол-во" Width="100" DisplayMemberBinding="{Binding Mail}" />
-						<GridViewColumn Header="Цена" Width="100" DisplayMemberBinding="{Binding Mail}" />
-						<GridViewColumn Header="Сумма" Width="100" DisplayMemberBinding="{Binding Mail}" />
+						<GridViewColumn Header="Наименование" Width="200" DisplayMemberBinding="{Binding ProductName}" />
+						<GridViewColumn Header="Кол-во" Width="100" DisplayMemberBinding="{Binding Amount}" />
+						<GridViewColumn Header="Цена" Width="100" DisplayMemberBinding="{Binding RetailSellPrice}" />
+						<GridViewColumn Header="Сумма" Width="100" DisplayMemberBinding="{Binding Sum}" />
+						<GridViewColumn Header="" Width="100">
+							<GridViewColumn.CellTemplate>
+								<DataTemplate>
+									<Button x:Name="DeleteFromListButton" Content="Удалить" Click="DeleteProductFromCart"/>
+								</DataTemplate>
+							</GridViewColumn.CellTemplate>
+						</GridViewColumn>
 					</GridView>
 				</ListView.View>
 			</ListView>
@@ -50,8 +56,7 @@
 					<Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"  Content="Сумма" Grid.Row="0" Grid.Column="3">
 					</Label>
 				</Border>
-				<Label Grid.Column="0" Grid.Row="1" FontSize="24" HorizontalAlignment="Center">
-					44234.3MDL
+				<Label Grid.Column="0" Grid.Row="1" FontSize="24" HorizontalAlignment="Center" x:Name="Sum">
 				</Label>
 				<!-- Скидка -->
 				<Border Grid.Column="1" Grid.Row="0" Background="#FFFFAE00">
@@ -60,7 +65,7 @@
 				</Border>
 				<StackPanel Grid.Row="1" Grid.Column="1">
 					<Label FontSize="18" HorizontalAlignment="Center">
-						44234.3 (50%)
+						0 (0%)
 					</Label>
 				</StackPanel>
 				<!-- Итого -->
@@ -75,12 +80,11 @@
 						   Grid.Column="3">
 					</Label>
 				</Border>
-				<Label x:Name="LLL"
+				<Label x:Name="TotalToPay"
 					   Grid.Column="3"
 					   Grid.Row="1"
 					   FontSize="24"
 					   HorizontalAlignment="Center">
-					44234.3MDL
 				</Label>
 			</Grid>
 		</Grid>
@@ -105,12 +109,13 @@
 		</StackPanel>
 		<Button
 			Content="Принять оплату"
+			x:Name="SubmitButton"
 			FontSize="24"
 			VerticalAlignment="Stretch"
 			HorizontalAlignment="Stretch"
 			Grid.Column="1" Grid.Row="1"
 			Background="#FF64CF64"
-			Margin="16,0,0,0">
+			Margin="16,0,0,0" Click="Button_Click_1">
 		</Button>
 	</Grid>
 </Page>

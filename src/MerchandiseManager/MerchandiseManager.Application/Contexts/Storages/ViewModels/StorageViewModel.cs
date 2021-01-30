@@ -10,7 +10,7 @@ namespace MerchandiseManager.Application.Contexts.Storages.ViewModels
 		public Guid Id { get; set; }
 		public string Name { get; set; }
 		public string Description { get; set; }
-		[JsonConverter( StringEnumConverter)]
+		[JsonConverter(typeof(StringEnumConverter))]
 		public StorageTypes StorageType { get; set; }
 	}
 }
