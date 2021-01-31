@@ -17,10 +17,13 @@ namespace MerchandiseManager.Core.Entities
 		public Product Product { get; private set; }
 		public Guid ProductId { get; private set; }
 
+		public Store Store { get; private set; }
+		public Guid StoreId { get; private set; }
+
 		public User Seller { get; private set; }
 		public Guid SellerId { get; private set; }
 
-		public static SoldProduct SellProduct(Product product, Guid sellerId, int amount, bool isWholesale = false)
+		public static SoldProduct SellProduct(Product product, Guid sellerId, Guid storeId, int amount, bool isWholesale = false)
 		{
 			return new SoldProduct
 			{
@@ -29,6 +32,7 @@ namespace MerchandiseManager.Core.Entities
 				ProductId = product.Id,
 				SellerId = sellerId,
 				SoldAmount = amount,
+				StoreId = storeId,
 				SellPrice = GetProductSellPrice(product, isWholesale)
 			};
 		}

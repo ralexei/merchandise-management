@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace MerchandiseManager.Application.Contexts.Warehouses.Commands.ReplenishStorage
 {
-	public class ReplenishStorageCommandValidator : AbstractValidator<ReplenishStorageCommand>
+	public class ReplenishWarehouseCommandValidator : AbstractValidator<ReplenishWarehouseCommand>
 	{
-		public ReplenishStorageCommandValidator()
+		public ReplenishWarehouseCommandValidator()
 		{
 			RuleFor(r => r.Products)
 				.NotEmpty()

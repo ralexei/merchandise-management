@@ -1,0 +1,107 @@
+﻿<UserControl x:Class="MerchandiseManager.Register.WPF.Pages.PageControls.RegisterPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MerchandiseManager.Register.WPF.Pages.PageControls"
+             mc:Ignorable="d">
+	<Grid Margin="16">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="3*"></ColumnDefinition>
+			<ColumnDefinition Width="1*"></ColumnDefinition>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="6*"></RowDefinition>
+			<RowDefinition Height="1*"></RowDefinition>
+		</Grid.RowDefinitions>
+		<Grid Grid.Column="0" Grid.RowSpan="2">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="2*"></RowDefinition>
+				<RowDefinition Height="17*"></RowDefinition>
+				<RowDefinition Height="4*"></RowDefinition>
+			</Grid.RowDefinitions>
+			<StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+				<Button
+					Content="Очистить"
+					Width="200"
+					Height="40"
+					Background="#FFAAAAAA"
+					Click="ClearCart" Focusable="False"></Button>
+			</StackPanel>
+			<ListView Grid.Row="1" Margin="0, 0, 0, 16" x:Name="CartProductsList">
+				<ListView.View>
+					<GridView>
+						<GridViewColumn Header="Наименование" Width="200" DisplayMemberBinding="{Binding ProductName}" />
+						<GridViewColumn Header="Кол-во" Width="100" DisplayMemberBinding="{Binding Amount}" />
+						<GridViewColumn Header="Цена" Width="100" DisplayMemberBinding="{Binding RetailSellPrice}" />
+						<GridViewColumn Header="Сумма" Width="100" DisplayMemberBinding="{Binding Sum}" />
+						<GridViewColumn Header="" Width="100">
+							<GridViewColumn.CellTemplate>
+								<DataTemplate>
+									<Button x:Name="DeleteFromListButton" Content="Удалить" Click="DeleteProductFromCart"/>
+								</DataTemplate>
+							</GridViewColumn.CellTemplate>
+						</GridViewColumn>
+					</GridView>
+				</ListView.View>
+			</ListView>
+			<Grid Grid.Row="2">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"></RowDefinition>
+					<RowDefinition Height="*"></RowDefinition>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition></ColumnDefinition>
+					<ColumnDefinition></ColumnDefinition>
+					<ColumnDefinition></ColumnDefinition>
+					<ColumnDefinition></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+				<!-- Сумма -->
+				<Border Grid.Column="0" Grid.Row="0" Background="#FFFFAE00">
+					<Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"  Content="Сумма" Grid.Row="0" Grid.Column="3">
+					</Label>
+				</Border>
+				<Label Grid.Column="0" Grid.Row="1" FontSize="24" HorizontalAlignment="Center" x:Name="Sum">
+				</Label>
+				<!-- Скидка -->
+				<Border Grid.Column="1" Grid.Row="0" Background="#FFFFAE00">
+					<Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"  Content="Скидка" Grid.Row="0" Grid.Column="3">
+					</Label>
+				</Border>
+				<StackPanel Grid.Row="1" Grid.Column="1">
+					<Label FontSize="18" HorizontalAlignment="Center">
+						0 (0%)
+					</Label>
+				</StackPanel>
+				<!-- Итого -->
+				<Border Grid.Column="3"
+						Grid.Row="0"
+						Background="Green">
+					<Label Content="Итого"
+							FontSize="24"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							Grid.Row="0"
+							Grid.Column="3">
+					</Label>
+				</Border>
+				<Label x:Name="TotalToPay"
+						Grid.Column="3"
+						Grid.Row="1"
+						FontSize="24"
+						HorizontalAlignment="Center">
+				</Label>
+			</Grid>
+		</Grid>
+		<Button
+			Content="Принять оплату"
+			x:Name="SubmitButton"
+			FontSize="24"
+			VerticalAlignment="Stretch"
+			HorizontalAlignment="Stretch"
+			Grid.Column="1" Grid.Row="1"
+			Background="#FF64CF64"
+			Margin="16,0,0,0" Click="Button_Click_1" Focusable="False">
+		</Button>
+	</Grid>
+</UserControl>

@@ -18,4 +18,8 @@
     <ProjectReference Include="..\MerchandiseManager.Core\MerchandiseManager.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Contexts\StoreProducts\" />
+  </ItemGroup>
+
 </Project>

@@ -24,10 +24,19 @@ namespace MerchandiseManager.Register.WPF.Services.Api
 
 				var response = http.GetAsync(apiUrl + "/products").Result;
 
-				var a = 4;
-
-
 				return response.Content.ReadAsAsync<FilteredResult<Product>>().Result;
+			}
+		}
+
+		public IEnumerable<ProductAvailabilityViewModel> GetProductAvailability(string productSearchTerm)
+		{
+			using (var http = new HttpClient())
+			{
+				http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", StaticDataStorage.AuthToken);
+
+				var response = http.GetAsync($"{apiUrl}/products/available?productSearchTerm={productSearchTerm}").Result;
+
+				return response.Content.ReadAsAsync<List<ProductAvailabilityViewModel>>().Result;
 			}
 		}
 	}

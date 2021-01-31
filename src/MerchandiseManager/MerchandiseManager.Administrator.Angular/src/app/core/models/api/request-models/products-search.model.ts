@@ -9,4 +9,5 @@ export class ProductsSearchModel {
   public buyPriceMin?: number;
   public buyPriceMax?: number;
   public categoryId?: string;
+  public onlyOutOfStock: boolean;
 }

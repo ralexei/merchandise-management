@@ -20,7 +20,7 @@ namespace MerchandiseManager.Core.Entities
 		public ICollection<LoginHistoryRecord> LoginHistory { get; private set; } = new List<LoginHistoryRecord>();
 		public ICollection<Product> Products { get; private set; } = new HashSet<Product>();
 		public ICollection<SoldProduct> SoldProducts { get; private set; } = new List<SoldProduct>();
-		public ICollection<UserStorage> UserWarehouses { get; private set; } = new List<UserStorage>();
+		public ICollection<Warehouse> Warehouses { get; private set; } = new List<Warehouse>();
 		#endregion
 
 		public string GetFullName()

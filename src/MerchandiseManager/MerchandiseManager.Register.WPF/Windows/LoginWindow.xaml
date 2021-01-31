@@ -5,9 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MerchandiseManager.Register.WPF.Windows"
         mc:Ignorable="d"
-        Title="Авторзация" Height="300" Width="300" ResizeMode="NoResize">
+        Title="Авторзация" Height="347.334" Width="300" ResizeMode="NoResize">
 	<StackPanel Margin="16px" HorizontalAlignment="Center">
 		<Label FontSize="24" HorizontalContentAlignment="Center">Авторизация</Label>
+		<Label FontSize="14">Торгвая точка:</Label>
+		<ComboBox Name="StoresDropdown">
+			<ComboBox.ItemTemplate>
+				<DataTemplate>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="{Binding Name}" />
+					</StackPanel>
+				</DataTemplate>
+			</ComboBox.ItemTemplate>
+		</ComboBox>
 		<Label FontSize="14">Логин:</Label>
 		<TextBox Padding="3" Width="200" Height="25px" x:Name="UsernameField"/>
 		<Label FontSize="14">Пароль:</Label>

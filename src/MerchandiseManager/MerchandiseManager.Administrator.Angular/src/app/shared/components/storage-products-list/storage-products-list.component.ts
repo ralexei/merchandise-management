@@ -25,6 +25,7 @@ export class StorageProductsListComponent implements OnInit {
 
   public categorySelect: FormControl = new FormControl('');
   public categoryListFilter: FormControl = new FormControl('');
+  public onlyOutOfStockControl: FormControl = new FormControl();
 
   public filteredFlattenedCategories: CategoryFlat[];
   public flattenedCategories: FilteredResult<CategoryFlat>;
@@ -72,6 +73,14 @@ export class StorageProductsListComponent implements OnInit {
       });
 
     this.subscribeToCategoryChange();
+    this.subscribeToOnlyOutOfStockChange();
+  }
+
+  public subscribeToOnlyOutOfStockChange() {
+    this.onlyOutOfStockControl.valueChanges
+      .subscribe(() => {
+        this.fetchProducts(0, this.paginator.pageSize);
+      });
   }
 
   public pageChanged(): void {
@@ -111,6 +120,10 @@ export class StorageProductsListComponent implements OnInit {
     return nestingLevel * 16;
   }
 
+  public isOutOfStock(row: StorageProduct) {
+    return row.productsAmount <= 0;
+  }
+
   private subscribeToCategoryChange(): void {
     this.categorySelect.valueChanges
       .pipe(takeUntil(this.ngDestroy$))
@@ -145,6 +158,7 @@ export class StorageProductsListComponent implements OnInit {
     filterRequest.page = page;
     filterRequest.pageSize = pageSize;
     filterRequest.categoryId = this.categorySelect.value;
+    filterRequest.onlyOutOfStock = this.onlyOutOfStockControl.value;
 
     this.products$ = this.storageProductsService.getFiltered(this.storageId, filterRequest)
       .pipe(

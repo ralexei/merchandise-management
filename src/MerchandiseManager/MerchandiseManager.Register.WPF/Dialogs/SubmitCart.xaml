@@ -5,19 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MerchandiseManager.Register.WPF.Dialogs"
         mc:Ignorable="d"
-        Title="Подтверждение" Height="250" Width="220"
+        Title="Подтверждение" Height="280" Width="250"
 		ResizeMode="NoResize"
 		ShowInTaskbar="False"
 		ShowActivated="True"
 		Topmost="True"
 		WindowStartupLocation="CenterOwner">
-	<Grid>
-		<Label Content="К оплате:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="64"/>
-		<TextBox HorizontalAlignment="Left" x:Name="TotalToPay" Height="23" Margin="10,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="194" IsEnabled="False"/>
-		<Label Content="Полученная сумма:" HorizontalAlignment="Left" Margin="10,69,-20,0" VerticalAlignment="Top" Width="224"/>
-		<TextBox HorizontalAlignment="Left" x:Name="ReceivedSum" Height="23" Margin="10,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="194" TextChanged="TextBox_TextChanged"/>
-		<Label Content="Сдача:" HorizontalAlignment="Left" Margin="10,128,-20,0" VerticalAlignment="Top" Width="224"/>
-		<TextBox HorizontalAlignment="Left" x:Name="Change" Height="23" Margin="10,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="194" IsEnabled="False"/>
-		<Button Content="Подтвердить" HorizontalAlignment="Left" Margin="124,191,0,0" VerticalAlignment="Top" Width="80" Click="Button_Click"/>
-	</Grid>
+	<StackPanel Margin="16px" HorizontalAlignment="Center">
+		<Label Content="К оплате:"/>
+		<TextBox HorizontalAlignment="Center" x:Name="TotalToPay" Height="23" TextWrapping="Wrap" Width="200" IsEnabled="False"/>
+		<Label Content="Полученная сумма:"/>
+		<TextBox HorizontalAlignment="Center" x:Name="ReceivedSum" Height="23" TextWrapping="Wrap" Width="200" TextChanged="TextBox_TextChanged"/>
+		<Label Content="Сдача:"/>
+		<TextBox HorizontalAlignment="Center" x:Name="Change" Height="23" TextWrapping="Wrap" Width="200" IsEnabled="False"/>
+		<Button Content="Подтвердить" Margin="0, 32, 0, 0" Height="30" Click="Button_Click"/>
+	</StackPanel>
 </Window>

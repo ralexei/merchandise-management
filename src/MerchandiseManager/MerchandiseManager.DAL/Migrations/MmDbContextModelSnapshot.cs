@@ -457,6 +457,11 @@ namespace MerchandiseManager.DAL.Migrations
                 {
                     b.HasBaseType("MerchandiseManager.Core.Entities.Storage");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasIndex("UserId");
+
                     b.HasDiscriminator().HasValue("Warehouse");
                 });
 
@@ -570,15 +575,24 @@ namespace MerchandiseManager.DAL.Migrations
             modelBuilder.Entity("MerchandiseManager.Core.Entities.UserStorage", b =>
                 {
                     b.HasOne("MerchandiseManager.Core.Entities.Storage", "Storage")
-                        .WithMany("UserStorages")
+                        .WithMany()
                         .HasForeignKey("StorageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MerchandiseManager.Core.Entities.User", "User")
-                        .WithMany("UserWarehouses")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MerchandiseManager.Core.Entities.Warehouse", b =>
+                {
+                    b.HasOne("MerchandiseManager.Core.Entities.User", "User")
+                        .WithMany("Warehouses")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

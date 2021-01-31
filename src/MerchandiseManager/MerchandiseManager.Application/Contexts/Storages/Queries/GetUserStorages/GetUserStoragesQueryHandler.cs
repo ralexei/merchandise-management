@@ -30,13 +30,18 @@ namespace MerchandiseManager.Application.Contexts.Storages.Queries.GetUserStorag
 
 		public async Task<IEnumerable<StorageViewModel>> Handle(GetUserStoragesQuery request, CancellationToken cancellationToken)
 		{
-			var storages = await context
-				.UserStorages
+			var warehouses = await context
+				.Warehouses
 				.Where(w => w.UserId == currentUser.Id)
-				.Select(s => s.Storage)
+				.Select(s => (Storage)s)
 				.ToListAsync();
 
-			return mapper.Map<List<StorageViewModel>>(storages);
+			var stores = await context
+				.Stores
+				.Select(s => (Storage)s)
+				.ToListAsync();
+
+			return mapper.Map<List<StorageViewModel>>(warehouses.Concat(stores));
 		}
 	}
 }

@@ -19,7 +19,6 @@ namespace MerchandiseManager.Application.Contexts.Products
 				.ForMember(m => m.BarCodes, opt => opt.Ignore());
 
 			CreateMap<Product, ProductViewModel>();
-			CreateMap<StorageProduct, StorageProductViewModel>();
 		}
 	}
 }

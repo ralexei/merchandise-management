@@ -1,9 +1,7 @@
 ﻿using MerchandiseManager.Application.Contexts.Stores.Commands.AddNewStore;
 using MerchandiseManager.Application.Contexts.Stores.Queries.GetUserStores;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MerchandiseManager.Api.Controllers
@@ -11,8 +9,9 @@ namespace MerchandiseManager.Api.Controllers
 	public class StoresController : BaseController
 	{
 		[HttpGet]
+		[AllowAnonymous]
 		public async Task<IActionResult> Get()
-			=> Ok(await Mediator.Send(new GetUserStoresQuery()));
+			=> Ok(await Mediator.Send(new GetAllStoresQuery()));
 
 		[HttpPost]
 		public async Task<IActionResult> Create([FromBody] AddNewStoreCommand request)

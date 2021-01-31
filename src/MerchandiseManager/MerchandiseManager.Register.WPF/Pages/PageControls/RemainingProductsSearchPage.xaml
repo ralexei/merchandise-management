@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="MerchandiseManager.Register.WPF.Pages.PageControls.RemainingProductsSearchPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MerchandiseManager.Register.WPF.Pages.PageControls"
+			 xmlns:vc="clr-namespace:MerchandiseManager.Register.WPF.Utils.ValueConverters"
+             mc:Ignorable="d" 
+             Background="White"
+			 d:DesignHeight="450" d:DesignWidth="800">
+	<Grid Margin="16px">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="2*"></RowDefinition>
+			<RowDefinition Height="10*"></RowDefinition>
+		</Grid.RowDefinitions>
+		<StackPanel Orientation="Horizontal">
+			<StackPanel Orientation="Vertical">
+				<Label Content="Наименование:"></Label>
+				<StackPanel Orientation="Horizontal">
+					<TextBox x:Name="ProductToSearchTerm" Width="200"></TextBox>
+					<Button Content="Поиск" Click="SearchProductRemainings"></Button>
+				</StackPanel>
+			</StackPanel>
+		</StackPanel>
+		<ListBox Grid.Row="1" Name="RemainingProductsList" HorizontalContentAlignment="Stretch" Margin="0,16,0,0">
+			<ListBox.Resources>
+				<vc:StoragesListConverter x:Key="StoragesListConverter" />
+			</ListBox.Resources>
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<Grid Margin="0,2">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
+						<Label Grid.Column="0" Content="{Binding ProductName}" />
+						<Label Grid.Column="1" Content="{Binding Storages, Converter={StaticResource StoragesListConverter}}" />
+					</Grid>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+	</Grid>
+</UserControl>

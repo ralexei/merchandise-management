@@ -2,8 +2,7 @@
 using MerchandiseManager.Application.Contexts.Products.Commands.DeleteProduct;
 using MerchandiseManager.Application.Contexts.Products.Commands.EditProduct;
 using MerchandiseManager.Application.Contexts.Products.Queries.GetAllProducts;
-using MerchandiseManager.Application.Contexts.Products.Queries.GetProductsByStorageId;
-using Microsoft.AspNetCore.Authorization;
+using MerchandiseManager.Application.Contexts.Products.Queries.GetProductAvailability;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -29,6 +28,10 @@ namespace MerchandiseManager.Api.Controllers
 
 		[HttpGet]
 		public async Task<IActionResult> GetAll([FromQuery] GetAllProductsQuery request)
+			=> Ok(await Mediator.Send(request));
+
+		[HttpGet("available")]
+		public async Task<IActionResult> GetAvailability([FromQuery] GetProductAvailabilityQuery request)
 			=> Ok(await Mediator.Send(request));
 	}
 }

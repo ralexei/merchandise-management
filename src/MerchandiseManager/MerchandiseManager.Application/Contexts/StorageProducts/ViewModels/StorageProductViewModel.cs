@@ -1,6 +1,7 @@
-﻿using System;
+﻿using MerchandiseManager.Application.Contexts.Products.ViewModels;
+using System;
 
-namespace MerchandiseManager.Application.Contexts.Products.ViewModels
+namespace MerchandiseManager.Application.Contexts.StorageProducts.ViewModels
 {
 	public class StorageProductViewModel
 	{

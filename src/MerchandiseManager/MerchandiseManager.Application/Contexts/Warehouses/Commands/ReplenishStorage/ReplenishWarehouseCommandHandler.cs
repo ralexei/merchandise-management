@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace MerchandiseManager.Application.Contexts.Warehouses.Commands.ReplenishStorage
 {
-	public class ReplenishStorageCommandHandler : IRequestHandler<ReplenishStorageCommand, Unit>
+	public class ReplenishWarehouseCommandHandler : IRequestHandler<ReplenishWarehouseCommand, Unit>
 	{
 		private readonly IDbContext db;
 
-		public ReplenishStorageCommandHandler(IDbContext db)
+		public ReplenishWarehouseCommandHandler(IDbContext db)
 		{
 			this.db = db;
 		}
 
-		public async Task<Unit> Handle(ReplenishStorageCommand request, CancellationToken cancellationToken)
+		public async Task<Unit> Handle(ReplenishWarehouseCommand request, CancellationToken cancellationToken)
 		{
 			//if (request.SourceStorageId != null)
 			//	ProcessSource(request.SourceStorageId.Value, request.Products);

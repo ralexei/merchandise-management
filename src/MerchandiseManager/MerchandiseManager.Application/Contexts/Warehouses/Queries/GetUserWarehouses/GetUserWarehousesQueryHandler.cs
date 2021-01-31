@@ -31,7 +31,7 @@ namespace MerchandiseManager.Application.Contexts.Warehouses.Queries.GetUserWare
 		{
 			var storages = await context
 				.Warehouses
-				.Where(w => w.UserStorages.Any(a => a.UserId == currentUser.Id))
+				.Where(w => w.UserId == currentUser.Id)
 				.AsNoTracking()
 				.ToListAsync();
 

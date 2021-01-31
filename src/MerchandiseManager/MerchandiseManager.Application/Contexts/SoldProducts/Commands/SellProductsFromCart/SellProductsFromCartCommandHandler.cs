@@ -32,10 +32,9 @@ namespace MerchandiseManager.Application.Contexts.SoldProducts.Commands.SellProd
 			try
 			{
 				var shop = await db.Storages
-								.AsNoTracking()
-								.FirstOrDefaultAsync(f => f.Id == new System.Guid("1FCA4420-267A-4B66-1580-08D8C4C1DA10"));
-				var storageProducts = await db.StorageProducts
 					.AsNoTracking()
+					.FirstOrDefaultAsync(f => f.Id == currentUser.StoreId);
+				var storageProducts = await db.StorageProducts
 					.Include(i => i.Product)
 					.Where(w => request.SoldProducts.Keys.Any(a => a == w.ProductId) && w.StorageId == shop.Id)
 					.ToListAsync();
@@ -43,11 +42,8 @@ namespace MerchandiseManager.Application.Contexts.SoldProducts.Commands.SellProd
 				foreach (var storageProduct in storageProducts)
 					storageProduct.DecreaseQuantityOfGoods(request.SoldProducts[storageProduct.ProductId]);
 
-				// - Save per task - bad idea in this context
-				//await db.SaveChangesAsync(cancellationToken);
-
 				var soldProducts = storageProducts
-					.Select(s => SoldProduct.SellProduct(s.Product, currentUser.Id, request.SoldProducts[s.ProductId], request.IsWholesale));
+					.Select(s => SoldProduct.SellProduct(s.Product, currentUser.Id, currentUser.StoreId, request.SoldProducts[s.ProductId], request.IsWholesale));
 
 				await db.SoldCarts.AddAsync(SoldCart.SellCartWithProducts(request.ReceivedSum, request.Change, soldProducts));
 

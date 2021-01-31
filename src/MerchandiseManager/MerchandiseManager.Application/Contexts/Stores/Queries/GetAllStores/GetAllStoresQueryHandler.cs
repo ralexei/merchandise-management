@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace MerchandiseManager.Application.Contexts.Stores.Queries.GetUserStores
 {
-	public class GetUserStoresQueryHandler : IRequestHandler<GetUserStoresQuery, IEnumerable<StoreViewModel>>
+	public class GetAllStoresQueryHandler : IRequestHandler<GetAllStoresQuery, IEnumerable<StoreViewModel>>
 	{
 		private readonly IDbContext context;
 		private readonly ICurrentUser currentUser;
 		private readonly IMapper mapper;
 
-		public GetUserStoresQueryHandler(
+		public GetAllStoresQueryHandler(
 			IDbContext context,
 			ICurrentUser currentUser,
 			IMapper mapper)
@@ -27,12 +27,11 @@ namespace MerchandiseManager.Application.Contexts.Stores.Queries.GetUserStores
 			this.mapper = mapper;
 		}
 
-		public async Task<IEnumerable<StoreViewModel>> Handle(GetUserStoresQuery request, CancellationToken cancellationToken)
+		public async Task<IEnumerable<StoreViewModel>> Handle(GetAllStoresQuery request, CancellationToken cancellationToken)
 		{
 			var stores = await context
 				.Stores
 				.AsNoTracking()
-				.Where(w => w.UserStorages.Any(a => a.UserId == currentUser.Id))
 				.ToListAsync();
 
 			return mapper.Map<List<StoreViewModel>>(stores);

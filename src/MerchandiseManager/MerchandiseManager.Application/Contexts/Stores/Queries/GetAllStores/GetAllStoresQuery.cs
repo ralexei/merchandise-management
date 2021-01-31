@@ -6,7 +6,7 @@ using System.Text;
 
 namespace MerchandiseManager.Application.Contexts.Stores.Queries.GetUserStores
 {
-	public class GetUserStoresQuery : IRequest<IEnumerable<StoreViewModel>>
+	public class GetAllStoresQuery : IRequest<IEnumerable<StoreViewModel>>
 	{
 	}
 }

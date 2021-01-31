@@ -1,22 +1,24 @@
 ﻿using MediatR;
-using MerchandiseManager.Application.Contexts.Products.ViewModels;
+using MerchandiseManager.Application.Contexts.StorageProducts.ViewModels;
 using MerchandiseManager.Application.Interfaces.Models.Filtering;
 using MerchandiseManager.Application.Models.Filtering;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
-namespace MerchandiseManager.Application.Contexts.Products.Queries.GetProductsByStorageId
+namespace MerchandiseManager.Application.Contexts.Products.Queries.GetStoreProductsByUser
 {
-	public class GetProductsByStorageIdQuery : IPaginatable, IRequest<FilteredResult<StorageProductViewModel>>
+	public class GetStoreProductsByUserQuery : IPaginatable, IRequest<FilteredResult<StorageProductViewModel>>
 	{
 		[FromRoute]
-		public Guid? StorageId { get; set; }
+		public Guid? StoreId { get; set; }
 
 		public int? Page { get; set; }
 
 		public int? PageSize { get; set; }
 
 		public Guid? CategoryId { get; set; }
+
+		public bool OnlyOutOfStock { get; set; }
 
 		#region Contains filters
 		public string ProductNameContains { get; set; }
