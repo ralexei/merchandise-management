@@ -5,14 +5,16 @@ using MerchandiseManager.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MerchandiseManager.DAL.Migrations
 {
     [DbContext(typeof(MmDbContext))]
-    partial class MmDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210206115139_AddedSalesReportEntity")]
+    partial class AddedSalesReportEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -257,15 +259,10 @@ namespace MerchandiseManager.DAL.Migrations
                     b.Property<DateTime>("Day")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("StoreId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<long?>("UpdatedAt")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("StoreId");
 
                     b.ToTable("SalesReports");
                 });
@@ -330,6 +327,9 @@ namespace MerchandiseManager.DAL.Migrations
                     b.Property<Guid?>("SoldCartId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("StoreId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<long?>("UpdatedAt")
                         .HasColumnType("bigint");
 
@@ -342,6 +342,8 @@ namespace MerchandiseManager.DAL.Migrations
                     b.HasIndex("SellerId");
 
                     b.HasIndex("SoldCartId");
+
+                    b.HasIndex("StoreId");
 
                     b.ToTable("SoldProducts");
                 });
@@ -568,15 +570,6 @@ namespace MerchandiseManager.DAL.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MerchandiseManager.Core.Entities.SalesReport", b =>
-                {
-                    b.HasOne("MerchandiseManager.Core.Entities.Store", "Store")
-                        .WithMany()
-                        .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("MerchandiseManager.Core.Entities.SoldProduct", b =>
                 {
                     b.HasOne("MerchandiseManager.Core.Entities.Product", "Product")
@@ -600,6 +593,12 @@ namespace MerchandiseManager.DAL.Migrations
                     b.HasOne("MerchandiseManager.Core.Entities.SoldCart", null)
                         .WithMany("SoldProducts")
                         .HasForeignKey("SoldCartId");
+
+                    b.HasOne("MerchandiseManager.Core.Entities.Store", "Store")
+                        .WithMany()
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MerchandiseManager.Core.Entities.StorageProduct", b =>

@@ -20,6 +20,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
 import { MatRippleModule } from '@angular/material/core';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import { MatRippleModule } from '@angular/material/core';
     MatSortModule,
     MatChipsModule,
     MatCardModule,
-    MatRippleModule
+    MatRippleModule,
+    MatExpansionModule
   ],
   exports: [
     NgxMatSelectSearchModule,
@@ -66,7 +68,8 @@ import { MatRippleModule } from '@angular/material/core';
     MatSortModule,
     MatChipsModule,
     MatCardModule,
-    MatRippleModule
+    MatRippleModule,
+    MatExpansionModule
   ]
 })
 export class SharedMaterialModule { }

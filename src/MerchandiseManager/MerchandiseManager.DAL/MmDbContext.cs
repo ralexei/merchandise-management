@@ -30,6 +30,7 @@ namespace MerchandiseManager.DAL
 		public DbSet<StorageProduct> StorageProducts { get; private set; }
 		public DbSet<UserStorage> UserStorages { get; private set; }
 		public DbSet<BarCode> Barcodes { get; private set; }
+		public DbSet<SalesReport> SalesReports { get; private set; }
 
 		private readonly ICurrentUser currentUser;
 
@@ -100,6 +101,11 @@ namespace MerchandiseManager.DAL
 					((BaseEntity)entityEntry.Entity).Created();
 				}
 			}
+		}
+
+		public void Migrate()
+		{
+			Database.Migrate();
 		}
 	}
 }

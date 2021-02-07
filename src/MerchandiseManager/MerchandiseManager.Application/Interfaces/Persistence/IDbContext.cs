@@ -25,9 +25,11 @@ namespace MerchandiseManager.Application.Interfaces.Persistence
 		DbSet<UserStorage> UserStorages { get; }
 		DbSet<StorageProduct> StorageProducts { get; }
 		DbSet<BarCode> Barcodes { get; }
+		DbSet<SalesReport> SalesReports { get; }
 
 		DatabaseFacade Database { get; }
 
+		void Migrate();
 		int SaveChanges();
 		Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 		EntityEntry Entry([NotNullAttribute] object entity);

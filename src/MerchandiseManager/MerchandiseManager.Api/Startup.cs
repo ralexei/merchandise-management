@@ -100,6 +100,13 @@ namespace MerchandiseManager.Api
 			{
 				endpoints.MapControllers();
 			});
+
+			using (var serviceScope = app.ApplicationServices.CreateScope())
+			{
+				var context = serviceScope.ServiceProvider.GetRequiredService<IDbContext>();
+
+				context.Migrate();
+			}
 		}
 	}
 }

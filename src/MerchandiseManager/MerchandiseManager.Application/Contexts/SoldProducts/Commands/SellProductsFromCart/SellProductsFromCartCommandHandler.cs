@@ -38,15 +38,17 @@ namespace MerchandiseManager.Application.Contexts.SoldProducts.Commands.SellProd
 					.Include(i => i.Product)
 					.Where(w => request.SoldProducts.Keys.Any(a => a == w.ProductId) && w.StorageId == shop.Id)
 					.ToListAsync();
+				var salesReport = await GetSalesReport(currentUser.StoreId);
 
 				foreach (var storageProduct in storageProducts)
 					storageProduct.DecreaseQuantityOfGoods(request.SoldProducts[storageProduct.ProductId]);
-
+				
 				var soldProducts = storageProducts
-					.Select(s => SoldProduct.SellProduct(s.Product, currentUser.Id, currentUser.StoreId, request.SoldProducts[s.ProductId], request.IsWholesale));
+					.Select(s => SoldProduct
+						.SellProduct(s.Product, currentUser.Id, request.SoldProducts[s.ProductId], request.IsWholesale)
+						.AddToSalesReport(salesReport));
 
 				await db.SoldCarts.AddAsync(SoldCart.SellCartWithProducts(request.ReceivedSum, request.Change, soldProducts));
-
 				await db.SaveChangesAsync(cancellationToken);
 
 				return Unit.Value;
@@ -55,6 +57,19 @@ namespace MerchandiseManager.Application.Contexts.SoldProducts.Commands.SellProd
 			{
 				throw;
 			}
+		}
+
+		private async Task<SalesReport> GetSalesReport(Guid storeId)
+		{
+			var salesReport = await db
+				.SalesReports
+				.AsNoTracking()
+				.FirstOrDefaultAsync();
+
+			if (salesReport == null)
+				salesReport = new SalesReport(storeId);
+
+			return salesReport;
 		}
 	}
 }

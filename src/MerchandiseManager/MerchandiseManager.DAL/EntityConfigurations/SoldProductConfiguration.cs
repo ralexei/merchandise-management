@@ -32,6 +32,12 @@ namespace MerchandiseManager.DAL.EntityConfigurations
 				.HasOne(ho => ho.Product)
 				.WithMany()
 				.OnDelete(DeleteBehavior.Restrict);
+
+			//builder
+			//	.HasOne(ho => ho.SalesReport)
+			//	.WithMany()
+			//	.OnDelete(DeleteBehavior.Restrict)
+			//	.HasForeignKey(fk => fk.SalesReportId);
 		}
 	}
 }

@@ -5,3 +5,4 @@ export * from './storages.service';
 export * from './warehouses.service';
 export * from './stores.service';
 export * from './store-products.service';
+export * from './sales-reports.service';
