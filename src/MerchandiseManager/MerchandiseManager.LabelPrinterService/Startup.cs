@@ -15,6 +15,7 @@ namespace MerchandiseManager.LabelPrinterService
 				opt.EnableDetailedErrors = true;
 			});
 			services.AddHostedService<Worker>();
+			services.AddSingleton<BarcodeLabelGenerator>();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

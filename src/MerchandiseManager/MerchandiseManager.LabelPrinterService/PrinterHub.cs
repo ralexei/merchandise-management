@@ -1,6 +1,6 @@
-﻿using BarcodeLib;
-using MerchandiseManager.PrinterService.Models;
+﻿using MerchandiseManager.PrinterService.Models;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -11,10 +11,17 @@ namespace MerchandiseManager.LabelPrinterService
 {
 	public class PrinterHub : Hub
 	{
-		private static string CommonFontName = "Arial";
-		private static Font ProductNameFont = new Font(CommonFontName, 8);
+		private static string PrinterName = "Xprinter_XP-370B";
+		private readonly ILogger<PrinterHub> _logger;
+		private readonly BarcodeLabelGenerator _barcodeLabelGenerator;
 
-		public override Task OnConnectedAsync()
+		public PrinterHub(ILogger<PrinterHub> logger, BarcodeLabelGenerator barcodeLabelGenerator)
+        {
+			_logger = logger;
+			_barcodeLabelGenerator = barcodeLabelGenerator;
+		}
+
+        public override Task OnConnectedAsync()
 		{
 			return base.OnConnectedAsync();
 		}
@@ -26,7 +33,7 @@ namespace MerchandiseManager.LabelPrinterService
 				try
 				{
 					pd.PrintController = new StandardPrintController();
-					pd.PrinterSettings.PrinterName = "Xprinter_XP-370B";
+					pd.PrinterSettings.PrinterName = PrinterName;
 					pd.PrintPage += (sender, args) => PrintLabelEvent(request, args);
 
 					for (int i = 0; i < request.LabelsCount; i++)
@@ -36,6 +43,8 @@ namespace MerchandiseManager.LabelPrinterService
 				}
 				catch (Exception ex)
 				{
+					_logger.LogError(ex, "Failed to print a label");
+					return false;
 				}
 			}
 
@@ -44,55 +53,12 @@ namespace MerchandiseManager.LabelPrinterService
 
 		private void PrintLabelEvent(PrintRequest request, PrintPageEventArgs e)
 		{
-			var barcode = new Barcode();
-
-			barcode.IncludeLabel = true;
-			var settings = e.PageSettings.PrinterSettings.PaperSizes;
-			//var settings1 = e.PageSettings.PrinterSettings;
-			//var settings2 = e.PageSettings.PrinterSettings.PaperSizes;
-			barcode.LabelPosition = LabelPositions.BOTTOMCENTER;
-			barcode.LabelFont = ProductNameFont;
-
-			var dpiX = 100;
-			var dpiY = 100;
-
-			var labelWidth = (int)(1.96 * dpiX);
-			var labelHeight = (int)(1.18 * dpiY);
-			var encodedBarcode = barcode.Encode(TYPE.CODE39, request.BarcodeToPrint, (int)labelWidth, (int)(labelHeight * 0.3));
+			var barcodeLabelBitmap = _barcodeLabelGenerator.GenerateLabelImage(request);
 
 			e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
 			e.Graphics.CompositingQuality = CompositingQuality.HighQuality;
 
-			var priceString = "Total (lei): " + request.PrintingProduct.Price.ToString() + " MDL";
-			var priceStringMeasure = e.Graphics.MeasureString(priceString, ProductNameFont);
-
-			var drawFormat = new StringFormat { Alignment = StringAlignment.Near };
-
-			// Draw product name
-			var productNameRect = new RectangleF(5, 10, labelWidth - 10, (int)(labelHeight / 3));
-			e.Graphics.DrawString(request.PrintingProduct.ProductName, ProductNameFont, new SolidBrush(Color.Black), productNameRect, drawFormat);
-
-			// Draw barcode
-			var barcodeBitmap = new Bitmap(encodedBarcode);
-			barcodeBitmap.SetResolution(dpiX, dpiY);
-
-			e.Graphics.DrawImage(barcodeBitmap, new Point((int)XCentered(barcodeBitmap.Width, labelWidth), (int)labelHeight - barcodeBitmap.Height - 10));
-
-			// Draw price
-			var priceRectYPosition = labelHeight - barcodeBitmap.Height - priceStringMeasure.Height - 15;
-			var priceRect = new RectangleF(5, (int)priceRectYPosition, priceStringMeasure.Width, priceStringMeasure.Height);
-
-			e.Graphics.DrawString(priceString, ProductNameFont, new SolidBrush(Color.Black), priceRect);
-			//e.Graphics.PageUnit = GraphicsUnit.Pixel;
-			//e.PageSettings.PrinterSettings.
-			//e.Graphics.DrawRectangle(Pens.Black, new Rectangle(5, 5, 196 - 10, 118 - 10));
-
-			e.Graphics.Save();
-		}
-
-		private float XCentered(float localWidth, float globalWidth)
-		{
-			return ((globalWidth - localWidth) / 2);
+			e.Graphics.DrawImage(barcodeLabelBitmap, new Point(0, 0));
 		}
 	}
 }
