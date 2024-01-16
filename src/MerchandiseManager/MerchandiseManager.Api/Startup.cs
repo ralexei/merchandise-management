@@ -7,6 +7,7 @@ using MerchandiseManager.Application.Contexts.Authorization.Commands.SignIn;
 using MerchandiseManager.Application.Interfaces.Authentication;
 using MerchandiseManager.Application.Interfaces.Persistence;
 using MerchandiseManager.Application.Models.Config;
+using MerchandiseManager.Core.Entities;
 using MerchandiseManager.DAL;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -89,7 +90,7 @@ namespace MerchandiseManager.Api
 			app.UseAuthorization();
 			app.UseCors(opt =>
 			{
-				opt.WithOrigins("http://116.203.19.248", "http://localhost:4200")
+				opt.WithOrigins(Configuration.GetValue<string>("AllowedHosts"))
 					.AllowAnyMethod()
 					.AllowAnyHeader();
 			});

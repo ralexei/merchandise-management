@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28803.452
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MerchandiseManager.Core", "MerchandiseManager.Core\MerchandiseManager.Core.csproj", "{A392EB1F-DDF8-428C-9240-99973F8BF102}"
 EndProject
@@ -29,13 +29,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MerchandiseManager.Administ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MerchandiseManager.Administrator.Angular", "MerchandiseManager.Administrator.Angular\MerchandiseManager.Administrator.Angular.csproj", "{AFF122F9-695D-40B5-8C2E-49715DF72ED3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MerchandiseManager.PrinterService", "MerchandiseManager.PrinterService\MerchandiseManager.PrinterService.csproj", "{F00E2A86-42F7-41F1-B500-8027D070F3D5}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{EBF7E6BC-5C91-4554-81EA-D4B642F64B3B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MerchandiseManager.LabelPrinterService", "MerchandiseManager.LabelPrinterService\MerchandiseManager.LabelPrinterService.csproj", "{33B32AD4-0479-4753-8475-5C526876D7F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MerchandiseManager.Register.DAL", "MerchandiseManager.Register.DAL\MerchandiseManager.Register.DAL.csproj", "{6D27D6E1-62A3-4F80-912D-9FE542AA2899}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MerchandiseManager.Register.DAL", "MerchandiseManager.Register.DAL\MerchandiseManager.Register.DAL.csproj", "{6D27D6E1-62A3-4F80-912D-9FE542AA2899}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,10 +73,6 @@ Global
 		{AFF122F9-695D-40B5-8C2E-49715DF72ED3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFF122F9-695D-40B5-8C2E-49715DF72ED3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFF122F9-695D-40B5-8C2E-49715DF72ED3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F00E2A86-42F7-41F1-B500-8027D070F3D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F00E2A86-42F7-41F1-B500-8027D070F3D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F00E2A86-42F7-41F1-B500-8027D070F3D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F00E2A86-42F7-41F1-B500-8027D070F3D5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{33B32AD4-0479-4753-8475-5C526876D7F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{33B32AD4-0479-4753-8475-5C526876D7F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33B32AD4-0479-4753-8475-5C526876D7F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -100,7 +94,6 @@ Global
 		{B851A175-5063-47B0-8549-BAE6BFDDCCA1} = {396AFF24-A2B7-46F4-8EF1-2C2D934AD0A1}
 		{8893EC73-144A-47BC-A703-20BE67AFE6F7} = {BDF0CAEE-B06B-4459-863C-57CF6D0A39E2}
 		{AFF122F9-695D-40B5-8C2E-49715DF72ED3} = {BDF0CAEE-B06B-4459-863C-57CF6D0A39E2}
-		{F00E2A86-42F7-41F1-B500-8027D070F3D5} = {82458205-B8C5-4D4A-8D15-FB16DE651CC6}
 		{33B32AD4-0479-4753-8475-5C526876D7F5} = {EBF7E6BC-5C91-4554-81EA-D4B642F64B3B}
 		{6D27D6E1-62A3-4F80-912D-9FE542AA2899} = {82458205-B8C5-4D4A-8D15-FB16DE651CC6}
 	EndGlobalSection
