@@ -6,7 +6,7 @@ using System.Text;
 
 namespace MerchandiseManager.Application.Contexts.Warehouses.Commands.ReplenishStorage
 {
-	public class ReplenishWarehouseCommand : IRequest<Unit>
+	public class ReplenishWarehouseCommand : IRequest
 	{
 		public Guid StorageId { get; set; }
 		public Dictionary<Guid, int> Products { get; set; }

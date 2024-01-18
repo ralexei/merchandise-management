@@ -18,11 +18,17 @@ namespace MerchandiseManager.Api.Controllers
 		public async Task<IActionResult> Replenish([FromRoute]Guid storageId, [FromBody] ReplenishWarehouseCommand request)
 		{
 			request.StorageId = storageId;
-			return Ok(await Mediator.Send(request));
+			await Mediator.Send(request);
+
+            return Ok();
 		}
 
 		[HttpDelete("{productId}")]
 		public async Task<IActionResult> Delete([FromRoute] DeleteStorageProductCommand request)
-			=> Ok(await Mediator.Send(request));
+		{
+			await Mediator.Send(request);
+
+            return NoContent();
+		}
 	}
 }

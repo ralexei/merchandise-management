@@ -19,7 +19,7 @@ namespace MerchandiseManager.Application.Contexts.StorageProducts.Commands.Delet
 			this.context = context;
 		}
 
-		public async Task<Unit> Handle(DeleteStorageProductCommand request, CancellationToken cancellationToken)
+		public async Task Handle(DeleteStorageProductCommand request, CancellationToken cancellationToken)
 		{
 			var storageProductsToRemove = await context
 				.StorageProducts
@@ -27,8 +27,6 @@ namespace MerchandiseManager.Application.Contexts.StorageProducts.Commands.Delet
 
 			context.StorageProducts.Remove(storageProductsToRemove);
 			await context.SaveChangesAsync(cancellationToken);
-
-			return Unit.Value;
 		}
 	}
 }

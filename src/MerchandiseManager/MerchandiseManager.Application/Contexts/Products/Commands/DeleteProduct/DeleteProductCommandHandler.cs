@@ -3,15 +3,12 @@ using MerchandiseManager.Application.Interfaces.Persistence;
 using MerchandiseManager.Core.Entities;
 using MerchandiseManager.Core.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace MerchandiseManager.Application.Contexts.Products.Commands.DeleteProduct
 {
-	public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand>
+	public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, Unit>
 	{
 		private readonly IDbContext db;
 

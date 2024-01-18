@@ -19,7 +19,7 @@ namespace MerchandiseManager.Application.Contexts.Stores.Commands.ReplenishStore
 			this.db = db;
 		}
 
-		public async Task<Unit> Handle(ReplenishStoreCommand request, CancellationToken cancellationToken)
+		public async Task Handle(ReplenishStoreCommand request, CancellationToken cancellationToken)
 		{
 			//if (request.SourceStorageId != null)
 			//	ProcessSource(request.SourceStorageId.Value, request.Products);
@@ -31,7 +31,6 @@ namespace MerchandiseManager.Application.Contexts.Stores.Commands.ReplenishStore
 			destinationStorage.Replenish(request.Products);
 
 			await db.SaveChangesAsync(cancellationToken);
-			return Unit.Value;
 		}
 
 		private void ProcessSource(Guid storageId, Dictionary<Guid, int> products)

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MerchandiseManager.Application.Contexts.Warehouses.Commands.ReplenishStorage
 {
-	public class ReplenishWarehouseCommandHandler : IRequestHandler<ReplenishWarehouseCommand, Unit>
+	public class ReplenishWarehouseCommandHandler : IRequestHandler<ReplenishWarehouseCommand>
 	{
 		private readonly IDbContext db;
 
@@ -18,7 +18,7 @@ namespace MerchandiseManager.Application.Contexts.Warehouses.Commands.ReplenishS
 			this.db = db;
 		}
 
-		public async Task<Unit> Handle(ReplenishWarehouseCommand request, CancellationToken cancellationToken)
+		public async Task Handle(ReplenishWarehouseCommand request, CancellationToken cancellationToken)
 		{
 			//if (request.SourceStorageId != null)
 			//	ProcessSource(request.SourceStorageId.Value, request.Products);
@@ -30,7 +30,6 @@ namespace MerchandiseManager.Application.Contexts.Warehouses.Commands.ReplenishS
 			destinationStorage.Replenish(request.Products);
 
 			await db.SaveChangesAsync(cancellationToken);
-			return Unit.Value;
 		}
 
 		private void ProcessSource(Guid storageId, Dictionary<Guid, int> products)
