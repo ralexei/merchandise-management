@@ -1,0 +1,33 @@
+<ng-container *ngIf="!isLoading"; else spinner>
+  <div fxLayout="row wrap" fxLayoutGap="16px grid" *ngIf="(stores$ | async) as stores; else spinner">
+    <div *ngFor="let store of stores">
+      <mat-card (click)="openStoreDetails(store.id)" matRipple
+        class="store-card store-clickable-card">
+        <mat-card-header>
+          <mat-card-title>{{ store.name }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content fxLayout="column" fxLayoutGap="8px" fxLayoutAlign="center start">
+          <fa-icon [icon]="faStore" size="10x"></fa-icon>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div>
+      <mat-card (click)="addStore()" matRipple class="store-card store-clickable-card">
+        <mat-card-header>
+          <mat-card-title>Добавить</mat-card-title>
+        </mat-card-header>
+        <mat-card-content fxLayout="column" fxLayoutGap="8px" fxLayoutAlign="center start">
+          <fa-icon [icon]="faPlus" size="10x"></fa-icon>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</ng-container>
+
+<!-- Spinner template -->
+<ng-template #spinner>
+  <div class="spinner">
+    <mat-progress-spinner color="accent" mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
+</ng-template>

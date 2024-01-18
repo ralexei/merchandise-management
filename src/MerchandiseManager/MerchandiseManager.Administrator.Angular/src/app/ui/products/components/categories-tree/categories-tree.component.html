@@ -1,0 +1,59 @@
+<p>
+  Группы
+  <button *ngIf="newCategoryClicked === false" mat-icon-button (click)="addNewRootNode()">
+    <mat-icon>add</mat-icon>
+  </button>
+</p>
+<ng-template #categoriesLoadingSpinner>
+  <div fxLayout="row" fxFlex="100" fxLayoutAlign="center center">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
+<div style="border: 0.5px solid rgb(180, 180, 180); padding: 4px;">
+  <div class="category-scrollable-container">
+    <div *ngIf="!loading; else categoriesLoadingSpinner">
+      <mat-radio-group>
+        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+          <mat-tree-node class="node-resize" *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+            <button mat-icon-button disabled></button>
+            <mat-radio-button [value]="node" (change)="onChange($event)">{{ node.name }}</mat-radio-button>
+            <button *ngIf="!newCategoryClicked" mat-icon-button (click)="addNewItem(node)">
+              <mat-icon>add</mat-icon>
+            </button>
+            <button mat-icon-button (click)="removeCategory(node)">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </mat-tree-node>
+
+          <mat-tree-node *matTreeNodeDef="let node; when: hasNoContent" matTreeNodePadding>
+            <button mat-icon-button disabled></button>
+            <mat-form-field>
+              <mat-label>Новая группа...</mat-label>
+              <input matInput #itemValue placeholder="Напр.: 'Крючки'" [formControl]="categoryNameFormControl">
+            </mat-form-field>
+            <button mat-icon-button (click)="saveNode(node, itemValue.value)">
+              <mat-icon>check</mat-icon>
+            </button>
+            <button mat-icon-button (click)="cancelCreation(node)">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-tree-node>
+
+          <mat-tree-node class="node-resize" *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+            <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename" type="button">
+              <mat-icon class="mat-icon-rtl-mirror">
+                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+              </mat-icon>
+            </button>
+            <mat-radio-button [value]="node" (change)="onChange($event)">
+              {{ node.name }}
+            </mat-radio-button>
+            <button *ngIf="!newCategoryClicked" mat-icon-button (click)="addNewItem(node)">
+              <mat-icon>add</mat-icon>
+            </button>
+          </mat-tree-node>
+        </mat-tree>
+      </mat-radio-group>
+    </div>
+  </div>
+</div>

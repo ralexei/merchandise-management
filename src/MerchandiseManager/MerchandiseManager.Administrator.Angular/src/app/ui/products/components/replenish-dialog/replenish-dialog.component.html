@@ -1,0 +1,39 @@
+<ng-template #progressSpinner>
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
+<h2>Добавить в хранилище</h2>
+<ng-container *ngIf="storages$ | async as storages; else progressSpinner">
+  <div fxLayout="column" fxLayoutGap="8px">
+    <div>
+      <p>
+        <b>Будет добавлено:</b> <br />
+        {{ product.productName }}
+      </p>
+    </div>
+    <mat-form-field>
+      <mat-label>Склад</mat-label>
+      <mat-select [formControl]="destinationStorageIdControl">
+        <mat-option>--------</mat-option>
+        <mat-option *ngFor="let storage of storages" [value]="storage.id">{{
+          storage.name
+        }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="destinationStorageIdControl.hasError('required')">
+        Выберите хранилище
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Количество</mat-label>
+      <input matInput [formControl]="amountControl"/>
+      <mat-error *ngIf="amountControl.hasError('required')">
+        Введите количество
+      </mat-error>
+    </mat-form-field>
+    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="16px">
+      <button mat-raised-button (click)="onSubmit()" color="accent">Добавить</button>
+      <button mat-raised-button (click)="close()">Отмена</button>
+    </div>
+  </div>
+</ng-container>

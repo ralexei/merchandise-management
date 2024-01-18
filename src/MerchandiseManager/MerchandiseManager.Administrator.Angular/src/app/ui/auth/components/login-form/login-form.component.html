@@ -1,0 +1,20 @@
+<ng-template #loadingSpinner>
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
+<ng-container *ngIf="!isLoading; else loadingSpinner;">
+  <form fxLayout="column" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <mat-form-field color="accent">
+      <mat-label>Логин</mat-label>
+      <input matInput type="email" autocomplete="off" formControlName="username">
+      <mat-error *ngIf="hasError('username','required')">Поле обязательно</mat-error>
+    </mat-form-field>
+    <mat-form-field color="accent">
+      <mat-label>Пароль</mat-label>
+      <input matInput type="password" formControlName="password">
+      <mat-error *ngIf="hasError('password', 'required')">Поле обязательно</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color='accent'>Войти</button>
+  </form>
+</ng-container>

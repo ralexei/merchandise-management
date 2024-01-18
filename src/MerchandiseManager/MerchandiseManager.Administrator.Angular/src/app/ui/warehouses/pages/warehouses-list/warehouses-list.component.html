@@ -1,0 +1,33 @@
+<ng-container *ngIf="!isLoading; else spinner">
+  <div fxLayout="row wrap" fxLayoutGap="16px grid" *ngIf="(warehouses$ | async) as warehouses; else spinner">
+    <div *ngFor="let warehouse of warehouses">
+      <mat-card (click)="openWarehouseDetails(warehouse.id)" matRipple
+        class="warehouse-card warehouse-clickable-card">
+        <mat-card-header>
+          <mat-card-title>{{ warehouse.name }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content fxLayout="column" fxLayoutGap="8px" fxLayoutAlign="center start">
+          <fa-icon [icon]="faWarehouse" size="10x"></fa-icon>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div>
+      <mat-card (click)="addWarehouse()" matRipple class="warehouse-card warehouse-clickable-card">
+        <mat-card-header>
+          <mat-card-title>Добавить</mat-card-title>
+        </mat-card-header>
+        <mat-card-content fxLayout="column" fxLayoutGap="8px" fxLayoutAlign="center start">
+          <fa-icon [icon]="faPlus" size="10x"></fa-icon>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</ng-container>
+
+<!-- Spinner template -->
+<ng-template #spinner>
+  <div class="spinner">
+    <mat-progress-spinner color="accent" mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
+</ng-template>
