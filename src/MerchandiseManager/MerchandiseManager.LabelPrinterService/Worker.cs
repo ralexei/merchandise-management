@@ -20,17 +20,6 @@ namespace MerchandiseManager.LabelPrinterService
 
 		protected override async Task ExecuteAsync(CancellationToken stoppingToken)
 		{
-			var bm = _barcodeGenerator.GenerateLabelImage(new PrinterService.Models.PrintRequest
-			{
-				BarcodeToPrint = "123123123",
-				LabelsCount = 1,
-				PrintingProduct = new PrintingProductData
-				{
-					Price = 1332.32m,
-					ProductName = "Product Name"
-				}
-			});
-			
 			while (!stoppingToken.IsCancellationRequested)
 			{
 				_logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);

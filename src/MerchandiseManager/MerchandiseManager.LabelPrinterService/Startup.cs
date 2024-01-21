@@ -28,7 +28,7 @@ namespace MerchandiseManager.LabelPrinterService
 			app.UseCors(opt =>
 			{
 				opt
-				.WithOrigins("http://localhost:4200", "http://116.203.19.248")
+				.WithOrigins("http://localhost:4200", "http://213.109.163.112")
 				.AllowAnyHeader()
 				.AllowCredentials();
 			});
