@@ -19,7 +19,7 @@ export class SnackBarService {
     config.verticalPosition = 'top';
     config.horizontalPosition = 'end';
 
-    this.snackBar.open(message, null, config);
+    this.snackBar.open(message, '', config);
   }
 
   private openFromComponent(componentType: any, panelClass: string[], duration: number = 3000): void {

@@ -6,24 +6,24 @@
       </button>
       Меню
     </mat-toolbar>
-    <mat-nav-list>
-      <mat-list-item routerLinkActive="active-menu-item" routerLink="products">
-        <fa-icon [icon]="faBoxes" mat-list-icon></fa-icon>
-        <p class="mat-list-item-text" mat-line>Товары</p>
+    <mat-nav-list style="font-size: 24;">
+      <mat-list-item routerLink="products" [routerLinkActive]="['mdc-list-item--activated']">
+        <fa-icon [icon]="faBoxes" size="lg" matListItemIcon></fa-icon>
+        <p class="mat-list-item-text" matListItemTitle>Товары</p>
       </mat-list-item>
-      <mat-list-item routerLinkActive="active-menu-item" routerLink="warehouses">
+      <mat-list-item routerLink="warehouses" [routerLinkActive]="['mdc-list-item--activated']">
+        <fa-icon [icon]="faWarehouse" size="lg" matListItemIcon></fa-icon>
+        <p class="mat-list-item-text" matListItemTitle>Склады</p>
+      </mat-list-item>
+      <mat-list-item routerLink="stores" [routerLinkActive]="['mdc-list-item--activated']">
+        <fa-icon [icon]="faStore" size="lg" matListItemIcon></fa-icon>
+        <p class="mat-list-item-text" matListItemTitle>Торговые точки</p>
+      </mat-list-item>
+      <!-- <mat-list-item routerLink="warehouses">
         <fa-icon [icon]="faWarehouse" mat-list-icon></fa-icon>
         <p class="mat-list-item-text" mat-line>Склады</p>
       </mat-list-item>
-      <mat-list-item routerLinkActive="active-menu-item" routerLink="stores">
-        <fa-icon [icon]="faStore" mat-list-icon></fa-icon>
-        <p class="mat-list-item-text" mat-line>Торговые точки</p>
-      </mat-list-item>
-      <!-- <mat-list-item routerLinkActive="active-menu-item" routerLink="warehouses">
-        <fa-icon [icon]="faWarehouse" mat-list-icon></fa-icon>
-        <p class="mat-list-item-text" mat-line>Склады</p>
-      </mat-list-item>
-      <mat-list-item routerLinkActive="active-menu-item" routerLink="stores">
+      <mat-list-item routerLink="stores">
         <fa-icon [icon]="faStore" mat-list-icon></fa-icon>
         <p class="mat-list-item-text" mat-line>Торговые точки</p>
       </mat-list-item> -->

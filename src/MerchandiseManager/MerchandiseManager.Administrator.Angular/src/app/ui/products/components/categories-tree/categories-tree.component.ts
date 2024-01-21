@@ -106,6 +106,10 @@ export class CategoriesTreeComponent implements OnInit, OnDestroy {
     this.newCategoryClicked = true;
     const parentNode = this.flatNodeMap.get(node);
 
+    if (!parentNode) {
+      return;
+    }
+
     parentNode.children.push({ name: '', parentId: parentNode.id } as Category);
 
     this.refreshTreeData();
@@ -121,6 +125,10 @@ export class CategoriesTreeComponent implements OnInit, OnDestroy {
   saveNode(node: CategoryFlatNode, itemValue: string) {
     if (this.categoryNameFormControl.valid) {
       const nestedNode = this.flatNodeMap.get(node);
+
+      if (!nestedNode) {
+        return;
+      }
 
       this.newCategoryClicked = false;
       this.loading = true;

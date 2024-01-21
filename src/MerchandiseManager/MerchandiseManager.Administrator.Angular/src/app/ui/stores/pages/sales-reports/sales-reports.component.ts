@@ -26,10 +26,10 @@ export class SalesReportsComponent implements OnInit {
     'userSum'
   ];
 
-  public dataSource$: Observable<FilteredResult<SalesReport>>;
-  public expandedReport: SalesReport | null;
+  public dataSource$?: Observable<FilteredResult<SalesReport>>;
+  public expandedReport: SalesReport | null = null;
 
-  private storeId: string;
+  private storeId: string | null = null;
 
   constructor(
     private salesReportsService: SalesReportsService,
@@ -49,6 +49,6 @@ export class SalesReportsComponent implements OnInit {
   }
 
   private fetchSalesReports(): void {
-    this.dataSource$ = this.salesReportsService.getFiltered(this.storeId, new SalesReportsSearch());
+    this.dataSource$ = this.salesReportsService.getFiltered(this.storeId!, new SalesReportsSearch());
   }
 }

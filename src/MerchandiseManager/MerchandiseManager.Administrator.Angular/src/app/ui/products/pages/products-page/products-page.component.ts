@@ -40,11 +40,11 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
   public ngDestroy$: Subject<void> = new Subject<void>();
 
   public displayedColumns = [
-    'actions',
     'productName',
     'retailSellPrice',
     'wholesaleSellPrice',
-    'buyPrice'
+    'buyPrice',
+    'actions'
   ];
 
   constructor(
@@ -87,8 +87,8 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
   public openAddDialog(): void {
     this.dialog.open(CreateProductDialogComponent,
     {
-        minWidth: '300px',
-        maxWidth: '500px',
+        minWidth: '400px',
+        maxWidth: '600px',
         // height: '95%'
     })
     .afterClosed()
@@ -104,8 +104,8 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
   public editProduct(product: Product): void {
     this.dialog.open(EditProductDialogComponent,
       {
-          minWidth: '300px',
-          maxWidth: '500px',
+          minWidth: '400px',
+          maxWidth: '600px',
           data: product
           // height: '95%'
       })
@@ -222,6 +222,6 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.ngDestroy$.next(null);
+    this.ngDestroy$.next();
   }
 }

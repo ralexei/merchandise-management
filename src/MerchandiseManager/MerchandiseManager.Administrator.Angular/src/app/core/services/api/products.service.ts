@@ -18,8 +18,10 @@ export class ProductsService {
     let httpParams = new HttpParams();
 
     Object.keys(request).forEach((key) => {
-      if (request[key]) {
-        httpParams = httpParams.set(key, request[key].toString());
+      const requestKey = key as keyof typeof request;
+
+      if (request[requestKey]) {
+        httpParams = httpParams.set(key, request[requestKey]!.toString());
       }
     });
 

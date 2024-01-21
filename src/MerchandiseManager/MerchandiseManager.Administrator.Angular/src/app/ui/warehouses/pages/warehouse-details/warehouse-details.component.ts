@@ -19,7 +19,7 @@ import { ReplenishDialogComponent } from '../../components/replenish-dialog/repl
 })
 export class WarehouseDetailsComponent implements OnInit {
 
-  public storageId: string;
+  public storageId: string | null = null;
 
   constructor(private route: ActivatedRoute) {
   }

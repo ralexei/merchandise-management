@@ -18,16 +18,14 @@ import { ReplenishDialogComponent } from './components/replenish-dialog/replenis
     AddBarcodeDialogComponent,
     PrintBarcodeDialogComponent,
     EditProductDialogComponent,
-    ReplenishDialogComponent
+    ReplenishDialogComponent,
+    CreateProductDialogComponent,
+    AddBarcodeDialogComponent,
+    PrintBarcodeDialogComponent
   ],
   imports: [
     SharedModule,
     RouterModule.forChild(ProductsPageRouting)
-  ],
-  entryComponents: [
-    CreateProductDialogComponent,
-    AddBarcodeDialogComponent,
-    PrintBarcodeDialogComponent
   ]
 })
 export class ProductsPageModule { }

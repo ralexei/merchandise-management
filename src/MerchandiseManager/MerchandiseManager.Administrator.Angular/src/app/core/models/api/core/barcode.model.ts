@@ -1,7 +1,7 @@
 export class Barcode {
   id: string;
   rawCode: string;
-  productId: string;
+  productId?: string;
 
   constructor(rawCode: string, productId?: string) {
     this.rawCode = rawCode;

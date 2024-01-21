@@ -17,9 +17,9 @@ export class WarehousesListComponent implements OnInit, OnDestroy {
   faWarehouse = faWarehouse;
   faPlus = faPlus;
   
-  public warehouses$: Observable<Warehouse[]>
+  public warehouses$?: Observable<Warehouse[]>
 
-  public isLoading: boolean;
+  public isLoading: boolean = false;
 
   private ngDestroy$: Subject<void> = new Subject<void>();
 
@@ -66,6 +66,6 @@ export class WarehousesListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.ngDestroy$.next(null);
+    this.ngDestroy$.next();
   }
 }

@@ -13,7 +13,7 @@ export class StoreProductsService {
   constructor(private apiService: ApiService) {
   }
 
-  public getFiltered(storeId: string, request: ProductsSearchModel): Observable<FilteredResult<StorageProduct>> {
+  public getFiltered(storeId: string, request: any): Observable<FilteredResult<StorageProduct>> {
     let httpParams = new HttpParams();
 
     Object.keys(request).forEach((key) => {

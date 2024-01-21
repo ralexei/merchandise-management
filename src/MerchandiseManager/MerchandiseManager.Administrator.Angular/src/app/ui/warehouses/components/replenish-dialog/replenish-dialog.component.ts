@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class ReplenishDialogComponent implements OnInit {
 
-  public storages$: Observable<Storage[]>;
+  public storages$?: Observable<Storage[]>;
   public sourceStorageIdControl: FormControl = new FormControl('');
   public destinationStorageIdControl: FormControl = new FormControl('');
 

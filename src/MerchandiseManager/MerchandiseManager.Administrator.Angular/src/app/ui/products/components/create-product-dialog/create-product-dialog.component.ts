@@ -109,7 +109,7 @@ export class CreateProductDialogComponent implements OnInit, OnDestroy {
     if (this.newCategoryControl.valid) {
 
       this.loading = true;
-      const newCategory = new Category(this.newCategoryControl.value, this.createProductForm.get('categoryId').value);
+      const newCategory = new Category(this.newCategoryControl.value, this.createProductForm.get('categoryId')?.value);
 
       this.categoriesService.create(newCategory)
         .pipe(takeUntil(this.ngDestroy$))
@@ -118,7 +118,7 @@ export class CreateProductDialogComponent implements OnInit, OnDestroy {
             this.fetchFlattenedCategories();
             this.loading = false;
             this.isNewCategoryInputVisible = false;
-            this.createProductForm.get('categoryId').setValue(createdCategory.id);
+            this.createProductForm.get('categoryId')?.setValue(createdCategory.id);
             this.snackBarService.openSuccess('Группа успешно добавлена!');
           },
           (err: any) => {
@@ -155,7 +155,7 @@ export class CreateProductDialogComponent implements OnInit, OnDestroy {
   }
 
   public getCurrentCategoryName(): any {
-    return this.flattenedCategories.data.find(f => f.id === this.createProductForm.get('categoryId').value).name;
+    return this.flattenedCategories.data.find(f => f.id === this.createProductForm.get('categoryId')?.value)?.name;
   }
 
   private fetchFlattenedCategories(): void {

@@ -14,7 +14,7 @@
                 Номенклатура
               </mat-label>
               <input matInput type="text" formControlName="productName" required />
-              <mat-error *ngIf="editProductForm.get('productName').hasError('required')">Поле обязательно для заполнения
+              <mat-error *ngIf="editProductForm.get('productName')?.hasError('required')">Поле обязательно для заполнения
               </mat-error>
             </mat-form-field>
           </div>
@@ -42,7 +42,7 @@
             <mat-form-field fxFlex="auto">
               <mat-label>Группа</mat-label>
               <mat-select matInput formControlName="categoryId" required>
-                <mat-option *ngIf="flattenedCategories?.data?.length > 0">
+                <mat-option *ngIf="flattenedCategories?.data?.length! > 0">
                   <ngx-mat-select-search placeholderLabel="Search" noEntriesFoundLabel="Совпадений не найдено"
                     [formControl]="categoryListFilter"></ngx-mat-select-search>
                 </mat-option>
@@ -57,41 +57,52 @@
                     [ngStyle]="{ 'padding-left.px': getCategoryNestingPadding(category.nestingLevel) }">{{category.name}}</span>
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="editProductForm.get('categoryId').hasError('required')">
+              <mat-error *ngIf="editProductForm.get('categoryId')?.hasError('required')">
                 Выберите группу
               </mat-error>
             </mat-form-field>
             <button mat-raised-button type="button" color="accent" (click)="showNewCategoryInput()">Добавить</button>
           </div>
-          <div fxFlex="100" *ngIf="isNewCategoryInputVisible">
-            <mat-form-field fxFlex="auto">
-              <mat-label>Новая группа...</mat-label>
-              <input matInput #itemValue placeholder="Напр.: 'Крючки'" [formControl]="newCategoryControl">
-              <mat-error *ngIf="newCategoryControl.hasError('required')">
-                Поле обязательно при добавлении группы
-              </mat-error>
-              <mat-hint *ngIf="editProductForm.get('categoryId').value" fxLayout="row" fxLayoutAlign="start center"
-                fxLayoutGap="4px">
-                <mat-icon color="warn">warning</mat-icon> <b>Внимание:</b> Новая группа будет создана под группой&nbsp;
-                <b>'{{getCurrentCategoryName()}}'</b>
-              </mat-hint>
-            </mat-form-field>
-            <button type="button" mat-icon-button (click)="saveNewCategory()">
-              <mat-icon>check</mat-icon>
-            </button>
-            <button button type="button" mat-icon-button (click)="cancelCategoryCreation()">
-              <mat-icon>cancel</mat-icon>
-            </button>
+          <div fxLayout="row" fxFlex="100" *ngIf="isNewCategoryInputVisible">
+            <div fxLayout="column" fxFlex="100">
+              <div fxLayout="row">
+                <mat-form-field fxFlex="100">
+                  <mat-label>Новая группа...</mat-label>
+                  <input matInput #itemValue placeholder="Напр.: 'Крючки'" [formControl]="newCategoryControl">
+                  <mat-error *ngIf="newCategoryControl.hasError('required')">
+                    Поле обязательно при добавлении группы
+                  </mat-error>
+                </mat-form-field>
+                <button type="button" mat-icon-button (click)="saveNewCategory()">
+                  <mat-icon>check</mat-icon>
+                </button>
+                <button button type="button" mat-icon-button (click)="cancelCategoryCreation()">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </div>
+              <div fxLayout="row wrap">
+                <small *ngIf="editProductForm.get('categoryId')?.value" fxLayout="row" fxLayoutGap="4px">
+                  <mat-icon color="warn">warning</mat-icon>
+                  <b>Внимание:</b>&nbsp;Новая группа будет создана под группой:
+                </small>
+                &nbsp;
+                <small>
+                  <b>'{{getCurrentCategoryName()}}'</b>
+                </small>
+              </div>
+            </div>
           </div>
-          <div>
-            <p>Штрихкоды:</p>
-            <div fxLayout="row wrap" fxLayoutGap="8px grid">
-              <mat-chip-list aria-label="Fish selection">
-                <mat-chip *ngFor="let barcode of barcodes" removable="true" (click)="viewBarcode(barcode)">{{ barcode.rawCode }}</mat-chip>
-                <mat-chip (click)="addBarcode()" color="accent" selected>
-                  <mat-icon>add</mat-icon>
-                </mat-chip>
-              </mat-chip-list>
+          <div fxLayout="row">
+            <div fxLayout="column">
+              <p>Штрихкоды:</p>
+              <div fxLayout="row wrap" fxLayoutGap="8px grid">
+                <mat-chip-set aria-label="Barcode selection">
+                  <mat-chip *ngFor="let barcode of barcodes" removable="true" (click)="viewBarcode(barcode)">{{ barcode.rawCode }}</mat-chip>
+                  <mat-chip (click)="addBarcode()" color="accent">
+                    <mat-icon>add</mat-icon>
+                  </mat-chip>
+                </mat-chip-set>
+              </div>
             </div>
           </div>
           <mat-form-field>

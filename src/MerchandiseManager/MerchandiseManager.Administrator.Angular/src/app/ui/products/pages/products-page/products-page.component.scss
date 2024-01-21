@@ -1,26 +1,12 @@
-.mat-table{
+.mat-mdc-table{
   width: max-content;
   overflow: auto;
   min-width: 100%;
-
-  [class*="mat-column-"]:nth-of-type(n + 1) {
-    padding: 0px 8px;
-    // text-align: justify;
-  }
 }
 
-.table-container {
-  min-width: 100%;
-}
-
-.price-column {
-  width: 100px;
-  max-width: 100px;
-}
-
-@media only screen and (max-width: 1024) {
+@media only screen and (max-width: 800px) {
   .datatable-scrollable-container {
-    overflow-x: auto;
+    overflow-x: scroll;
   }
 }
 

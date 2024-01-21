@@ -9,6 +9,15 @@
   }
 }
 
+.active-element {
+  background-color: #474747 !important; /* Note: You could also use a custom theme */
+  opacity: 0.5;
+}
+
+.active-text {
+  color: white;
+}
+
 .header-toolbar {
   position: fixed;
 }
@@ -18,7 +27,7 @@
 }
 
 .sidenav {
-	width: 250px;
+	width: 350px;
 }
 
 .mat-toolbar.mat-primary {
@@ -32,5 +41,13 @@
 }
 
 .mat-list-item-text {
-  font-size: 18px;
+  font-size: 22px;
+}
+
+.mdc-list-item--with-leading-icon .mdc-list-item__start.blue { 
+  color: black; 
+}
+
+.inline-list {
+  display: flex;
 }

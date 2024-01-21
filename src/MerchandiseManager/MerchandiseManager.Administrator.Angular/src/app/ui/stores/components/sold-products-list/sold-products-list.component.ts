@@ -9,7 +9,7 @@ import { SalesReport } from '@app/core';
 export class SoldProductsListComponent implements OnInit {
 
   @Input()
-  public salesReport: SalesReport;
+  public salesReport?: SalesReport;
 
   public displayedColumns = [
     'productName',

@@ -16,7 +16,7 @@ import { takeUntil, share, tap } from 'rxjs/operators';
 })
 export class StoreDetailsComponent implements OnInit {
 
-  public storageId: string;
+  public storageId: string | null = null;
 
   constructor(private route: ActivatedRoute) {
   }

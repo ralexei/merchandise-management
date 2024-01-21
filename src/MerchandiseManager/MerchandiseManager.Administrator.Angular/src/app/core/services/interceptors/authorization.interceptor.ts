@@ -25,19 +25,19 @@ export class AuthorizationInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       catchError((error: any) => {
         if (error instanceof HttpErrorResponse && error.status === 401) {
-          return this.handle401();
+          return this.handle401(req, next);
         } else {
-          return throwError(error);
+          return throwError(() => error);
         }
       })
     );
   }
 
-  handle401(): Observable<HttpEvent<any>> {
+  handle401(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.authService.clearLocalStorage();
     this.router.navigateByUrl('/authentication');
 
-    return;
+    return next.handle(request);
   }
 
   addAuthenticationToken(request: HttpRequest<any>) {

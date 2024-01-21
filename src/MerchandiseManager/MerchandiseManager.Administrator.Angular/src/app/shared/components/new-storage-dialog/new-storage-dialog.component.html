@@ -3,7 +3,7 @@
   <mat-form-field>
     <mat-label>Наименование</mat-label>
     <input matInput type="text" formControlName="name"/>
-    <mat-error *ngIf="formGroup.get('name').hasError('required')">
+    <mat-error *ngIf="formGroup.get('name')?.hasError('required')">
       Введите наименование
     </mat-error>
   </mat-form-field>

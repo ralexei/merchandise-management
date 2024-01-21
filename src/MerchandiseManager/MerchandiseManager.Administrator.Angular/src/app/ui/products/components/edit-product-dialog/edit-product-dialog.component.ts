@@ -88,14 +88,14 @@ export class EditProductDialogComponent implements OnInit, OnDestroy {
       );
   }
 
-  public viewBarcode(barcode: string): void {
+  public viewBarcode(barcode: Barcode): void {
     this.dialog.open(PrintBarcodeDialogComponent, { data: { product: this.product, barcode } })
     .afterClosed()
     .pipe(takeUntil(this.ngDestroy$))
     .subscribe(
       (data) => {
         if (data) {
-          const barcodeIndex = this.barcodes.findIndex(f => f.rawCode == barcode);
+          const barcodeIndex = this.barcodes.findIndex(f => f.rawCode == barcode.rawCode);
 
           if (barcodeIndex !== -1) {
             this.barcodes.splice(barcodeIndex, 1);
@@ -110,7 +110,7 @@ export class EditProductDialogComponent implements OnInit, OnDestroy {
   }
 
   public getCurrentCategoryName(): any {
-    return this.flattenedCategories.data.find(f => f.id === this.editProductForm.get('categoryId').value).name;
+    return this.flattenedCategories.data.find(f => f.id === this.editProductForm?.get('categoryId')?.value)?.name;
   }
 
   public cancelCategoryCreation(): void {
@@ -125,7 +125,7 @@ export class EditProductDialogComponent implements OnInit, OnDestroy {
     if (this.newCategoryControl.valid) {
 
       this.loading = true;
-      const newCategory = new Category(this.newCategoryControl.value, this.editProductForm.get('categoryId').value);
+      const newCategory = new Category(this.newCategoryControl.value, this.editProductForm.get('categoryId')?.value);
 
       this.categoriesService.create(newCategory)
         .pipe(takeUntil(this.ngDestroy$))
@@ -133,7 +133,7 @@ export class EditProductDialogComponent implements OnInit, OnDestroy {
           (createdCategory: Category) => {
             this.fetchFlattenedCategories();
             this.loading = false;
-            this.editProductForm.get('categoryId').setValue(createdCategory.id);
+            this.editProductForm.get('categoryId')?.setValue(createdCategory.id);
             this.isNewCategoryInputVisible = false;
             this.snackBarService.openSuccess('Группа успешно добавлена!');
           },

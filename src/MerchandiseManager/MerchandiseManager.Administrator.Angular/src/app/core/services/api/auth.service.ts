@@ -37,7 +37,7 @@ export class AuthService {
     localStorage.setItem('access-token', tokens.accessToken);
   }
 
-  private getAccessToken(): string {
+  private getAccessToken(): string | null {
     return localStorage.getItem('access-token');
   }
 }

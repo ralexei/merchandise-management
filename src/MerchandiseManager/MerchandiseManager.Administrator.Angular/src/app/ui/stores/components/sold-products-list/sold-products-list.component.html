@@ -5,7 +5,7 @@
     fxLayoutAlign="center center"
     fxLayoutGap="16px"
   >
-    <table matSort mat-table [dataSource]="salesReport.soldProducts">
+    <table matSort mat-table *ngIf="salesReport" [dataSource]="salesReport.soldProducts">
       <!-- Product name -->
       <ng-container matColumnDef="productName">
         <th mat-header-cell *matHeaderCellDef style="max-width: 1500px !important;">
